@@ -1,1 +1,0 @@
-# app_on_react-native
