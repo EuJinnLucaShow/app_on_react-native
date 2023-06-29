@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     ...Platform.select({
       ios: {
-        backgroundColor: 'red',
+        backgroundColor: 'white',
       },
       android: {
         backgroundColor: 'green',
