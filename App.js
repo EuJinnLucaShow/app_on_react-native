@@ -1,52 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback } from 'react';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
-export default function App() {
+
+function App() {
+   const [fontsLoaded] = useFonts({
+    'DancingScript-Bold': require('./assets/fonts/DancingScript-Bold.ttf'),
+   });
+    const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
-    <View style={[styles.container, {
-          //Try setting `flexDirection` to `"row"`.
-          flexDirection: 'column',
-    },
-        ]}>
-      <View style={{flex: 1, backgroundColor: 'red'}} />
-      <View style={{flex: 2, backgroundColor: 'darkorange'}} />
-      <View style={{flex: 3, backgroundColor: 'yellow'}} />    
-      <Text style={styles.title}>Підготовка до роботи виконана 😁!</Text>
-      <StatusBar style="auto" />
+    <View style={styles.container} onLayout={onLayoutRootView}>      
+      <ImageBackground source={require('./assets/photobg.png')} resizeMode="cover" style={styles.image}>       
+        <Text style={styles.text}>Inside</Text>
+      </ImageBackground>
     </View>
-    
   );
 }
 
 const styles = StyleSheet.create({
-  height: Platform.OS === 'ios' ? 200 : 100,
   container: {
     flex: 1,
-    ...Platform.select({
-      ios: {
-        backgroundColor: 'white',
-      },
-      android: {
-        backgroundColor: 'green',
-      },
-      default: {
-        // other platforms, web for example
-        backgroundColor: 'blue',
-      },
-    }),
-    padding: 24,
   },
-  title: {
-    marginTop: 16,
-    paddingVertical: 8,
-    borderWidth: 4,
-    borderColor: "#20232a",
-    borderRadius: 6,
-    backgroundColor: "#61dafb",
-    color: "#20232a",
-    textAlign: "center",
-    fontSize: 30,
-    fontWeight: "bold"
-  }
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  text: {    
+    fontFamily: 'DancingScript-Bold',
+    color: 'white',
+    fontSize: 42,
+    lineHeight: 84,    
+    textAlign: 'center',
+    backgroundColor: '#000000c0',
+  },
 });
 
+export default App;
