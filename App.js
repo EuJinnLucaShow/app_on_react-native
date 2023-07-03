@@ -1,47 +1,49 @@
-import React, { useCallback } from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, ImageBackground, View, Text } from 'react-native';
+import React from 'react';
 
+const backgroundImage = require('./assets/photobg.png');
 
-function App() {
-   const [fontsLoaded] = useFonts({
-    'DancingScript-Bold': require('./assets/fonts/DancingScript-Bold.ttf'),
-   });
-    const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
+export default function App() {
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>      
-      <ImageBackground source={require('./assets/photobg.png')} resizeMode="cover" style={styles.image}>       
-        <Text style={styles.text}>Inside</Text>
+    <View style={styles.Container}>
+      <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+        <View style={styles.InnerContainer}>
+          <Text style={styles.Text}>Реєстрація</Text>
+        </View>
       </ImageBackground>
+      <StatusBar style="auto" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  Container: {
     flex: 1,
+    alignItems: 'center',
   },
-  image: {
+  backgroundImage: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    width: '100%',
   },
-  text: {    
-    fontFamily: 'DancingScript-Bold',
-    color: 'white',
-    fontSize: 42,
-    lineHeight: 84,    
+  InnerContainer: {
+    width: '100%',
+    height: 549,
+    flexShrink: 0,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    backgroundColor: '#fff',
+  },
+  Text: {
+    color: '#212121',
     textAlign: 'center',
-    backgroundColor: '#000000c0',
+    fontSize: 30,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    lineHeight: 'normal',
+    letterSpacing: 0.3,
+    marginTop: 92,
   },
 });
-
-export default App;
