@@ -10,7 +10,7 @@ import {
 import React, { useState } from 'react';
 import { Octicons } from '@expo/vector-icons';
 
-const RegistrationScreen = changeScreen => {
+const RegistrationScreen = () => {
   const [login, onChangeLogin] = useState('');
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
@@ -23,7 +23,10 @@ const RegistrationScreen = changeScreen => {
     >
       <View style={styles.innerContainer}>
         <View style={styles.avatar}>
-          <Pressable style={styles.addAvatar} activeOpacity={0.5}>
+          <Pressable
+            style={styles.addAvatar}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
             <Octicons name="plus-circle" size={25} color="#FF6C00" />
           </Pressable>
         </View>
@@ -65,7 +68,7 @@ const RegistrationScreen = changeScreen => {
         >
           <Text style={styles.titlebutton}>Зареєстуватися</Text>
         </Pressable>
-        <Pressable activeOpacity={0.5} onPress={() => changeScreen(0)}>
+        <Pressable onPress={() => Alert.alert('Simple Button pressed')}>
           <Text style={styles.titletext}>Вже є акаунт? Увійти</Text>
         </Pressable>
       </View>
