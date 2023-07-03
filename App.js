@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ImageBackground, View } from 'react-native';
 import React from 'react';
-
-import RegistrationScreen from './Screens/RegistrationScreen';
+import LoginScreen from './Screens/LoginScreen';
+// import RegistrationScreen from './Screens/RegistrationScreen';
 
 const image = require('./assets/photobg.png');
 
@@ -10,7 +10,7 @@ export default function App() {
   return (
     <View style={styles.Container}>
       <ImageBackground source={image} style={styles.backgroundImage}>
-        <RegistrationScreen />
+        <LoginScreen />
       </ImageBackground>
       <StatusBar style="auto" />
     </View>

@@ -53,7 +53,6 @@ const RegistrationScreen = () => {
         />
         <Pressable
           style={styles.showPassword}
-          activeOpacity={0.5}
           onPress={() => {
             setHidePassword(!hidePassword);
           }}
