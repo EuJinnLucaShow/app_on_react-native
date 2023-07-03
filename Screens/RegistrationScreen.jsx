@@ -1,7 +1,6 @@
 import {
   StyleSheet,
   Text,
-  SafeAreaView,
   View,
   TextInput,
   Pressable,
@@ -9,8 +8,9 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import React, { useState } from 'react';
+import { Octicons } from '@expo/vector-icons';
 
-const RegistrationScreen = () => {
+const RegistrationScreen = changeScreen => {
   const [login, onChangeLogin] = useState('');
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
@@ -21,48 +21,53 @@ const RegistrationScreen = () => {
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
       style={styles.containerKeyBoard}
     >
-      <View style={styles.InnerContainer}>
-        <Text style={styles.Text}>Реєстрація</Text>
-        <SafeAreaView style={styles.InnerContainer}>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeLogin}
-            value={login}
-            placeholder="Логін"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeEmail}
-            value={email}
-            placeholder="Адреса електронної пошти"
-            keyboardType="email-address"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangePassword}
-            value={password}
-            placeholder="Пароль"
-            secureTextEntry={hidePassword}
-          />
-          <Pressable
-            style={styles.showPassword}
-            activeOpacity={0.5}
-            onPress={() => {
-              setHidePassword(!hidePassword);
-            }}
-          >
-            <Text style={styles.showPasswordText}>
-              {hidePassword ? 'Показати' : 'Приховати'}
-            </Text>
+      <View style={styles.innerContainer}>
+        <View style={styles.avatar}>
+          <Pressable style={styles.addAvatar} activeOpacity={0.5}>
+            <Octicons name="plus-circle" size={25} color="#FF6C00" />
           </Pressable>
-          <Pressable
-            style={styles.button}
-            onPress={() => Alert.alert('Simple Button pressed')}
-          >
-            <Text style={styles.titlebutton}>Зареєстуватися</Text>
-          </Pressable>
+        </View>
+        <Text style={styles.title}>Реєстрація</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeLogin}
+          value={login}
+          placeholder="Логін"
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeEmail}
+          value={email}
+          placeholder="Адреса електронної пошти"
+          keyboardType="email-address"
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangePassword}
+          value={password}
+          placeholder="Пароль"
+          secureTextEntry={hidePassword}
+        />
+        <Pressable
+          style={styles.showPassword}
+          activeOpacity={0.5}
+          onPress={() => {
+            setHidePassword(!hidePassword);
+          }}
+        >
+          <Text style={styles.showPasswordText}>
+            {hidePassword ? 'Показати' : 'Приховати'}
+          </Text>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => Alert.alert('Simple Button pressed')}
+        >
+          <Text style={styles.titlebutton}>Зареєстуватися</Text>
+        </Pressable>
+        <Pressable activeOpacity={0.5} onPress={() => changeScreen(0)}>
           <Text style={styles.titletext}>Вже є акаунт? Увійти</Text>
-        </SafeAreaView>
+        </Pressable>
       </View>
     </KeyboardAvoidingView>
   );
@@ -70,16 +75,32 @@ const RegistrationScreen = () => {
 
 const styles = StyleSheet.create({
   containerKeyBoard: {
-    flex: 1,
     justifyContent: 'flex-end',
   },
-  InnerContainer: {
+  avatar: {
+    marginTop: -60,
+    height: 120,
+    width: 120,
+    backgroundColor: '#F6F6F6',
+    borderRadius: 16,
+    alignSelf: 'center',
+  },
+  addAvatar: {
+    marginTop: '65%',
+    left: '90%',
+    height: 25,
+    width: 25,
+    pointerEvents: 'auto',
+  },
+  innerContainer: {
     width: '100%',
+    height: 550,
+    alignItems: 'center',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: '#fff',
   },
-  Text: {
+  title: {
     color: '#212121',
     textAlign: 'center',
     fontSize: 30,
@@ -87,26 +108,25 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     lineHeight: 35,
     letterSpacing: 0.3,
-    marginTop: 92,
+    marginTop: 32,
     marginBottom: 32,
   },
   input: {
+    width: 343,
     height: 50,
-    margin: 12,
+    margin: 8,
     borderRadius: 8,
     padding: 10,
     backgroundColor: '#F6F6F6',
   },
   button: {
-    color: '#FFF',
     backgroundColor: '#FF6C00',
     height: 50,
     width: 343,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
-    marginTop: 43,
-    marginHorizontal: 25,
+    marginTop: 20,
   },
   titlebutton: {
     color: '#FFF',
@@ -116,7 +136,7 @@ const styles = StyleSheet.create({
   },
   showPassword: {
     top: -45,
-    left: 300,
+    left: 130,
   },
   showPasswordText: {
     color: '#1B4371',
