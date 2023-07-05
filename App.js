@@ -1,16 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ImageBackground, View } from 'react-native';
-import React from 'react';
+import { Pressable, StyleSheet, ImageBackground, View } from 'react-native';
+import React, { useState } from 'react';
 import LoginScreen from './Screens/LoginScreen';
-// import RegistrationScreen from './Screens/RegistrationScreen';
+import RegistrationScreen from './Screens/RegistrationScreen';
 
 const image = require('./assets/photobg.png');
 
 export default function App() {
+  const [activeScreen, setActiveScreen] = useState(0);
+
+  const changeScreen = value => {
+    setActiveScreen(value);
+  };
+
   return (
-    <View style={styles.Container}>
+    <View style={styles.container}>
       <ImageBackground source={image} style={styles.backgroundImage}>
-        <LoginScreen />
+        <Pressable onPress={() => setActiveScreen(activeScreen === 0 ? 1 : 0)}>
+          {activeScreen === 0 ? (
+            <LoginScreen changeScreen={changeScreen} />
+          ) : (
+            <RegistrationScreen changeScreen={changeScreen} />
+          )}
+        </Pressable>
       </ImageBackground>
       <StatusBar style="auto" />
     </View>
@@ -18,7 +30,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  Container: {
+  container: {
     flex: 1,
     alignItems: 'center',
   },

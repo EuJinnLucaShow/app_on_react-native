@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 
-const LoginScreen = () => {
+export default function LoginScreen({ changeScreen }) {
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
@@ -48,17 +48,18 @@ const LoginScreen = () => {
         </Pressable>
         <Pressable
           style={styles.button}
+          activeOpacity={0.5}
           onPress={() => Alert.alert('Simple Button pressed')}
         >
           <Text style={styles.titlebutton}>Увійти</Text>
         </Pressable>
-        <Pressable onPress={() => Alert.alert('Simple Button pressed')}>
+        <Pressable onPress={() => changeScreen(1)}>
           <Text style={styles.titletext}>Немає акаунту? Зареєструватися</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   containerKeyBoard: {
@@ -124,5 +125,3 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
-
-export default LoginScreen;

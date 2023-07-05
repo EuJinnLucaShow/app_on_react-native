@@ -10,7 +10,7 @@ import {
 import React, { useState } from 'react';
 import { Octicons } from '@expo/vector-icons';
 
-const RegistrationScreen = () => {
+export default function RegistrationScreen({ changeScreen }) {
   const [login, onChangeLogin] = useState('');
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
@@ -63,17 +63,18 @@ const RegistrationScreen = () => {
         </Pressable>
         <Pressable
           style={styles.button}
+          activeOpacity={0.5}
           onPress={() => Alert.alert('Simple Button pressed')}
         >
           <Text style={styles.titlebutton}>Зареєстуватися</Text>
         </Pressable>
-        <Pressable onPress={() => Alert.alert('Simple Button pressed')}>
+        <Pressable onPress={() => changeScreen(0)}>
           <Text style={styles.titletext}>Вже є акаунт? Увійти</Text>
         </Pressable>
       </View>
     </KeyboardAvoidingView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   containerKeyBoard: {
@@ -154,5 +155,3 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
-
-export default RegistrationScreen;
