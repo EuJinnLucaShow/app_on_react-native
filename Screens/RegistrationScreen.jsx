@@ -6,22 +6,61 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
 import { Octicons } from '@expo/vector-icons';
 
 export default function RegistrationScreen({ changeScreen }) {
-  const [login, onChangeLogin] = useState('');
-  const [email, onChangeEmail] = useState('');
-  const [password, onChangePassword] = useState('');
+  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
+
+  const [isShowKeybord, setIsShowKeybord] = useState(false);
+
+  const keyboardHide = () => {
+    setIsShowKeybord(false);
+    Keyboard.dismiss();
+  };
+
+  const handleSubmit = () => {
+    if (!login || !email || !password) {
+      Alert.alert('Поле не може бути пустим!');
+      return;
+    }
+    console.log('Логін:', login);
+    console.log('Email:', email);
+    console.log('Пароль:', password);
+    clearForm();
+  };
+
+  const clearForm = () => {
+    setLogin('');
+    setEmail('');
+    setPassword('');
+  };
+
+  const onChangeLogin = text => {
+    setLogin(text.trim());
+  };
+
+  const onChangeEmail = text => {
+    setEmail(text.trim());
+  };
+
+  const onChangePassword = text => {
+    setPassword(text.trim());
+  };
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
       style={styles.containerKeyBoard}
     >
-      <View style={styles.innerContainer}>
+      <View
+        style={{ ...styles.innerContainer, height: isShowKeybord ? 450 : 550 }}
+      >
         <View style={styles.avatar}>
           <Pressable
             style={styles.addAvatar}
@@ -33,12 +72,16 @@ export default function RegistrationScreen({ changeScreen }) {
         <Text style={styles.title}>Реєстрація</Text>
         <TextInput
           style={styles.input}
+          onFocus={() => setIsShowKeybord(true)}
+          onEndEditing={keyboardHide}
           onChangeText={onChangeLogin}
           value={login}
           placeholder="Логін"
         />
         <TextInput
           style={styles.input}
+          onFocus={() => setIsShowKeybord(true)}
+          onEndEditing={keyboardHide}
           onChangeText={onChangeEmail}
           value={email}
           placeholder="Адреса електронної пошти"
@@ -46,6 +89,8 @@ export default function RegistrationScreen({ changeScreen }) {
         />
         <TextInput
           style={styles.input}
+          onFocus={() => setIsShowKeybord(true)}
+          onEndEditing={keyboardHide}
           onChangeText={onChangePassword}
           value={password}
           placeholder="Пароль"
@@ -64,7 +109,7 @@ export default function RegistrationScreen({ changeScreen }) {
         <Pressable
           style={styles.button}
           activeOpacity={0.5}
-          onPress={() => Alert.alert('Simple Button pressed')}
+          onPress={handleSubmit}
         >
           <Text style={styles.titlebutton}>Зареєстуватися</Text>
         </Pressable>
@@ -78,7 +123,7 @@ export default function RegistrationScreen({ changeScreen }) {
 
 const styles = StyleSheet.create({
   containerKeyBoard: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   avatar: {
     marginTop: -60,
@@ -97,7 +142,6 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     width: '100%',
-    height: 550,
     alignItems: 'center',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,

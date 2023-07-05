@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, ImageBackground, View } from 'react-native';
+import { StyleSheet, ImageBackground, View } from 'react-native';
 import React, { useState } from 'react';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
@@ -16,13 +16,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.backgroundImage}>
-        <Pressable onPress={() => setActiveScreen(activeScreen === 0 ? 1 : 0)}>
-          {activeScreen === 0 ? (
-            <LoginScreen changeScreen={changeScreen} />
-          ) : (
-            <RegistrationScreen changeScreen={changeScreen} />
-          )}
-        </Pressable>
+        {activeScreen === 0 ? (
+          <LoginScreen changeScreen={changeScreen} />
+        ) : (
+          <RegistrationScreen changeScreen={changeScreen} />
+        )}
       </ImageBackground>
       <StatusBar style="auto" />
     </View>

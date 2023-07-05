@@ -10,9 +10,32 @@ import {
 import React, { useState } from 'react';
 
 export default function LoginScreen({ changeScreen }) {
-  const [email, onChangeEmail] = useState('');
-  const [password, onChangePassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
+
+  const handleSubmit = () => {
+    if (!email || !password) {
+      Alert.alert('Поле не може бути пустим!');
+      return;
+    }
+    console.log('Email:', email);
+    console.log('Пароль:', password);
+    clearForm();
+  };
+
+  const clearForm = () => {
+    setEmail('');
+    setPassword('');
+  };
+
+  const onChangeEmail = text => {
+    setEmail(text.trim());
+  };
+
+  const onChangePassword = text => {
+    setPassword(text.trim());
+  };
 
   return (
     <KeyboardAvoidingView
@@ -49,7 +72,7 @@ export default function LoginScreen({ changeScreen }) {
         <Pressable
           style={styles.button}
           activeOpacity={0.5}
-          onPress={() => Alert.alert('Simple Button pressed')}
+          onPress={handleSubmit}
         >
           <Text style={styles.titlebutton}>Увійти</Text>
         </Pressable>
