@@ -21,7 +21,6 @@ export default function RegistrationScreen({ changeScreen }) {
 
   const keyboardHide = () => {
     setIsShowKeybord(false);
-    Keyboard.dismiss();
   };
 
   const handleSubmit = () => {

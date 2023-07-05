@@ -6,6 +6,7 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
 
@@ -13,6 +14,12 @@ export default function LoginScreen({ changeScreen }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
+
+  const [isShowKeybord, setIsShowKeybord] = useState(false);
+
+  const keyboardHide = () => {
+    setIsShowKeybord(false);
+  };
 
   const handleSubmit = () => {
     if (!email || !password) {
@@ -42,10 +49,14 @@ export default function LoginScreen({ changeScreen }) {
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
       style={styles.containerKeyBoard}
     >
-      <View style={styles.innerContainer}>
+      <View
+        style={{ ...styles.innerContainer, height: isShowKeybord ? 300 : 450 }}
+      >
         <Text style={styles.title}>Увійти</Text>
         <TextInput
           style={styles.input}
+          onFocus={() => setIsShowKeybord(true)}
+          onEndEditing={keyboardHide}
           onChangeText={onChangeEmail}
           value={email}
           placeholder="Адреса електронної пошти"
@@ -53,6 +64,8 @@ export default function LoginScreen({ changeScreen }) {
         />
         <TextInput
           style={styles.input}
+          onFocus={() => setIsShowKeybord(true)}
+          onEndEditing={keyboardHide}
           onChangeText={onChangePassword}
           value={password}
           placeholder="Пароль"
@@ -86,7 +99,7 @@ export default function LoginScreen({ changeScreen }) {
 
 const styles = StyleSheet.create({
   containerKeyBoard: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   innerContainer: {
     width: '100%',
