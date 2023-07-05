@@ -6,7 +6,6 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
-  Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
 import { Octicons } from '@expo/vector-icons';
