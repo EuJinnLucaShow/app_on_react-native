@@ -124,9 +124,10 @@ export default function RegistrationScreen({ changeScreen }) {
         >
           <Text style={styles.titlebutton}>Зареєстуватися</Text>
         </Pressable>
-        <Pressable onPress={() => changeScreen(0)}>
-          <Text style={styles.titletext}>Вже є акаунт? Увійти</Text>
-        </Pressable>
+        <Text style={styles.titletext}>
+          Вже є акаунт?
+          <Text onPress={() => changeScreen(0)}> Увійти</Text>
+        </Text>
       </View>
     </KeyboardAvoidingView>
   );

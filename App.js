@@ -7,6 +7,7 @@ import {
   Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
+import { useFonts } from 'expo-font';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
 
@@ -14,6 +15,14 @@ const image = require('./assets/photobg.png');
 
 export default function App() {
   const [activeScreen, setActiveScreen] = useState(0);
+
+  const [fontsLoaded] = useFonts({
+    Roboto: require('./assets/fonts/Roboto-Regular.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   const changeScreen = value => {
     setActiveScreen(value);

@@ -89,9 +89,10 @@ export default function LoginScreen({ changeScreen }) {
         >
           <Text style={styles.titlebutton}>Увійти</Text>
         </Pressable>
-        <Pressable onPress={() => changeScreen(1)}>
-          <Text style={styles.titletext}>Немає акаунту? Зареєструватися</Text>
-        </Pressable>
+        <Text style={styles.titletext}>
+          Немає акаунту?
+          <Text onPress={() => changeScreen(1)}> Зареєструватися</Text>
+        </Text>
       </View>
     </KeyboardAvoidingView>
   );
