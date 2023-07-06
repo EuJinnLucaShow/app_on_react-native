@@ -27,6 +27,10 @@ export default function RegistrationScreen({ changeScreen }) {
       Alert.alert('Поле не може бути пустим!');
       return;
     }
+    if (!validateEmail(email)) {
+      Alert.alert('Невірний формат електронної пошти!');
+      return;
+    }
     console.log('Логін:', login);
     console.log('Email:', email);
     console.log('Пароль:', password);
@@ -49,6 +53,11 @@ export default function RegistrationScreen({ changeScreen }) {
 
   const onChangePassword = text => {
     setPassword(text.trim());
+  };
+
+  const validateEmail = email => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
