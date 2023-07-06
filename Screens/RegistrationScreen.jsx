@@ -6,6 +6,7 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import { Octicons } from '@expo/vector-icons';
@@ -66,7 +67,10 @@ export default function RegistrationScreen({ changeScreen }) {
       style={styles.containerKeyBoard}
     >
       <View
-        style={{ ...styles.innerContainer, height: isShowKeybord ? 450 : 550 }}
+        style={{
+          ...styles.innerContainer,
+          height: isShowKeybord ? 450 : 550,
+        }}
       >
         <View style={styles.avatar}>
           <Pressable

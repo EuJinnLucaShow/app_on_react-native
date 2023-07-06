@@ -6,6 +6,7 @@ import {
   Pressable,
   Alert,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 
