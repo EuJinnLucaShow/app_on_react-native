@@ -5,18 +5,25 @@ import {
   TextInput,
   Pressable,
   Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import React, { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { useNavigation } from '@react-navigation/native';
 import { Octicons } from '@expo/vector-icons';
 
-export default function RegistrationScreen({ changeScreen }) {
+const image = require('../assets/photobg.png');
+
+export default function RegistrationScreen() {
+  const navigation = useNavigation();
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
-
   const [isShowKeybord, setIsShowKeybord] = useState(false);
 
   const keyboardHide = () => {
@@ -32,9 +39,7 @@ export default function RegistrationScreen({ changeScreen }) {
       Alert.alert('Невірний формат електронної пошти!');
       return;
     }
-    console.log('Логін:', login);
-    console.log('Email:', email);
-    console.log('Пароль:', password);
+    navigation.navigate('Home', { screen: 'Home' });
     clearForm();
   };
 
@@ -62,80 +67,102 @@ export default function RegistrationScreen({ changeScreen }) {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      style={styles.containerKeyBoard}
-    >
-      <View
-        style={{
-          ...styles.innerContainer,
-          height: isShowKeybord ? 450 : 550,
-        }}
-      >
-        <View style={styles.avatar}>
-          <Pressable
-            style={styles.addAvatar}
-            onPress={() => Alert.alert('Simple Button pressed')}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <ImageBackground source={image} style={styles.backgroundImage}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+            style={styles.containerKeyBoard}
           >
-            <Octicons name="plus-circle" size={25} color="#FF6C00" />
-          </Pressable>
-        </View>
-        <Text style={styles.title}>Реєстрація</Text>
-        <TextInput
-          style={styles.input}
-          onFocus={() => setIsShowKeybord(true)}
-          onEndEditing={keyboardHide}
-          onChangeText={onChangeLogin}
-          value={login}
-          placeholder="Логін"
-        />
-        <TextInput
-          style={styles.input}
-          onFocus={() => setIsShowKeybord(true)}
-          onEndEditing={keyboardHide}
-          onChangeText={onChangeEmail}
-          value={email}
-          placeholder="Адреса електронної пошти"
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.input}
-          onFocus={() => setIsShowKeybord(true)}
-          onEndEditing={keyboardHide}
-          onChangeText={onChangePassword}
-          value={password}
-          placeholder="Пароль"
-          secureTextEntry={hidePassword}
-        />
-        <Pressable
-          style={styles.showPassword}
-          onPress={() => {
-            setHidePassword(!hidePassword);
-          }}
-        >
-          <Text style={styles.showPasswordText}>
-            {hidePassword ? 'Показати' : 'Приховати'}
-          </Text>
-        </Pressable>
-        <Pressable
-          style={styles.button}
-          activeOpacity={0.5}
-          onPress={handleSubmit}
-        >
-          <Text style={styles.titlebutton}>Зареєстуватися</Text>
-        </Pressable>
-        <Text style={styles.titletext}>
-          Вже є акаунт?
-          <Text onPress={() => changeScreen(0)}> Увійти</Text>
-        </Text>
+            <View
+              style={{
+                ...styles.innerContainer,
+                height: isShowKeybord ? 620 : 550,
+              }}
+            >
+              <View style={styles.avatar}>
+                <Pressable
+                  style={styles.addAvatar}
+                  onPress={() => Alert.alert('Simple Button pressed')}
+                >
+                  <Octicons name="plus-circle" size={25} color="#FF6C00" />
+                </Pressable>
+              </View>
+              <Text style={styles.title}>Реєстрація</Text>
+              <TextInput
+                style={styles.input}
+                onFocus={() => setIsShowKeybord(true)}
+                onEndEditing={keyboardHide}
+                onChangeText={onChangeLogin}
+                value={login}
+                placeholder="Логін"
+              />
+              <TextInput
+                style={styles.input}
+                onFocus={() => setIsShowKeybord(true)}
+                onEndEditing={keyboardHide}
+                onChangeText={onChangeEmail}
+                value={email}
+                placeholder="Адреса електронної пошти"
+                autoComplete="email"
+                keyboardType="email-address"
+              />
+              <TextInput
+                style={styles.input}
+                onFocus={() => setIsShowKeybord(true)}
+                onEndEditing={keyboardHide}
+                onChangeText={onChangePassword}
+                value={password}
+                placeholder="Пароль"
+                autoComplete="password"
+                secureTextEntry={hidePassword}
+              />
+              <Pressable
+                style={styles.showPassword}
+                onPress={() => {
+                  setHidePassword(!hidePassword);
+                }}
+              >
+                <Text style={styles.showPasswordText}>
+                  {hidePassword ? 'Показати' : 'Приховати'}
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.button}
+                activeOpacity={0.5}
+                onPress={handleSubmit}
+              >
+                <Text style={styles.titlebutton}>Зареєстуватися</Text>
+              </Pressable>
+              <Text style={styles.titletext}>
+                Вже є акаунт?
+                <Text onPress={() => navigation.navigate('LoginScreen')}>
+                  {' '}
+                  Увійти
+                </Text>
+              </Text>
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+
+        <StatusBar style="auto" />
       </View>
-    </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    width: '100%',
+  },
   containerKeyBoard: {
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   avatar: {
     marginTop: -60,
@@ -171,6 +198,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   input: {
+    textAlign: 'center',
     width: 343,
     height: 50,
     margin: 8,

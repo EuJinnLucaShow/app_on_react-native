@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import React from 'react';
 
-export default function App() {
+import { useNavigation } from '@react-navigation/native';
+
+const PostsScreen = () => {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
-      <Text>Публікації</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView
+      style={{
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        overflow: 'visible',
+      }}
+    >
+      <ScrollView>
+        <Profile
+          avatar={avatar}
+          name="Natali Romanova"
+          email="email@example.com"
+        />
+        {data.map(element => (
+          <Post
+            key={element.id}
+            img={postImage}
+            text={element.name}
+            messages={0}
+            location={element.location}
+          />
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default PostsScreen;

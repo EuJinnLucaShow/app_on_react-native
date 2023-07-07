@@ -1,21 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import {
-  StyleSheet,
-  ImageBackground,
-  View,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
+
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
-
-const image = require('./assets/photobg.png');
+import Home from './Screens/Home';
 
 export default function App() {
-  const [activeScreen, setActiveScreen] = useState(0);
-
   const [fontsLoaded] = useFonts({
     Roboto: require('./assets/fonts/Roboto-Regular.ttf'),
   });
@@ -24,35 +17,21 @@ export default function App() {
     return null;
   }
 
-  const changeScreen = value => {
-    setActiveScreen(value);
-  };
+  const Stack = createStackNavigator(); // вказує на групу навігаторів
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        <ImageBackground source={image} style={styles.backgroundImage}>
-          {activeScreen === 0 ? (
-            <LoginScreen changeScreen={changeScreen} />
-          ) : (
-            <RegistrationScreen changeScreen={changeScreen} />
-          )}
-        </ImageBackground>
-
-        <StatusBar style="auto" />
-      </View>
-    </TouchableWithoutFeedback>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="LoginScreen"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen
+          name="RegistrationScreen"
+          component={RegistrationScreen}
+        />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  backgroundImage: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    width: '100%',
-  },
-});
