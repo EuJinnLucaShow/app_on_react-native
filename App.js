@@ -7,12 +7,13 @@ import { useFonts } from 'expo-font';
 import LoginScreen from './Screens/LoginScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
 import Home from './Screens/Home';
+import CreatePostsScreen from './Screens/CreatePostsScreen';
+import ProfileScreen from './Screens/ProfileScreen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     Roboto: require('./assets/fonts/Roboto-Regular.ttf'),
   });
-
   if (!fontsLoaded) {
     return null;
   }
@@ -31,6 +32,8 @@ export default function App() {
         />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="CreatePostsScreen" component={CreatePostsScreen} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

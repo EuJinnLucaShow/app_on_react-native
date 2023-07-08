@@ -1,11 +1,14 @@
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import React from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import Profile from '../components/Profile';
+import Post from '../components/Post';
+import data from '../data/data';
+
+const avatar = require('../assets/avatar.png');
+const postImage = require('../assets/forest.png');
 
 const PostsScreen = () => {
-  const navigation = useNavigation();
-
   return (
     <SafeAreaView
       style={{

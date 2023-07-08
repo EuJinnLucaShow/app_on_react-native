@@ -3,9 +3,9 @@ import {
   Text,
   View,
   TextInput,
-  Pressable,
   Alert,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -16,7 +16,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { Octicons } from '@expo/vector-icons';
 
-const image = require('../assets/photobg.png');
+const Image = require('../assets/photobg.png');
 
 export default function RegistrationScreen() {
   const navigation = useNavigation();
@@ -39,7 +39,7 @@ export default function RegistrationScreen() {
       Alert.alert('Невірний формат електронної пошти!');
       return;
     }
-    navigation.navigate('Home', { screen: 'Home' });
+    navigation.navigate('Home', { screen: 'PostsScreen' });
     clearForm();
   };
 
@@ -69,7 +69,7 @@ export default function RegistrationScreen() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <ImageBackground source={image} style={styles.backgroundImage}>
+        <ImageBackground source={Image} style={styles.backgroundImage}>
           <KeyboardAvoidingView
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             style={styles.containerKeyBoard}
@@ -81,12 +81,12 @@ export default function RegistrationScreen() {
               }}
             >
               <View style={styles.avatar}>
-                <Pressable
+                <TouchableOpacity
                   style={styles.addAvatar}
                   onPress={() => Alert.alert('Simple Button pressed')}
                 >
                   <Octicons name="plus-circle" size={25} color="#FF6C00" />
-                </Pressable>
+                </TouchableOpacity>
               </View>
               <Text style={styles.title}>Реєстрація</Text>
               <TextInput
@@ -117,7 +117,7 @@ export default function RegistrationScreen() {
                 autoComplete="password"
                 secureTextEntry={hidePassword}
               />
-              <Pressable
+              <TouchableOpacity
                 style={styles.showPassword}
                 onPress={() => {
                   setHidePassword(!hidePassword);
@@ -126,17 +126,20 @@ export default function RegistrationScreen() {
                 <Text style={styles.showPasswordText}>
                   {hidePassword ? 'Показати' : 'Приховати'}
                 </Text>
-              </Pressable>
-              <Pressable
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={styles.button}
                 activeOpacity={0.5}
                 onPress={handleSubmit}
               >
                 <Text style={styles.titlebutton}>Зареєстуватися</Text>
-              </Pressable>
+              </TouchableOpacity>
               <Text style={styles.titletext}>
                 Вже є акаунт?
-                <Text onPress={() => navigation.navigate('LoginScreen')}>
+                <Text
+                  onPress={() => navigation.navigate('LoginScreen')}
+                  style={{ color: '#FF6C00' }}
+                >
                   {' '}
                   Увійти
                 </Text>
@@ -198,7 +201,6 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   input: {
-    textAlign: 'center',
     width: 343,
     height: 50,
     margin: 8,

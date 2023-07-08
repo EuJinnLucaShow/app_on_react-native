@@ -3,12 +3,12 @@ import {
   Text,
   View,
   TextInput,
-  Pressable,
   Alert,
   KeyboardAvoidingView,
   Platform,
   ImageBackground,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Keyboard,
 } from 'react-native';
 import React, { useState } from 'react';
@@ -33,7 +33,7 @@ export default function LoginScreen() {
       Alert.alert('Поле не може бути пустим!');
       return;
     }
-    navigation.navigate('Home', { screen: 'Home' });
+    navigation.navigate('Home', { screen: 'PostsScreen' });
     clearForm();
   };
 
@@ -85,7 +85,7 @@ export default function LoginScreen() {
                 autoComplete="password"
                 secureTextEntry={hidePassword}
               />
-              <Pressable
+              <TouchableOpacity
                 style={styles.showPassword}
                 activeOpacity={0.5}
                 onPress={() => {
@@ -95,17 +95,20 @@ export default function LoginScreen() {
                 <Text style={styles.showPasswordText}>
                   {hidePassword ? 'Показати' : 'Приховати'}
                 </Text>
-              </Pressable>
-              <Pressable
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={styles.button}
                 activeOpacity={0.5}
                 onPress={handleSubmit}
               >
                 <Text style={styles.titlebutton}>Увійти</Text>
-              </Pressable>
+              </TouchableOpacity>
               <Text style={styles.titletext}>
                 Немає акаунту?
-                <Text onPress={() => navigation.navigate('RegistrationScreen')}>
+                <Text
+                  onPress={() => navigation.navigate('RegistrationScreen')}
+                  style={{ color: '#FF6C00' }}
+                >
                   {' '}
                   Зареєструватися
                 </Text>
@@ -130,11 +133,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   containerKeyBoard: {
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   innerContainer: {
     width: '100%',
-    height: 400,
     alignItems: 'center',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -152,7 +154,6 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   input: {
-    textAlign: 'center',
     width: 343,
     height: 50,
     margin: 8,
