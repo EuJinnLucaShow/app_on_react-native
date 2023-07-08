@@ -64,7 +64,7 @@ export default function Home() {
       <BottomTabs.Screen
         options={{
           tabBarIcon: () => {
-            return <AntDesign name="user" size={20} color="#808080" />;
+            return <Feather name="user" size={24} color="#808080" />;
           },
           headerShown: false,
         }}

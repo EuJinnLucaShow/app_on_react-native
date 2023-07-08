@@ -35,9 +35,8 @@ export default function ProfileScreen() {
                 <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
                   <AntDesign
                     name="closecircleo"
-                    size={25}
-                    color="#BDBDBD"
-                    // backgroundColor="white"
+                    size={24}
+                    color="#BDBDBD"                    
                   />
                 </TouchableOpacity>
               </View>
