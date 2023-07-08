@@ -8,23 +8,23 @@ import PostsScreen from './PostsScreen';
 import CreatePostsScreen from './CreatePostsScreen';
 import ProfileScreen from './ProfileScreen';
 
-const BottomTabs = createBottomTabNavigator();
+const Tabs = createBottomTabNavigator();
 
 export default function Home() {
   const navigation = useNavigation();
 
   return (
-    <BottomTabs.Navigator
+    <Tabs.Navigator
       initialRouteName="Posts"
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: { height: 80 },
       }}
     >
-      <BottomTabs.Screen
+      <Tabs.Screen
         options={{
           tabBarIcon: () => {
-            return <SimpleLineIcons name="grid" size={20} color="#808080" />;
+            return <SimpleLineIcons name="grid" size={24} color="#808080" />;
           },
           headerTitleAlign: 'center',
           headerRightContainerStyle: { paddingRight: 20 },
@@ -41,7 +41,7 @@ export default function Home() {
         name="Публікації"
         component={PostsScreen}
       />
-      <BottomTabs.Screen
+      <Tabs.Screen
         options={{
           tabBarIcon: () => {
             return (
@@ -51,7 +51,7 @@ export default function Home() {
                 onPress={() => navigation.navigate('CreatePostsScreen')}
               >
                 <Text style={styles.addButtonText}>
-                  <Feather name="plus" size={24} color="white" />
+                  <Feather name="plus" size={20} color="white" />
                 </Text>
               </TouchableOpacity>
             );
@@ -63,7 +63,7 @@ export default function Home() {
         name="CreatePostsScreen"
         component={CreatePostsScreen}
       />
-      <BottomTabs.Screen
+      <Tabs.Screen
         options={{
           tabBarIcon: () => {
             return <Feather name="user" size={24} color="#808080" />;
@@ -73,7 +73,7 @@ export default function Home() {
         name="ProfileScreen"
         component={ProfileScreen}
       />
-    </BottomTabs.Navigator>
+    </Tabs.Navigator>
   );
 }
 
