@@ -99,8 +99,9 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 2,
-    width: '80%',
-    height: '40%',
+    width: '92%',
+    height: '100%',
+    borderRadius: 8,
     backgroundColor: '#F6F6F6',
     justifyContent: 'center',
     alignItems: 'center',
@@ -110,6 +111,8 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 100,
     backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imageText: {
     color: '#BDBDBD',
