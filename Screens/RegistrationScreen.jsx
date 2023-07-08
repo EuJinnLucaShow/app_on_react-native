@@ -181,6 +181,8 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     pointerEvents: 'auto',
+    backgroundColor: '#fff',
+    borderRadius: 100,
   },
   innerContainer: {
     width: '100%',

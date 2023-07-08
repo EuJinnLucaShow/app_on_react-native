@@ -33,7 +33,12 @@ export default function ProfileScreen() {
                   style={{ width: '100%', height: '100%', borderRadius: 16 }}
                 />
                 <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
-                  <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+                  <AntDesign
+                    name="closecircleo"
+                    size={25}
+                    color="#BDBDBD"
+                    // backgroundColor="white"
+                  />
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
@@ -99,6 +104,8 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     pointerEvents: 'auto',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 100,
   },
   title: {
     fontWeight: '500',

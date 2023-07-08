@@ -17,7 +17,11 @@ const CreatePost = () => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <TouchableOpacity style={styles.imageAddButton} opacity={0.5}>
-          <FontAwesome name="camera" size={24} color="gray" />
+          <FontAwesome
+            name="camera"
+            size={24}
+            color="gray"            
+          />
         </TouchableOpacity>
       </View>
       <Text style={styles.imageText}>Завантажте фото</Text>
