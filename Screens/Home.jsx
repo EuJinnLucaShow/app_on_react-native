@@ -50,7 +50,9 @@ export default function Home() {
                 activeOpacity={0.5}
                 onPress={() => navigation.navigate('CreatePostsScreen')}
               >
-                <Text style={styles.addButtonText}>+</Text>
+                <Text style={styles.addButtonText}>
+                  <Feather name="plus" size={24} color="white" />
+                </Text>
               </TouchableOpacity>
             );
           },
