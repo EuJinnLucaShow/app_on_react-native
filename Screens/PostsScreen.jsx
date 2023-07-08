@@ -6,7 +6,6 @@ import PostCard from '../components/PostCard';
 import data from '../data/data';
 
 const avatar = require('../assets/avatar.jpg');
-const postImage = require('../assets/forest.png');
 
 const PostsScreen = () => {
   return (
@@ -26,7 +25,7 @@ const PostsScreen = () => {
         {data.map(element => (
           <PostCard
             key={element.id}
-            img={postImage}
+            img={element.image}
             text={element.name}
             messages={0}
             location={element.location}

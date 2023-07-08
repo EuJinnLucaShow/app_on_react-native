@@ -12,11 +12,10 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather, AntDesign } from '@expo/vector-icons';
 import data from '../data/data';
-import Post from '../components/PostCard';
+import PostCard from '../components/PostCard';
 
 const wallpaper = require('../assets/wallpaper.png');
 const avatar = require('../assets/avatar.jpg');
-const postImage = require('../assets/forest.png');
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
@@ -45,9 +44,9 @@ export default function ProfileScreen() {
               </TouchableOpacity>
               <Text style={styles.title}>Natali Romanova</Text>
               {data.map(element => (
-                <Post
+                <PostCard
                   key={element.id}
-                  img={postImage}
+                  img={element.image}
                   text={element.name}
                   messages={0}
                   location={element.location}
