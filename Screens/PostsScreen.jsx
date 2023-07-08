@@ -27,7 +27,7 @@ const PostsScreen = () => {
             key={element.id}
             img={element.image}
             text={element.name}
-            messages={0}
+            messages={element.messages}
             location={element.location}
           />
         ))}

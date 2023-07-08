@@ -11,6 +11,7 @@ import {
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather, AntDesign } from '@expo/vector-icons';
+
 import data from '../data/data';
 import PostCard from '../components/PostCard';
 
@@ -32,7 +33,7 @@ export default function ProfileScreen() {
                   style={{ width: '100%', height: '100%', borderRadius: 16 }}
                 />
                 <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
-                  <AntDesign name="pluscircleo" size={24} color="#FF6C00" />
+                  <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
@@ -40,7 +41,7 @@ export default function ProfileScreen() {
                 activeOpacity={0.5}
                 onPress={() => navigation.navigate('LoginScreen')}
               >
-                <Feather name="log-out" size={24} color="gray" />
+                <Feather name="log-out" size={25} color="gray" />
               </TouchableOpacity>
               <Text style={styles.title}>Natali Romanova</Text>
               {data.map(element => (
@@ -48,7 +49,7 @@ export default function ProfileScreen() {
                   key={element.id}
                   img={element.image}
                   text={element.name}
-                  messages={0}
+                  messages={element.messages}
                   location={element.location}
                 />
               ))}
