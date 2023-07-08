@@ -16,7 +16,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { Octicons } from '@expo/vector-icons';
 
-const Image = require('../assets/photobg.png');
+const wallpaper = require('../assets/wallpaper.png');
 
 export default function RegistrationScreen() {
   const navigation = useNavigation();
@@ -69,7 +69,7 @@ export default function RegistrationScreen() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <ImageBackground source={Image} style={styles.backgroundImage}>
+        <ImageBackground source={wallpaper} style={styles.backgroundImage}>
           <KeyboardAvoidingView
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             style={styles.containerKeyBoard}

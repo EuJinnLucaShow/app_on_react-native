@@ -6,15 +6,16 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
+  Image,
 } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather, AntDesign } from '@expo/vector-icons';
 import data from '../data/data';
-import Post from '../components/Post';
+import Post from '../components/PostCard';
 
-const backgroundImage = require('../assets/photobg.png');
-const avatar = require('../assets/avatar.png');
+const wallpaper = require('../assets/wallpaper.png');
+const avatar = require('../assets/avatar.jpg');
 const postImage = require('../assets/forest.png');
 
 export default function ProfileScreen() {
@@ -23,17 +24,14 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView>
       <ScrollView>
-        <ImageBackground
-          source={backgroundImage}
-          style={styles.imageBackground}
-        >
+        <ImageBackground source={wallpaper} style={styles.imageBackground}>
           <View style={styles.mainContainer}>
             <View style={styles.container}>
               <View style={styles.photoContainer}>
-                <ImageBackground
+                <Image
                   source={avatar}
-                  style={{ width: '100%', height: '100%' }}
-                ></ImageBackground>
+                  style={{ width: '100%', height: '100%', borderRadius: 16 }}
+                />
                 <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
                   <AntDesign name="pluscircleo" size={24} color="#FF6C00" />
                 </TouchableOpacity>
@@ -41,9 +39,7 @@ export default function ProfileScreen() {
               <TouchableOpacity
                 style={styles.logoutButton}
                 activeOpacity={0.5}
-                onPress={() =>
-                  navigation.navigate('Home', { screen: 'PostsScreen' })
-                }
+                onPress={() => navigation.navigate('LoginScreen')}
               >
                 <Feather name="log-out" size={24} color="gray" />
               </TouchableOpacity>

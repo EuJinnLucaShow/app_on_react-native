@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import { EvilIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
@@ -10,9 +16,9 @@ const CreatePost = () => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Pressable style={styles.imageAddButton} opacity={0.5}>
+        <TouchableOpacity style={styles.imageAddButton} opacity={0.5}>
           <FontAwesome name="camera" size={24} color="gray" />
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <Text style={styles.imageText}>Завантажте фото</Text>
       <View style={styles.formContainer}>
@@ -26,9 +32,9 @@ const CreatePost = () => {
           placeholder="Місцевість..."
           inputMode="navigation"
         />
-        <Pressable style={styles.button} activeOpacity={0.5}>
+        <TouchableOpacity style={styles.button} activeOpacity={0.5}>
           <Text style={styles.buttonText}>Опубліковати</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -50,12 +56,12 @@ const CreatePostsScreen = () => {
       <BottomTabs.Screen
         options={{
           tabBarIcon: () => (
-            <Pressable style={styles.trashButton} activeOpacity={0.5}>
+            <TouchableOpacity style={styles.trashButton} activeOpacity={0.5}>
               <EvilIcons name="trash" size={24} color="black" />
-            </Pressable>
+            </TouchableOpacity>
           ),
           headerLeft: () => (
-            <Pressable
+            <TouchableOpacity
               style={styles.logoutButton}
               activeOpacity={0.5}
               onPress={() =>
@@ -63,7 +69,7 @@ const CreatePostsScreen = () => {
               }
             >
               <Ionicons name="arrow-back-sharp" size={24} color="black" />
-            </Pressable>
+            </TouchableOpacity>
           ),
           headerLeftContainerStyle: { paddingLeft: 10 },
           headerTitleAlign: 'center',
@@ -100,8 +106,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageAddButton: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
     borderRadius: 100,
     backgroundColor: '#FFFFFF',
   },
@@ -116,7 +122,7 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   button: {
-    backgroundColor: '#E8E8E8',
+    backgroundColor: '#F6F6F6',
     height: 50,
     width: 343,
     justifyContent: 'center',
@@ -125,19 +131,17 @@ const styles = StyleSheet.create({
     marginTop: 44,
   },
   buttonText: {
-    color: '#fff',
+    color: '#BDBDBD',
     fontWeight: '400',
   },
   input: {
-    width: 343,
+    width: 340,
     height: 50,
-    borderRadius: 8,
     marginTop: 33,
     padding: 16,
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: 16,
-    lineHeight: 19,
     borderBottomColor: '#E8E8E8',
     borderBottomWidth: 2,
   },

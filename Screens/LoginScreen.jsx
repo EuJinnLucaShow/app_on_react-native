@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 
-const image = require('../assets/photobg.png');
+const wallpaper = require('../assets/wallpaper.png');
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -53,7 +53,7 @@ export default function LoginScreen() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <ImageBackground source={image} style={styles.backgroundImage}>
+        <ImageBackground source={wallpaper} style={styles.backgroundImage}>
           <KeyboardAvoidingView
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             style={styles.containerKeyBoard}

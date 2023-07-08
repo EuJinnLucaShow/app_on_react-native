@@ -1,16 +1,16 @@
-import { View, StyleSheet, ImageBackground, Text } from 'react-native';
 import React from 'react';
+import { View, StyleSheet, ImageBackground, Text } from 'react-native';
 import { Feather, EvilIcons } from '@expo/vector-icons';
 
-const Post = ({ img, text, messeges, location }) => {
+const PostCard = ({ img, text, messages, location }) => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={img} style={styles.postImage}></ImageBackground>
+      <ImageBackground source={img} style={styles.postImage} />
       <Text style={styles.postText}>{text}</Text>
       <View style={styles.infoContainer}>
         <View style={styles.info}>
           <Feather name="message-circle" size={18} color="gray" />
-          <Text>{messeges}</Text>
+          <Text>{messages}</Text>
         </View>
         <View style={styles.info}>
           <EvilIcons name="location" size={24} color="gray" />
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Post;
+export default PostCard;

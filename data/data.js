@@ -1,17 +1,17 @@
 const data = [
   {
     id: '1',
-    name: 'Forest',
+    name: 'Ліс',
     location: "Ivano-Frankivs'k Region, Ukraine",
   },
   {
     id: '2',
-    name: 'Black Sea Sunset',
+    name: 'Захід на Чорному морі',
     location: 'Ukraine',
   },
   {
     id: '3',
-    name: 'Venecia old house',
+    name: 'Старий будиночок у Венеції',
     location: 'Italy',
   },
 ];

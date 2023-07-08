@@ -1,13 +1,10 @@
-import { View, StyleSheet, ImageBackground, Text } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import React from 'react';
 
 const Profile = ({ avatar, name, email }) => {
   return (
     <View style={styles.profileContainer}>
-      <ImageBackground
-        source={avatar}
-        style={styles.profileImage}
-      ></ImageBackground>
+      <Image source={avatar} style={styles.profileImage} />
       <View style={styles.profileInfo}>
         <Text style={styles.profileName}>{name}</Text>
         <Text>{email}</Text>
