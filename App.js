@@ -13,18 +13,18 @@ import ProfileScreen from './screens/ProfileScreen';
 export default function App() {
   const [fontsLoaded] = useFonts({
     Roboto: require('./assets/fonts/Roboto-Regular.ttf'),
-  }); // підключає шрифти
+  });
   if (!fontsLoaded) {
     return null;
   }
 
-  const Stack = createStackNavigator(); // вказує на групу навігаторів
+  const Stack = createStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator // вказує на групу навігаторів
-        initialRouteName="LoginScreen" // вказує на початковий екран
-        screenOptions={{ headerShown: false }} // вказує на те, що хедер не буде відображатись
+      <Stack.Navigator
+        initialRouteName="LoginScreen"
+        screenOptions={{ headerShown: false }}
       >
         <Stack.Screen
           name="RegistrationScreen"
