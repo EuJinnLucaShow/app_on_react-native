@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <Tabs.Navigator
-      initialRouteName="Posts"
+      initialRouteName="Публікації"
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: { height: 80 },

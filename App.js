@@ -22,8 +22,6 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {' '}
-      // вказує на головний навігатор
       <Stack.Navigator // вказує на групу навігаторів
         initialRouteName="LoginScreen" // вказує на початковий екран
         screenOptions={{ headerShown: false }} // вказує на те, що хедер не буде відображатись
