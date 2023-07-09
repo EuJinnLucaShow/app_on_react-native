@@ -1,6 +1,6 @@
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { AntDesign, SimpleLineIcons, Feather } from '@expo/vector-icons';
+import { SimpleLineIcons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
