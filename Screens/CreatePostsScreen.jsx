@@ -26,15 +26,11 @@ const CreatePost = () => {
           style={styles.input}
           placeholder="Назва..."
           inputMode="text"
-          onChangeText={text => onChangeText(text)}
-          value={value}
         />
         <TextInput
           style={styles.input}
           placeholder="Місцевість..."
           inputMode="navigation"
-          onChangeText={text => onChangeText(text)}
-          value={value}
         />
         <TouchableOpacity style={styles.button} activeOpacity={0.5}>
           <Text style={styles.buttonText}>Опубліковати</Text>
