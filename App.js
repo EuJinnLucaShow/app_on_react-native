@@ -4,11 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
 
-import LoginScreen from './creens/LoginScreen';
-import RegistrationScreen from './creens/RegistrationScreen';
-import Home from './creens/Home';
-import CreatePostsScreen from './creens/CreatePostsScreen';
-import ProfileScreen from './creens/ProfileScreen';
+import LoginScreen from './screens/LoginScreen';
+import RegistrationScreen from './screens/RegistrationScreen';
+import Home from './screens/Home';
+import CreatePostsScreen from './screens/CreatePostsScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
