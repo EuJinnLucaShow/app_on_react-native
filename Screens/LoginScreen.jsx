@@ -33,6 +33,10 @@ export default function LoginScreen() {
       Alert.alert('Поле не може бути пустим!');
       return;
     }
+    if (!validateEmail(email)) {
+      Alert.alert('Невірний формат електронної пошти!');
+      return;
+    }
     navigation.navigate('Home', { screen: 'PostsScreen' });
     clearForm();
   };
@@ -48,6 +52,11 @@ export default function LoginScreen() {
 
   const onChangePassword = text => {
     setPassword(text.trim());
+  };
+
+  const validateEmail = email => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
