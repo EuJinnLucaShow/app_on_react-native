@@ -1,5 +1,5 @@
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SimpleLineIcons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,72 +10,77 @@ import ProfileScreen from './ProfileScreen';
 
 const Tabs = createBottomTabNavigator();
 
-export default function Home() {
+const Home = () => {
   const navigation = useNavigation();
+
+  const renderPostsTabBarIcon = () => (
+    <SimpleLineIcons name="grid" size={24} color="#808080" />
+  );
+
+  const renderCreatePostButton = () => (
+    <TouchableOpacity
+      style={styles.addButton}
+      activeOpacity={0.5}
+      onPress={() => navigation.navigate('CreatePostsScreen')}
+    >
+      <Text style={styles.addButtonText}>
+        <Feather name="plus" size={20} color="white" />
+      </Text>
+    </TouchableOpacity>
+  );
+
+  const renderProfileTabBarIcon = () => (
+    <Feather name="user" size={24} color="#808080" />
+  );
+
+  const renderLogoutButton = () => (
+    <TouchableOpacity
+      style={styles.logoutButton}
+      activeOpacity={0.5}
+      onPress={() => navigation.navigate('LoginScreen')}
+    >
+      <Feather name="log-out" size={24} color="#808080" />
+    </TouchableOpacity>
+  );
 
   return (
     <Tabs.Navigator
-      initialRouteName="Публікації"
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: { height: 80 },
       }}
     >
       <Tabs.Screen
-        options={{
-          tabBarIcon: () => {
-            return <SimpleLineIcons name="grid" size={24} color="#808080" />;
-          },
-          headerTitleAlign: 'center',
-          headerRightContainerStyle: { paddingRight: 20 },
-          headerRight: () => (
-            <TouchableOpacity
-              style={styles.logoutButton}
-              activeOpacity={0.5}
-              onPress={() => navigation.navigate('LoginScreen')}
-            >
-              <Feather name="log-out" size={24} color="#808080" />
-            </TouchableOpacity>
-          ),
-        }}
         name="Публікації"
         component={PostsScreen}
+        options={{
+          tabBarIcon: renderPostsTabBarIcon,
+          headerTitleAlign: 'center',
+          headerRightContainerStyle: { paddingRight: 20 },
+          headerRight: renderLogoutButton,
+        }}
       />
       <Tabs.Screen
+        name="CreatePostsScreen"
+        component={CreatePostsScreen}
         options={{
-          tabBarIcon: () => {
-            return (
-              <TouchableOpacity
-                style={styles.addButton}
-                activeOpacity={0.5}
-                onPress={() => navigation.navigate('CreatePostsScreen')}
-              >
-                <Text style={styles.addButtonText}>
-                  <Feather name="plus" size={20} color="white" />
-                </Text>
-              </TouchableOpacity>
-            );
-          },
+          tabBarIcon: renderCreatePostButton,
           headerShown: false,
           tabBarStyle: { display: 'none' },
           headerTitleAlign: 'center',
         }}
-        name="CreatePostsScreen"
-        component={CreatePostsScreen}
       />
       <Tabs.Screen
-        options={{
-          tabBarIcon: () => {
-            return <Feather name="user" size={24} color="#808080" />;
-          },
-          headerShown: false,
-        }}
         name="ProfileScreen"
         component={ProfileScreen}
+        options={{
+          tabBarIcon: renderProfileTabBarIcon,
+          headerShown: false,
+        }}
       />
     </Tabs.Navigator>
   );
-}
+};
 
 const styles = StyleSheet.create({
   addButton: {
@@ -91,3 +96,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
+export default Home;
