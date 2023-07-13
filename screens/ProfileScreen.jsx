@@ -47,7 +47,7 @@ export default function ProfileScreen() {
               {data.map(element => (
                 <PostCard
                   key={element.id}
-                  img={element.image}
+                  image={element.image}
                   text={element.name}
                   messages={element.messages}
                   location={element.location}

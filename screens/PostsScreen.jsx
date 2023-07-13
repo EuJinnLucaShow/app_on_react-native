@@ -1,13 +1,22 @@
-import { SafeAreaView, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, FlatList } from 'react-native';
 
 import Profile from '../components/Profile';
-import PostCard from '../components/PostCard';
 import data from '../data/data';
-
+import PostCard from '../components/PostCard';
 const avatar = require('../assets/avatar.jpg');
 
-const PostsScreen = () => {
+const PostsScreen = ({ route }) => {
+  console.log(route.params);
+  const [posts, setPosts] = useState(data);
+
+  useEffect(() => {
+    if (route.params) {
+      const newPost = { ...route.params, id: Date.now().toString() }; // Assign a unique "id" property
+      setPosts(prevState => [...prevState, newPost]);
+    }
+  }, [route.params]);
+
   return (
     <SafeAreaView
       style={{
@@ -22,15 +31,11 @@ const PostsScreen = () => {
           name="Natali Romanova"
           email="email@example.com"
         />
-        {data.map(element => (
-          <PostCard
-            key={element.id}
-            img={element.image}
-            text={element.name}
-            messages={element.messages}
-            location={element.location}
-          />
-        ))}
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => <PostCard post={item} />}
+          keyExtractor={item => item.id}
+        />
       </ScrollView>
     </SafeAreaView>
   );

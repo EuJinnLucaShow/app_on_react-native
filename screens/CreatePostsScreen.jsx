@@ -1,39 +1,173 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Camera } from 'expo-camera';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Image,
 } from 'react-native';
 import { EvilIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 
 const BottomTabs = createBottomTabNavigator();
 
 const CreatePost = () => {
+  const navigation = useNavigation();
+  const [postPhoto, setPostPhoto] = useState(null);
+  const [photoName, setPhotoName] = useState('');
+  const [photoLocationName, setPhotoLocationName] = useState('');
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [currentGeoLocation, setCurrentGeoLocation] = useState({});
+  const cameraRef = useRef(null);
+
+  useEffect(() => {
+    const getLocationPermission = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      const coords = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+      setCurrentGeoLocation(coords);
+    };
+
+    getLocationPermission();
+  }, []);
+
+  useEffect(() => {
+    const getCameraPermission = async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(status === 'granted');
+    };
+
+    getCameraPermission();
+  }, []);
+
+  const takePhoto = async () => {
+    if (cameraRef.current) {
+      const { uri } = await cameraRef.current.takePictureAsync();
+      setPostPhoto(uri);
+    }
+  };
+
+  if (hasCameraPermission === null) {
+    return <View />;
+  }
+
+  if (hasCameraPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+
+  const clearData = () => {
+    setPostPhoto(null);
+    setPhotoName('');
+    setPhotoLocationName('');
+  };
+
+  const uploadPhoto = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setPostPhoto(result.assets[0].uri);
+    }
+  };
+
+  const handleSubmit = () => {
+    navigation.navigate('PostsScreen', { postPhoto });
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <TouchableOpacity style={styles.imageAddButton} opacity={0.5}>
-          <FontAwesome name="camera" size={24} color="gray" />
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.imageText}>Завантажте фото</Text>
+      {postPhoto ? (
+        <Image
+          source={{ uri: postPhoto }}
+          style={{
+            width: '95%',
+            height: 240,
+            borderRadius: 8,
+          }}
+        />
+      ) : (
+        <Camera
+          style={styles.camera}
+          type={Camera.Constants.Type.back}
+          ref={cameraRef}
+        >
+          <TouchableOpacity
+            style={styles.imageAddButton}
+            opacity={0.5}
+            onPress={takePhoto}
+          >
+            <FontAwesome name="camera" size={24} color="gray" />
+          </TouchableOpacity>
+        </Camera>
+      )}
+      <TouchableOpacity onPress={uploadPhoto}>
+        <Text style={styles.imageText}>
+          {postPhoto ? 'Редагувати фото' : 'Завантажте фото'}
+        </Text>
+      </TouchableOpacity>
       <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
           placeholder="Назва..."
-          inputMode="text"
+          type={'text'}
+          name={'photoName'}
+          value={photoName}
+          onChangeText={setPhotoName}
         />
         <TextInput
           style={styles.input}
           placeholder="Місцевість..."
-          inputMode="text"
+          type={'text'}
+          name={'photoLocation'}
+          value={photoLocationName}
+          onChangeText={setPhotoLocationName}
         />
-        <TouchableOpacity style={styles.button} activeOpacity={0.5}>
-          <Text style={styles.buttonText}>Опубліковати</Text>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            postPhoto
+              ? {
+                  color: '#FFFFFF',
+                  backgroundColor: '#FF6C00',
+                }
+              : {
+                  color: '#BDBDBD',
+                  backgroundColor: '#F6F6F6',
+                },
+          ]}
+          activeOpacity={0.5}
+          onPress={handleSubmit}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              postPhoto
+                ? {
+                    color: '#FFFFFF',
+                  }
+                : {
+                    color: '#BDBDBD',
+                  },
+            ]}
+          >
+            Опубліковати
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -42,6 +176,7 @@ const CreatePost = () => {
 
 const CreatePostsScreen = () => {
   const navigation = useNavigation();
+
   return (
     <BottomTabs.Navigator
       screenOptions={{
@@ -93,16 +228,13 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-  imageContainer: {
-    flex: 2,
+  camera: {
     width: '92%',
-    height: '100%',
+    height: 240,
     borderRadius: 8,
-    backgroundColor: '#F6F6F6',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -125,7 +257,6 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   button: {
-    backgroundColor: '#F6F6F6',
     height: 50,
     width: 343,
     justifyContent: 'center',
@@ -134,7 +265,6 @@ const styles = StyleSheet.create({
     marginTop: 44,
   },
   buttonText: {
-    color: '#BDBDBD',
     fontWeight: '400',
   },
   input: {
