@@ -1,21 +1,55 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, Text } from 'react-native';
-import { Feather, EvilIcons } from '@expo/vector-icons';
+import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Feather, AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 
-const PostCard = ({ image, name, messages, location }) => {
+const PostCard = ({
+  image,
+  description,
+  comments,
+  likes,
+  locationName,
+  geoLocation,
+}) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <ImageBackground source={image} style={styles.postImage} />
-      <Text style={styles.postText}>{name}</Text>
+      <Image source={{ uri: image }} style={styles.postImage} />
+      <Text style={styles.postText}>{description}</Text>
       <View style={styles.infoContainer}>
         <View style={styles.info}>
-          <Feather name="message-circle" size={18} color="gray" />
-          <Text>{messages}</Text>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('CommentsScreen', {
+                params: { comments, image },
+              })
+            }
+          >
+            <Feather
+              name="message-circle"
+              size={24}
+              color={comments.length === 0 ? '#BDBDBD' : '#FF6C00'}
+            />
+          </TouchableOpacity>
+          <Text>{comments.length}</Text>
         </View>
-        <View style={styles.info}>
-          <EvilIcons name="location" size={24} color="gray" />
-          <Text style={styles.infoLink}>{location}</Text>
-        </View>
+      </View>
+      <View style={styles.info}>
+        <AntDesign name="like2" size={24} color="#FF6C00" />
+        <Text>{likes}</Text>
+      </View>
+      <View style={styles.info}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('MapScreen', {
+              params: geoLocation,
+            })
+          }
+        >
+          <SimpleLineIcons name="location-pin" size={24} color="#BDBDBD" />
+        </TouchableOpacity>
+        <Text>{locationName}</Text>
       </View>
     </View>
   );

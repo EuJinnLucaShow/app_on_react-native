@@ -10,6 +10,8 @@ import Home from './screens/Home';
 import CreatePostsScreen from './screens/CreatePostsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import PostsScreen from './screens/PostsScreen';
+import MapScreen from './screens/MapScreen';
+import CommentsScreen from './screens/CommentsScreen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -36,6 +38,8 @@ export default function App() {
         <Stack.Screen name="CreatePostsScreen" component={CreatePostsScreen} />
         <Stack.Screen name="PostsScreen" component={PostsScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen name="CommentsScreen" component={CommentsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

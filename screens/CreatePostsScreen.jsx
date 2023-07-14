@@ -1,18 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Camera } from 'expo-camera';
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
-  TextInput,
   Image,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
 } from 'react-native';
-import { EvilIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
+import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
+import { FontAwesome, EvilIcons, Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StyleSheet } from 'react-native';
+import posts from '../data/posts';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -21,12 +26,12 @@ const CreatePost = () => {
   const [postPhoto, setPostPhoto] = useState(null);
   const [photoName, setPhotoName] = useState('');
   const [photoLocationName, setPhotoLocationName] = useState('');
-  const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState(null);
   const [currentGeoLocation, setCurrentGeoLocation] = useState({});
   const cameraRef = useRef(null);
 
   useEffect(() => {
-    const getLocationPermission = async () => {
+    (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         console.log('Permission to access location was denied');
@@ -38,32 +43,27 @@ const CreatePost = () => {
         longitude: location.coords.longitude,
       };
       setCurrentGeoLocation(coords);
-    };
-
-    getLocationPermission();
+    })();
   }, []);
 
   useEffect(() => {
-    const getCameraPermission = async () => {
+    (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasCameraPermission(status === 'granted');
-    };
-
-    getCameraPermission();
+      setHasPermission(status === 'granted');
+    })();
   }, []);
 
-  const takePhoto = async () => {
+  const makePhoto = async () => {
     if (cameraRef.current) {
       const { uri } = await cameraRef.current.takePictureAsync();
       setPostPhoto(uri);
     }
   };
 
-  if (hasCameraPermission === null) {
+  if (hasPermission === null) {
     return <View />;
   }
-
-  if (hasCameraPermission === false) {
+  if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
 
@@ -81,96 +81,110 @@ const CreatePost = () => {
       quality: 1,
     });
 
-    if (!result.canceled) {
-      setPostPhoto(result.assets[0].uri);
-    }
+    if (!result.canceled) setPostPhoto(result.assets[0].uri);
   };
 
   const handleSubmit = () => {
-    navigation.navigate('PostsScreen', { postPhoto });
+    const data = {
+      img: postPhoto,
+      description: photoName,
+      comments: [],
+      likes: 0,
+      locationName: photoLocationName,
+      geoLocation: currentGeoLocation,
+    };
+    posts.unshift(data);
+    clearData();
+    navigation.navigate('PostsScreen');
   };
 
   return (
-    <View style={styles.container}>
-      {postPhoto ? (
-        <Image
-          source={{ uri: postPhoto }}
-          style={{
-            width: '95%',
-            height: 240,
-            borderRadius: 8,
-          }}
-        />
-      ) : (
-        <Camera
-          style={styles.camera}
-          type={Camera.Constants.Type.back}
-          ref={cameraRef}
-        >
-          <TouchableOpacity
-            style={styles.imageAddButton}
-            opacity={0.5}
-            onPress={takePhoto}
-          >
-            <FontAwesome name="camera" size={24} color="gray" />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      >
+        <View style={styles.container}>
+          {postPhoto ? (
+            <Image
+              source={{ uri: postPhoto }}
+              style={{
+                width: '95%',
+                height: 240,
+                borderRadius: 8,
+              }}
+            />
+          ) : (
+            <Camera
+              style={styles.camera}
+              type={Camera.Constants.Type.back}
+              ref={cameraRef}
+            >
+              <TouchableOpacity
+                style={styles.imageAddButton}
+                opacity={0.5}
+                onPress={makePhoto}
+              >
+                <FontAwesome name="camera" size={24} color="gray" />
+              </TouchableOpacity>
+            </Camera>
+          )}
+          <TouchableOpacity onPress={uploadPhoto}>
+            <Text style={styles.imageText}>
+              {postPhoto ? 'Редагувати фото' : 'Завантажте фото'}
+            </Text>
           </TouchableOpacity>
-        </Camera>
-      )}
-      <TouchableOpacity onPress={uploadPhoto}>
-        <Text style={styles.imageText}>
-          {postPhoto ? 'Редагувати фото' : 'Завантажте фото'}
-        </Text>
-      </TouchableOpacity>
-      <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Назва..."
-          type={'text'}
-          name={'photoName'}
-          value={photoName}
-          onChangeText={setPhotoName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Місцевість..."
-          type={'text'}
-          name={'photoLocation'}
-          value={photoLocationName}
-          onChangeText={setPhotoLocationName}
-        />
-        <TouchableOpacity
-          style={[
-            styles.button,
-            postPhoto
-              ? {
-                  color: '#FFFFFF',
-                  backgroundColor: '#FF6C00',
-                }
-              : {
-                  color: '#BDBDBD',
-                  backgroundColor: '#F6F6F6',
-                },
-          ]}
-          activeOpacity={0.5}
-          onPress={handleSubmit}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              postPhoto
-                ? {
-                    color: '#FFFFFF',
-                  }
-                : {
-                    color: '#BDBDBD',
-                  },
-            ]}
-          >
-            Опубліковати
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          <View style={styles.formContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Назва..."
+              type={'text'}
+              name={'photoName'}
+              value={photoName}
+              onChangeText={setPhotoName}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Місцевість..."
+              type={'text'}
+              name={'photoLocation'}
+              value={photoLocationName}
+              onChangeText={setPhotoLocationName}
+            />
+            <TouchableOpacity
+              style={[
+                styles.button,
+                postPhoto
+                  ? {
+                      color: '#FFFFFF',
+                      backgroundColor: '#FF6C00',
+                    }
+                  : {
+                      color: '#BDBDBD',
+                      backgroundColor: '#F6F6F6',
+                    },
+              ]}
+              activeOpacity={0.5}
+              onPress={handleSubmit}
+            >
+              <Text
+                style={[
+                  styles.buttonText,
+                  postPhoto
+                    ? {
+                        color: '#FFFFFF',
+                      }
+                    : {
+                        color: '#BDBDBD',
+                      },
+                ]}
+              >
+                Опубліковати
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 

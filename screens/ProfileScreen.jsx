@@ -12,7 +12,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather, AntDesign } from '@expo/vector-icons';
 
-import data from '../data/data';
+import posts from '../data/posts';
 import PostCard from '../components/PostCard';
 
 const wallpaper = require('../assets/wallpaper.png');
@@ -44,15 +44,28 @@ export default function ProfileScreen() {
                 <Feather name="log-out" size={25} color="gray" />
               </TouchableOpacity>
               <Text style={styles.title}>Natali Romanova</Text>
-              {data.map(element => (
-                <PostCard
-                  key={element.id}
-                  image={element.image}
-                  text={element.name}
-                  messages={element.messages}
-                  location={element.location}
-                />
-              ))}
+              {posts.map(
+                ({
+                  img,
+                  description,
+                  likes,
+                  comments,
+                  locationName,
+                  geoLocation,
+                }) => {
+                  return (
+                    <PostCard
+                      key={description}
+                      image={img}
+                      description={description}
+                      likes={likes}
+                      comments={comments}
+                      locationName={locationName}
+                      geoLocation={geoLocation}
+                    />
+                  );
+                }
+              )}
             </View>
           </View>
         </ImageBackground>

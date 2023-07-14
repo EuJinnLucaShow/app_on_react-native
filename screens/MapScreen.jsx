@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
-
-import { styles } from './MapScreenStyles';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const MapScreen = () => {
   const {
@@ -54,5 +53,18 @@ const MapScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  containerFullView: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  mapStyles: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+});
 
 export default MapScreen;
