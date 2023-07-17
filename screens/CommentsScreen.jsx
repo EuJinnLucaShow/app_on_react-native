@@ -13,12 +13,7 @@ const CommentsScreen = () => {
   } = useRoute();
 
   const handleReturnPress = () => {
-    navigation.navigate('Home', {
-      screen: 'PostScreen',
-      params: {
-        user: '123',
-      },
-    });
+    navigation.goBack();
   };
 
   return (
@@ -51,10 +46,10 @@ const CommentsScreen = () => {
         style={{ margin: 0, padding: 0 }}
         showsVerticalScrollIndicator={false}
       >
-        {comments.map(({ author, text, date, userIcon }, index) => {
+        {comments.map(({ author, text, date, userIcon }) => {
           return (
             <View
-              key={index}
+              key={Math.floor(Math.random() * 100)}
               style={[
                 styles.commentContainer,
                 author === 'owner' ? { flexDirection: 'row-reverse' } : {},

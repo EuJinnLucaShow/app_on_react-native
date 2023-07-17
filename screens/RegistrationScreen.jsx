@@ -25,10 +25,9 @@ export default function RegistrationScreen() {
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
   const [isShowKeybord, setIsShowKeybord] = useState(false);
-
-  const keyboardHide = () => {
-    setIsShowKeybord(false);
-  };
+  const [isLoginFocused, setIsLoginFocused] = useState(false);
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
   const handleSubmit = () => {
     if (!login || !email || !password) {
@@ -67,7 +66,11 @@ export default function RegistrationScreen() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss(), setIsShowKeybord(false);
+      }}
+    >
       <View style={styles.container}>
         <ImageBackground source={wallpaper} style={styles.backgroundImage}>
           <KeyboardAvoidingView
@@ -90,17 +93,25 @@ export default function RegistrationScreen() {
               </View>
               <Text style={styles.title}>Реєстрація</Text>
               <TextInput
-                style={styles.input}
-                onFocus={() => setIsShowKeybord(true)}
-                onEndEditing={keyboardHide}
+                style={[styles.input, isLoginFocused && styles.inputFocus]}
+                onFocus={() => {
+                  setIsShowKeybord(true), setIsLoginFocused(true);
+                  setIsEmailFocused(false);
+                  setIsPasswordFocused(false);
+                }}
+                onBlur={() => setIsLoginFocused(false)}
                 onChangeText={onChangeLogin}
                 value={login}
                 placeholder="Логін"
               />
               <TextInput
-                style={styles.input}
-                onFocus={() => setIsShowKeybord(true)}
-                onEndEditing={keyboardHide}
+                style={[styles.input, isEmailFocused && styles.inputFocus]}
+                onFocus={() => {
+                  setIsShowKeybord(true), setIsEmailFocused(true);
+                  setIsLoginFocused(false);
+                  setIsPasswordFocused(false);
+                }}
+                onBlur={() => setIsEmailFocused(false)}
                 onChangeText={onChangeEmail}
                 value={email}
                 placeholder="Адреса електронної пошти"
@@ -108,9 +119,13 @@ export default function RegistrationScreen() {
                 keyboardType="email-address"
               />
               <TextInput
-                style={styles.input}
-                onFocus={() => setIsShowKeybord(true)}
-                onEndEditing={keyboardHide}
+                style={[styles.input, isPasswordFocused && styles.inputFocus]}
+                onFocus={() => {
+                  setIsShowKeybord(true), setIsPasswordFocused(true);
+                  setIsLoginFocused(false);
+                  setIsEmailFocused(false);
+                }}
+                onBlur={() => setIsPasswordFocused(false)}
                 onChangeText={onChangePassword}
                 value={password}
                 placeholder="Пароль"
@@ -209,6 +224,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     backgroundColor: '#F6F6F6',
+  },
+  inputFocus: {
+    borderColor: '#FF6C00',
+    borderWidth: 1,
   },
   button: {
     backgroundColor: '#FF6C00',

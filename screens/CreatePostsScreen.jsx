@@ -9,14 +9,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
+  StyleSheet,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
-import { FontAwesome, EvilIcons, Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Feather, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet } from 'react-native';
 import posts from '../data/posts';
 
 const BottomTabs = createBottomTabNavigator();
@@ -31,10 +31,10 @@ const CreatePost = () => {
   const cameraRef = useRef(null);
 
   useEffect(() => {
-    (async () => {
+    const getLocation = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        console.log('Permission to access location was denied');
+        return;
       }
 
       let location = await Location.getCurrentPositionAsync({});
@@ -43,17 +43,21 @@ const CreatePost = () => {
         longitude: location.coords.longitude,
       };
       setCurrentGeoLocation(coords);
-    })();
+    };
+
+    getLocation();
   }, []);
 
   useEffect(() => {
-    (async () => {
+    const requestCameraPermission = async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === 'granted');
-    })();
+    };
+
+    requestCameraPermission();
   }, []);
 
-  const makePhoto = async () => {
+  const takePhoto = async () => {
     if (cameraRef.current) {
       const { uri } = await cameraRef.current.takePictureAsync();
       setPostPhoto(uri);
@@ -66,12 +70,6 @@ const CreatePost = () => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
-  const clearData = () => {
-    setPostPhoto(null);
-    setPhotoName('');
-    setPhotoLocationName('');
-  };
 
   const uploadPhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -88,31 +86,30 @@ const CreatePost = () => {
     const data = {
       img: postPhoto,
       description: photoName,
-      comments: [],
       likes: 0,
+      comments: [],
       locationName: photoLocationName,
       geoLocation: currentGeoLocation,
     };
     posts.unshift(data);
     clearData();
-    navigation.navigate('PostsScreen');
+    navigation.navigate('Home', { screen: 'PostsScreen' });
+  };
+
+  const clearData = () => {
+    setPostPhoto(null);
+    setPhotoName('');
+    setPhotoLocationName('');
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <View style={styles.container}>
           {postPhoto ? (
-            <Image
-              source={{ uri: postPhoto }}
-              style={{
-                width: '95%',
-                height: 240,
-                borderRadius: 8,
-              }}
-            />
+            <Image source={{ uri: postPhoto }} style={styles.image} />
           ) : (
             <Camera
               style={styles.camera}
@@ -122,7 +119,7 @@ const CreatePost = () => {
               <TouchableOpacity
                 style={styles.imageAddButton}
                 opacity={0.5}
-                onPress={makePhoto}
+                onPress={takePhoto}
               >
                 <FontAwesome name="camera" size={24} color="gray" />
               </TouchableOpacity>
@@ -137,16 +134,12 @@ const CreatePost = () => {
             <TextInput
               style={styles.input}
               placeholder="Назва..."
-              type={'text'}
-              name={'photoName'}
               value={photoName}
               onChangeText={setPhotoName}
             />
             <TextInput
               style={styles.input}
               placeholder="Місцевість..."
-              type={'text'}
-              name={'photoLocation'}
               value={photoLocationName}
               onChangeText={setPhotoLocationName}
             />
@@ -154,28 +147,17 @@ const CreatePost = () => {
               style={[
                 styles.button,
                 postPhoto
-                  ? {
-                      color: '#FFFFFF',
-                      backgroundColor: '#FF6C00',
-                    }
-                  : {
-                      color: '#BDBDBD',
-                      backgroundColor: '#F6F6F6',
-                    },
+                  ? { color: '#FFFFFF', backgroundColor: '#FF6C00' }
+                  : { color: '#BDBDBD', backgroundColor: '#F6F6F6' },
               ]}
               activeOpacity={0.5}
               onPress={handleSubmit}
+              disabled={!postPhoto}
             >
               <Text
                 style={[
                   styles.buttonText,
-                  postPhoto
-                    ? {
-                        color: '#FFFFFF',
-                      }
-                    : {
-                        color: '#BDBDBD',
-                      },
+                  postPhoto ? { color: '#FFFFFF' } : { color: '#BDBDBD' },
                 ]}
               >
                 Опубліковати
@@ -205,17 +187,19 @@ const CreatePostsScreen = () => {
       <BottomTabs.Screen
         options={{
           tabBarIcon: () => (
-            <TouchableOpacity style={styles.trashButton} activeOpacity={0.5}>
-              <EvilIcons name="trash" size={24} color="black" />
+            <TouchableOpacity
+              style={styles.trashButton}
+              activeOpacity={0.5}
+              onPress={() => {}}
+            >
+              <Feather name="trash-2" size={24} color="black" />
             </TouchableOpacity>
           ),
           headerLeft: () => (
             <TouchableOpacity
               style={styles.logoutButton}
               activeOpacity={0.5}
-              onPress={() =>
-                navigation.navigate('Home', { screen: 'PostsScreen' })
-              }
+              onPress={() => navigation.goBack()}
             >
               <Ionicons name="arrow-back-sharp" size={24} color="black" />
             </TouchableOpacity>
@@ -246,11 +230,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   camera: {
-    width: '92%',
+    marginTop: 32,
+    width: 345,
     height: 240,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  image: {
+    marginTop: 32,
+    width: 345,
+    height: 240,
+    borderRadius: 8,
   },
   imageAddButton: {
     width: 60,

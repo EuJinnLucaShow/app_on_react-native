@@ -57,21 +57,20 @@ const PostCard = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: 400,
-    height: 400,
-    justifyContent: 'flex-start',
-    padding: 10,
+    width: '100%',
   },
   postImage: {
     flex: 4,
-    width: '100%',
-    height: '100%',
+    width: 350,
+    height: 240,
     borderRadius: 15,
     overflow: 'hidden',
+    marginHorizontal: 16,
   },
   postText: {
     textAlign: 'left',
     marginTop: 8,
+    marginHorizontal: 16,
     fontWeight: '500',
     fontSize: 16,
   },

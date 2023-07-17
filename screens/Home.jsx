@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { SimpleLineIcons, Feather } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -13,8 +13,8 @@ const Tabs = createBottomTabNavigator();
 const Home = () => {
   const navigation = useNavigation();
 
-  const renderPostsTabBarIcon = () => (
-    <SimpleLineIcons name="grid" size={24} color="#808080" />
+  const renderPostsTabBarIcon = ({ focused }) => (
+    <Feather name="grid" size={24} color={focused ? 'orange' : '#808080'} />
   );
 
   const renderCreatePostButton = () => (
@@ -23,14 +23,12 @@ const Home = () => {
       activeOpacity={0.5}
       onPress={() => navigation.navigate('CreatePostsScreen')}
     >
-      <Text style={styles.addButtonText}>
-        <Feather name="plus" size={20} color="white" />
-      </Text>
+      <Feather name="plus" size={24} color="white" />
     </TouchableOpacity>
   );
 
-  const renderProfileTabBarIcon = () => (
-    <Feather name="user" size={24} color="#808080" />
+  const renderProfileTabBarIcon = ({ focused }) => (
+    <Feather name="user" size={24} color={focused ? 'orange' : '#808080'} />
   );
 
   const renderLogoutButton = () => (
@@ -51,7 +49,7 @@ const Home = () => {
       }}
     >
       <Tabs.Screen
-        name="Публікації"
+        name="PostsScreen"
         component={PostsScreen}
         options={{
           tabBarIcon: renderPostsTabBarIcon,
@@ -65,9 +63,9 @@ const Home = () => {
         component={CreatePostsScreen}
         options={{
           tabBarIcon: renderCreatePostButton,
-          headerShown: false,
-          tabBarStyle: { display: 'none' },
-          headerTitleAlign: 'center',
+          // headerShown: false,
+          // tabBarStyle: { display: 'none' },
+          // headerTitleAlign: 'center',
         }}
       />
       <Tabs.Screen
@@ -90,10 +88,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-  },
-  addButtonText: {
-    color: '#ffffff',
-    fontSize: 18,
   },
 });
 

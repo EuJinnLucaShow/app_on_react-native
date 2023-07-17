@@ -1,25 +1,73 @@
 const posts = [
   {
-    img: 'https://s3-alpha-sig.figma.com/img/10eb/cad8/e6009416f2009943b9cd5d7f02695269?Expires=1690156800&Signature=VSCzi-BcFOWspTQdq8mEEk~TO27hB1Z3ozijmNULALmuZ~SMjWyYQptTRH6RQAM-0rOQXniwWzvIXLpye0boyktL8M4hH5QIlnHQOf10Lzmuhm4csJdonEBvs-Si1F2Vaw-GcpoFRi-rDYQmoexF2r2L9xNBETSptCT00y78Ga0MgLvSrbuR2De~dUQm1DdFLVZYnb6~X3MVfVZCDQDSYhkzGgfH2xCimK9sY8TeUKx-W5Q0YHVgJ4DctxExgEkwJ2f0d9VHvnnKvt6KY~FkWoBxDPYhtxhv08FDjqMWhH36xD49aspPYbk8DGRRDlWdCm1uDP9-PxSmbEJb6EDdVw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-    description: '123',
+    img: 'https://wallpapers.com/images/hd/ocean-and-mountains-n49mlq4z3aivajkh.webp',
+    description: 'ocean-and-mountains',
     comments: [
       {
-        author: 'user1',
+        author: 'Natali Romanova',
         text: 'Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!',
         date: '09 червня, 2020 | 09:20',
       },
       {
-        author: 'owner',
+        author: 'Roman Natalievich',
         text: 'A fast 50mm like f1.8 would help with the bokeh. I’ve been using primes as they tend to get a bit sharper images.',
         date: '09 червня, 2020 | 09:20',
       },
       {
-        author: 'user1',
+        author: 'Natali Romanova',
         text: 'Thank you! That was very helpful!',
         date: '09 червня, 2020 | 09:20',
       },
     ],
     likes: 50,
+    locationName: 'Ukraine',
+    geoLocation: { latitude: 49.2714836, longitude: 23.8227551 },
+  },
+  {
+    img: 'https://wallpapers.com/images/hd/yellow-flower-nature-ln8m170nqw1lmi5i.webp',
+    description: 'yellow-flower-nature',
+    comments: [
+      {
+        author: 'Natali Romanova',
+        text: 'Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!',
+        date: '09 червня, 2020 | 09:20',
+      },
+      {
+        author: 'Roman Natalievich',
+        text: 'A fast 50mm like f1.8 would help with the bokeh. I’ve been using primes as they tend to get a bit sharper images.',
+        date: '09 червня, 2020 | 09:20',
+      },
+      {
+        author: 'Natali Romanova',
+        text: 'Thank you! That was very helpful!',
+        date: '09 червня, 2020 | 09:20',
+      },
+    ],
+    likes: 25,
+    locationName: 'Ukraine',
+    geoLocation: { latitude: 49.2714836, longitude: 23.8227551 },
+  },
+  {
+    img: 'https://wallpapers.com/images/hd/islands-and-ocean-nature-9cxonq3xd1yqcat9.webp',
+    description: 'islands-and-ocean-nature',
+    comments: [
+      {
+        author: 'Natali Romanova',
+        text: 'Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!',
+        date: '09 червня, 2020 | 09:20',
+      },
+      {
+        author: 'Roman Natalievich',
+        text: 'A fast 50mm like f1.8 would help with the bokeh. I’ve been using primes as they tend to get a bit sharper images.',
+        date: '09 червня, 2020 | 09:20',
+      },
+      {
+        author: 'Natali Romanova',
+        text: 'Thank you! That was very helpful!',
+        date: '09 червня, 2020 | 09:20',
+      },
+    ],
+    likes: 10,
     locationName: 'Ukraine',
     geoLocation: { latitude: 49.2714836, longitude: 23.8227551 },
   },

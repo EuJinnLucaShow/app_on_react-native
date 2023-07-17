@@ -23,10 +23,8 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
   const [isShowKeybord, setIsShowKeybord] = useState(false);
-
-  const keyboardHide = () => {
-    setIsShowKeybord(false);
-  };
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
   const handleSubmit = () => {
     if (!email || !password) {
@@ -37,7 +35,12 @@ export default function LoginScreen() {
       Alert.alert('Невірний формат електронної пошти!');
       return;
     }
-    navigation.navigate('Home', { screen: 'PostsScreen' });
+    navigation.navigate('Home', {
+      screen: 'PostsScreen',
+      params: {
+        user: 'e-mail@example.com',
+      },
+    });
     clearForm();
   };
 
@@ -60,7 +63,11 @@ export default function LoginScreen() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss(), setIsShowKeybord(false);
+      }}
+    >
       <View style={styles.container}>
         <ImageBackground source={wallpaper} style={styles.backgroundImage}>
           <KeyboardAvoidingView
@@ -75,25 +82,35 @@ export default function LoginScreen() {
             >
               <Text style={styles.title}>Увійти</Text>
               <TextInput
-                style={styles.input}
-                onFocus={() => setIsShowKeybord(true)}
-                onEndEditing={keyboardHide}
+                style={[styles.input, isEmailFocused && styles.inputFocus]}
+                onFocus={() => {
+                  setIsShowKeybord(true);
+                  setIsEmailFocused(true);
+                  setIsPasswordFocused(false);
+                }}
+                onBlur={() => setIsEmailFocused(false)}
                 onChangeText={onChangeEmail}
                 value={email}
                 placeholder="Адреса електронної пошти"
                 autoComplete="email"
                 keyboardType="email-address"
               />
+
               <TextInput
-                style={styles.input}
-                onFocus={() => setIsShowKeybord(true)}
-                onEndEditing={keyboardHide}
+                style={[styles.input, isPasswordFocused && styles.inputFocus]}
+                onFocus={() => {
+                  setIsShowKeybord(true);
+                  setIsPasswordFocused(true);
+                  setIsEmailFocused(false);
+                }}
+                onBlur={() => setIsPasswordFocused(false)}
                 onChangeText={onChangePassword}
                 value={password}
                 placeholder="Пароль"
                 autoComplete="password"
                 secureTextEntry={hidePassword}
               />
+
               <TouchableOpacity
                 style={styles.showPassword}
                 activeOpacity={0.5}
@@ -169,6 +186,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     backgroundColor: '#F6F6F6',
+  },
+  inputFocus: {
+    borderColor: '#FF6C00',
+    borderWidth: 1,
   },
   button: {
     backgroundColor: '#FF6C00',
