@@ -133,7 +133,7 @@ export default function LoginScreen() {
                 Немає акаунту?
                 <Text
                   onPress={() => navigation.navigate('RegistrationScreen')}
-                  style={{ color: '#FF6C00' }}
+                  style={{ color: '#FF6C00', textDecorationLine: 'underline' }}
                 >
                   {' '}
                   Зареєструватися

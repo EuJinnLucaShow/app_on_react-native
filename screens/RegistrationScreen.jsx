@@ -153,7 +153,7 @@ export default function RegistrationScreen() {
                 Вже є акаунт?
                 <Text
                   onPress={() => navigation.navigate('LoginScreen')}
-                  style={{ color: '#FF6C00' }}
+                  style={{ color: '#FF6C00', textDecorationLine: 'underline' }}
                 >
                   {' '}
                   Увійти
