@@ -10,9 +10,9 @@ const PostsScreen = () => {
   return (
     <SafeAreaView
       style={{
-        justifyContent: 'flex-start',
         alignItems: 'center',
         overflow: 'visible',
+        backgroundColor: '#ffffff',
       }}
     >
       <ScrollView>

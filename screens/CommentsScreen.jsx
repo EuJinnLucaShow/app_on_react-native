@@ -1,7 +1,14 @@
 import React from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 
 const CommentsScreen = () => {
@@ -52,14 +59,16 @@ const CommentsScreen = () => {
               key={Math.floor(Math.random() * 100)}
               style={[
                 styles.commentContainer,
-                author === 'owner' ? { flexDirection: 'row-reverse' } : {},
+                author === 'Roman Natalievich'
+                  ? { flexDirection: 'row-reverse' }
+                  : {},
               ]}
             >
               <Image source={userIcon} style={styles.userIcon} />
               <View
                 style={[
                   styles.comment,
-                  author === 'owner'
+                  author === 'Roman Natalievich'
                     ? { borderTopEndRadius: 0, borderTopLeftRadius: 6 }
                     : {},
                 ]}
@@ -68,7 +77,7 @@ const CommentsScreen = () => {
                 <Text
                   style={[
                     styles.date,
-                    author === 'owner'
+                    author === 'Roman Natalievich'
                       ? { marginRight: 'auto', marginLeft: 0 }
                       : {},
                   ]}
@@ -80,6 +89,12 @@ const CommentsScreen = () => {
           );
         })}
       </ScrollView>
+      <View style={styles.container}>
+        <TextInput style={styles.input} placeholder="Коментувати..." />
+        <TouchableOpacity style={styles.button}>
+          <AntDesign name="arrowup" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -205,6 +220,33 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     fontSize: 10,
     color: '#BDBDBD',
+  },
+  container: {
+    position: 'relative',
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingBottom: 16,
+    minWidth: '100%',
+  },
+  input: {
+    height: 50,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#E8E8E8',
+    borderRadius: 100,
+    backgroundColor: '#F6F6F6',
+  },
+  button: {
+    position: 'absolute',
+    right: 24,
+    top: 8,
+    width: 34,
+    height: 34,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    backgroundColor: '#FF6C00',
   },
 });
 

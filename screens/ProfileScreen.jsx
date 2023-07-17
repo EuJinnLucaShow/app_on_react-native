@@ -25,48 +25,46 @@ export default function ProfileScreen() {
     <SafeAreaView>
       <ScrollView>
         <ImageBackground source={wallpaper} style={styles.imageBackground}>
-          <View style={styles.mainContainer}>
-            <View style={styles.container}>
-              <View style={styles.photoContainer}>
-                <Image
-                  source={avatar}
-                  style={{ width: '100%', height: '100%', borderRadius: 16 }}
-                />
-                <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
-                  <AntDesign name="closecircleo" size={24} color="#BDBDBD" />
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity
-                style={styles.logoutButton}
-                activeOpacity={0.5}
-                onPress={() => navigation.navigate('LoginScreen')}
-              >
-                <Feather name="log-out" size={25} color="gray" />
+          <View style={styles.container}>
+            <View style={styles.photoContainer}>
+              <Image
+                source={avatar}
+                style={{ width: '100%', height: '100%', borderRadius: 16 }}
+              />
+              <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
+                <AntDesign name="closecircleo" size={24} color="#BDBDBD" />
               </TouchableOpacity>
-              <Text style={styles.title}>Natali Romanova</Text>
-              {posts.map(
-                ({
-                  img,
-                  description,
-                  likes,
-                  comments,
-                  locationName,
-                  geoLocation,
-                }) => {
-                  return (
-                    <PostCard
-                      key={description}
-                      image={img}
-                      description={description}
-                      likes={likes}
-                      comments={comments}
-                      locationName={locationName}
-                      geoLocation={geoLocation}
-                    />
-                  );
-                }
-              )}
             </View>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              activeOpacity={0.5}
+              onPress={() => navigation.navigate('LoginScreen')}
+            >
+              <Feather name="log-out" size={25} color="gray" />
+            </TouchableOpacity>
+            <Text style={styles.title}>Natali Romanova</Text>
+            {posts.map(
+              ({
+                img,
+                description,
+                likes,
+                comments,
+                locationName,
+                geoLocation,
+              }) => {
+                return (
+                  <PostCard
+                    key={description}
+                    image={img}
+                    description={description}
+                    likes={likes}
+                    comments={comments}
+                    locationName={locationName}
+                    geoLocation={geoLocation}
+                  />
+                );
+              }
+            )}
           </View>
         </ImageBackground>
       </ScrollView>
@@ -75,11 +73,6 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   imageBackground: {
     flex: 1,
     justifyContent: 'flex-end',

@@ -58,6 +58,7 @@ const PostCard = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    display: 'flex',
   },
   postImage: {
     flex: 4,
@@ -76,17 +77,9 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'space-between',
   },
   info: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
-    padding: 10,
-  },
-  infoLink: {
-    textDecorationLine: 'underline',
   },
 });
 
