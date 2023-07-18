@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -62,10 +62,21 @@ const Home = () => {
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
+          headerTitle: () => <Text>Створити публікацію</Text>,
+          headerLeft: () => (
+            <View style={{ marginLeft: 16 }}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                onPress={() => navigation.goBack()}
+              >
+                <Ionicons name="arrow-back-sharp" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
           tabBarIcon: renderCreatePostButton,
-          // headerShown: false,
-          // tabBarStyle: { display: 'none' },
-          // headerTitleAlign: 'center',
+          headerShown: true,
+          tabBarStyle: { display: 'none' },
+          headerTitleAlign: 'center',
         }}
       />
       <Tabs.Screen

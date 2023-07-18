@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   StyleSheet,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
@@ -24,7 +25,7 @@ import posts from '../data/posts';
 
 const BottomTabs = createBottomTabNavigator();
 
-const CreatePost = () => {
+const CreatePostsScreen = () => {
   const navigation = useNavigation();
   const [postPhoto, setPostPhoto] = useState(null);
   const [photoName, setPhotoName] = useState('');
@@ -107,188 +108,183 @@ const CreatePost = () => {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        {postPhoto ? (
-          <Image source={{ uri: postPhoto }} style={styles.image} />
-        ) : (
-          <Camera
-            style={{
-              marginTop: 32,
-              width: 350,
-              height: 240,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            type={Camera.Constants.Type.back}
-            ref={cameraRef}
-          >
-            <TouchableOpacity
-              style={styles.imageAddButton}
-              opacity={0.5}
-              onPress={takePhoto}
-            >
-              <FontAwesome name="camera" size={24} color="#fff" />
-            </TouchableOpacity>
-          </Camera>
-        )}
+      <KeyboardAvoidingView
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      >
+        <View style={styles.createPostsScreenContainer}>
+          <View style={{ paddingLeft: 16, paddingRight: 16 }}>
+            {postPhoto ? (
+              <Image
+                source={{ uri: postPhoto }}
+                style={{
+                  marginTop: 32,
+                  width: '100%',
+                  height: 240,
+                  borderRadius: 8,
+                }}
+              />
+            ) : (
+              <Camera
+                style={{
+                  marginTop: 32,
+                  width: 350,
+                  height: 240,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                type={Camera.Constants.Type.back}
+                ref={cameraRef}
+              >
+                <TouchableOpacity
+                  style={styles.addPhotoButton}
+                  opacity={0.5}
+                  onPress={takePhoto}
+                >
+                  <FontAwesome name="camera" size={24} color="#fff" />
+                </TouchableOpacity>
+              </Camera>
+            )}
 
-        <View style={styles.formContainer}>
-          <Text
-            style={{
-              fontSize: 16,
-              color: '#BDBDBD',
-              fontWeight: '400',
-              lineHeight: 19,
-              marginTop: 8,
-            }}
-            onPress={uploadPhoto}
-          >
-            {postPhoto ? 'Редагувати фото' : 'Завантажте фото'}
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Назва..."
-            value={photoName}
-            onChangeText={setPhotoName}
-          />
-          <SimpleLineIcons
-            name="location-pin"
-            size={24}
-            color="#BDBDBD"
-            style={{ position: 'absolute', top: 150, left: -10 }}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Місцевість..."
-            value={photoLocationName}
-            onChangeText={setPhotoLocationName}
-          />
+            <Text
+              style={{
+                fontSize: 16,
+                color: '#BDBDBD',
+                fontWeight: '400',
+                lineHeight: 19,
+                marginTop: 8,
+              }}
+              onPress={uploadPhoto}
+            >
+              {postPhoto ? 'Редагувати фото' : 'Завантажте фото'}
+            </Text>
+
+            <TextInput
+              style={styles.photoMetaInput}
+              placeholder="Назва..."
+              value={photoName}
+              onChangeText={setPhotoName}
+            />
+            <View style={{ position: 'relative', marginBottom: 32 }}>
+              <TouchableOpacity style={styles.mapButton}>
+                <SimpleLineIcons
+                  name="location-pin"
+                  size={20}
+                  color="#BDBDBD"
+                  // style={{ position: 'absolute', top: 0, left: 0 }}
+                />
+              </TouchableOpacity>
+              <TextInput
+                style={[styles.photoMetaInput, { paddingLeft: 28 }]}
+                placeholder="Місцевість..."
+                type={'text'}
+                name={'photoLocation'}
+                value={photoLocationName}
+                onChangeText={setPhotoLocationName}
+              />
+            </View>
+            <TouchableOpacity
+              style={[
+                styles.publishButton,
+                postPhoto
+                  ? { backgroundColor: '#FF6C00' }
+                  : { backgroundColor: '#F6F6F6' },
+              ]}
+              activeOpacity={0.5}
+              onPress={handleSubmit}
+              disabled={!postPhoto}
+            >
+              <Text
+                style={[
+                  {
+                    fontSize: 16,
+                    textAlign: 'center',
+                    color: '#ffffff',
+                  },
+                  postPhoto
+                    ? {
+                        backgroundColor: '#FF6C00',
+                      }
+                    : {
+                        color: '#BDBDBD',
+                        backgroundColor: '#F6F6F6',
+                      },
+                ]}
+              >
+                Опубліковати
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <TouchableOpacity
+            onPress={clearData}
             style={[
-              styles.button,
+              styles.removePostButton,
               postPhoto
-                ? { color: '#FFFFFF', backgroundColor: '#FF6C00' }
-                : { color: '#BDBDBD', backgroundColor: '#F6F6F6' },
+                ? { backgroundColor: '#FF6C00' }
+                : { backgroundColor: '#F6F6F6' },
             ]}
-            activeOpacity={0.5}
-            onPress={handleSubmit}
             disabled={!postPhoto}
           >
-            <Text
-              style={[
-                styles.buttonText,
-                postPhoto ? { color: '#FFFFFF' } : { color: '#BDBDBD' },
-              ]}
-            >
-              Опубліковати
-            </Text>
+            <Feather
+              name="trash-2"
+              size={24}
+              style={{ color: postPhoto ? '#fff' : '#BDBDBD' }}
+            />
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
 
-const CreatePostsScreen = () => {
-  const navigation = useNavigation();
-
-  return (
-    <BottomTabs.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          height: 80,
-          borderBottomColor: '#E8E8E8',
-          borderBottomWidth: 2,
-        },
-      }}
-    >
-      <BottomTabs.Screen
-        options={{
-          tabBarIcon: () => (
-            <TouchableOpacity style={styles.trashButton} activeOpacity={0.5}>
-              <Feather name="trash-2" size={24} color="#BDBDBD" />
-            </TouchableOpacity>
-          ),
-          headerLeft: () => (
-            <TouchableOpacity
-              style={styles.logoutButton}
-              activeOpacity={0.5}
-              onPress={() => navigation.goBack()}
-            >
-              <Ionicons name="arrow-back-sharp" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-          headerLeftContainerStyle: { paddingLeft: 10 },
-          headerTitleAlign: 'center',
-          headerTitleStyle: { paddingBottom: 5 },
-        }}
-        name="Створити публікацію"
-        component={CreatePost}
-      />
-    </BottomTabs.Navigator>
-  );
-};
-
 const styles = StyleSheet.create({
-  trashButton: {
-    backgroundColor: '#F6F6F6',
-    height: 40,
-    width: 70,
+  createPostsScreenContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#ffffff',
+  },
+  addPhotoButton: {
+    position: 'absolute',
+    top: '40%',
+    left: '40%',
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  image: {
-    marginTop: 32,
-    width: 345,
-    height: 240,
-    borderRadius: 8,
-  },
-  imageAddButton: {
     width: 60,
     height: 60,
-    borderRadius: 100,
-    backgroundColor: 'rgba(255, 255, 255, 0.30)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 50,
   },
-  imageText: {
-    color: '#000',
-    fontWeight: '400',
+  photoMetaInput: {
+    width: '100%',
+    height: 50,
+    marginBottom: 16,
     fontSize: 16,
-    lineHeight: 19,
-    marginBottom: 32,
+    color: '#212121',
+    borderStyle: 'solid',
+    borderColor: '#E8E8E8',
+    borderBottomWidth: 1,
   },
-  formContainer: {
-    flex: 3,
+  mapButton: {
+    position: 'absolute',
+    top: 13,
   },
-  button: {
+  publishButton: {
+    width: '100%',
     height: 50,
-    width: 343,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 100,
-    marginTop: 44,
-  },
-  buttonText: {
-    fontWeight: '400',
-  },
-  input: {
-    width: 340,
-    height: 50,
-    marginTop: 33,
+    marginBottom: 120,
     padding: 16,
-    fontStyle: 'normal',
-    fontWeight: '400',
-    fontSize: 16,
-    borderBottomColor: '#E8E8E8',
-    borderBottomWidth: 2,
+    borderRadius: 100,
+    backgroundColor: '#FF6C00',
+  },
+  removePostButton: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    height: 40,
+    borderRadius: 20,
   },
 });
 

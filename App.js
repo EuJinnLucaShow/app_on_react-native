@@ -35,7 +35,11 @@ export default function App() {
         />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="CreatePostsScreen" component={CreatePostsScreen} />
+        <Stack.Screen
+          name="CreatePostsScreen"
+          options={{ headerShown: true }}
+          component={CreatePostsScreen}
+        />
         <Stack.Screen name="PostsScreen" component={PostsScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen name="MapScreen" component={MapScreen} />
