@@ -182,6 +182,13 @@ const styles = StyleSheet.create({
   containerKeyBoard: {
     justifyContent: 'flex-end',
   },
+  innerContainer: {
+    width: '100%',
+    alignItems: 'center',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    backgroundColor: '#fff',
+  },
   avatar: {
     marginTop: -60,
     height: 120,
@@ -199,13 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 100,
   },
-  innerContainer: {
-    width: '100%',
-    alignItems: 'center',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    backgroundColor: '#fff',
-  },
+
   title: {
     color: '#212121',
     textAlign: 'center',

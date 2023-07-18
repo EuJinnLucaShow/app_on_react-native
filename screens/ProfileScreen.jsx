@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
-  SafeAreaView,
   ScrollView,
   Image,
 } from 'react-native';
@@ -22,53 +21,59 @@ export default function ProfileScreen() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <ImageBackground source={wallpaper} style={styles.imageBackground}>
-          <View style={styles.container}>
-            <View style={styles.photoContainer}>
-              <Image
-                source={avatar}
-                style={{ width: '100%', height: '100%', borderRadius: 16 }}
-              />
-              <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
-                <AntDesign name="closecircleo" size={24} color="#BDBDBD" />
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              style={styles.logoutButton}
-              activeOpacity={0.5}
-              onPress={() => navigation.navigate('LoginScreen')}
-            >
-              <Feather name="log-out" size={25} color="gray" />
-            </TouchableOpacity>
-            <Text style={styles.title}>Natali Romanova</Text>
-            {posts.map(
-              ({
-                img,
-                description,
-                likes,
-                comments,
-                locationName,
-                geoLocation,
-              }) => {
-                return (
-                  <PostCard
-                    key={description}
-                    image={img}
-                    description={description}
-                    likes={likes}
-                    comments={comments}
-                    locationName={locationName}
-                    geoLocation={geoLocation}
-                  />
-                );
-              }
-            )}
-          </View>
-        </ImageBackground>
-      </ScrollView>
-    </SafeAreaView>
+    <ImageBackground
+      source={wallpaper}
+      resizeMode="cover"
+      style={styles.imageBackground}
+    >
+      <View style={styles.container}>
+        <View style={styles.photoContainer}>
+          <Image
+            source={avatar}
+            style={{ width: '100%', height: '100%', borderRadius: 16 }}
+          />
+          <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
+            <AntDesign name="closecircleo" size={24} color="#BDBDBD" />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.title}>Natali Romanova</Text>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate('LoginScreen')}
+        >
+          <Feather name="log-out" size={25} color="gray" />
+        </TouchableOpacity>
+
+        <ScrollView
+          style={{ margin: 0, padding: 0 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {posts.map(
+            ({
+              img,
+              description,
+              likes,
+              comments,
+              locationName,
+              geoLocation,
+            }) => {
+              return (
+                <PostCard
+                  key={description}
+                  image={img}
+                  description={description}
+                  likes={likes}
+                  comments={comments}
+                  locationName={locationName}
+                  geoLocation={geoLocation}
+                />
+              );
+            }
+          )}
+        </ScrollView>
+      </View>
+    </ImageBackground>
   );
 }
 
@@ -78,27 +83,31 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: '100%',
   },
-  logoutButton: {
-    marginLeft: 350,
-    marginTop: -40,
+  containerKeyBoard: {
+    justifyContent: 'flex-end',
   },
   container: {
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
     width: '100%',
-    borderTopRightRadius: 25,
+    height: '80%',
+    backgroundColor: '#ffffff',
     borderTopLeftRadius: 25,
-    marginTop: 200,
+    borderTopRightRadius: 25,
+    paddingHorizontal: 16,
   },
   photoContainer: {
-    marginTop: -60,
-    height: 120,
+    top: -60,
     width: 120,
+    height: 120,
     backgroundColor: '#F6F6F6',
     borderRadius: 16,
-    overflow: 'visible',
+    alignSelf: 'center',
+    marginBottom: 40,
   },
-
+  logoutButton: {
+    position: 'absolute',
+    top: 22,
+    right: 16,
+  },
   addButton: {
     marginTop: -40,
     left: '90%',
@@ -109,9 +118,12 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   title: {
-    fontWeight: '500',
+    position: 'absolute',
+    marginTop: 90,
+    alignSelf: 'center',
+    fontFamily: 'Roboto',
     fontSize: 30,
-    marginTop: 32,
     lineHeight: 35,
+    textAlign: 'center',
   },
 });

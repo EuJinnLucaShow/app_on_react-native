@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 
 import PostCard from '../components/PostCard';
 import Profile from '../components/Profile';
@@ -8,19 +8,22 @@ import posts from '../data/posts';
 
 const PostsScreen = () => {
   return (
-    <SafeAreaView
+    <View
       style={{
-        alignItems: 'center',
-        overflow: 'visible',
+        width: '100%',
+        height: '100%',
         backgroundColor: '#ffffff',
       }}
     >
-      <ScrollView>
-        <Profile
-          avatar={avatar}
-          name="Natali Romanova"
-          email="email@example.com"
-        />
+      <Profile
+        avatar={avatar}
+        name="Natali Romanova"
+        email="email@example.com"
+      />
+      <ScrollView
+        style={{ margin: 0, padding: 16 }}
+        showsVerticalScrollIndicator={false}
+      >
         {posts.map(
           ({
             img,
@@ -44,7 +47,7 @@ const PostsScreen = () => {
           }
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

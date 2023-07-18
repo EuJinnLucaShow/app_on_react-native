@@ -34,22 +34,23 @@ const PostCard = ({
           </TouchableOpacity>
           <Text>{comments.length}</Text>
         </View>
-      </View>
-      <View style={styles.info}>
-        <AntDesign name="like2" size={24} color="#FF6C00" />
-        <Text>{likes}</Text>
-      </View>
-      <View style={styles.info}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('MapScreen', {
-              params: geoLocation,
-            })
-          }
-        >
-          <SimpleLineIcons name="location-pin" size={24} color="#BDBDBD" />
-        </TouchableOpacity>
-        <Text>{locationName}</Text>
+
+        <View style={styles.info}>
+          <AntDesign name="like2" size={24} color="#FF6C00" />
+          <Text>{likes}</Text>
+        </View>
+        <View style={styles.info}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('MapScreen', {
+                params: geoLocation,
+              })
+            }
+          >
+            <SimpleLineIcons name="location-pin" size={24} color="#BDBDBD" />
+          </TouchableOpacity>
+          <Text>{locationName}</Text>
+        </View>
       </View>
     </View>
   );
@@ -57,29 +58,28 @@ const PostCard = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    display: 'flex',
+    position: 'relative',
   },
   postImage: {
-    flex: 4,
-    width: 350,
+    width: '100%',
     height: 240,
-    borderRadius: 15,
-    overflow: 'hidden',
-    marginHorizontal: 16,
+    marginBottom: 8,
+    borderRadius: 8,
   },
   postText: {
-    textAlign: 'left',
-    marginTop: 8,
-    marginHorizontal: 16,
-    fontWeight: '500',
-    fontSize: 16,
+    marginBottom: 8,
   },
   infoContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 24,
   },
   info: {
     flexDirection: 'row',
+    alignItems: 'center',
+
+    gap: 6,
+    marginBottom: 34,
   },
 });
 
