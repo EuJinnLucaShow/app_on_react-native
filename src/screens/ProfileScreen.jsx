@@ -14,8 +14,8 @@ import { Feather, AntDesign } from '@expo/vector-icons';
 import posts from '../data/posts';
 import PostCard from '../components/PostCard';
 
-const wallpaper = require('../assets/wallpaper.png');
-const avatar = require('../assets/avatar.jpg');
+const wallpaper = require('../images/wallpaper.png');
+const avatar = require('../images/avatar.jpg');
 
 export default function ProfileScreen() {
   const navigation = useNavigation();

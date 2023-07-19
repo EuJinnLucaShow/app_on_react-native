@@ -16,14 +16,11 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import {
   FontAwesome,
-  Feather,
-  Ionicons,
+  Feather,  
   SimpleLineIcons,
 } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import posts from '../data/posts';
 
-const BottomTabs = createBottomTabNavigator();
+import posts from '../data/posts';
 
 const CreatePostsScreen = () => {
   const navigation = useNavigation();

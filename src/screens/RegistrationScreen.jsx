@@ -4,30 +4,33 @@ import {
   View,
   TextInput,
   Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ImageBackground,
   TouchableWithoutFeedback,
   TouchableOpacity,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ImageBackground,
 } from 'react-native';
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { useNavigation } from '@react-navigation/native';
+import { Octicons } from '@expo/vector-icons';
 
-const wallpaper = require('../assets/wallpaper.png');
+const wallpaper = require('../images/wallpaper.png');
 
-export default function LoginScreen() {
+export default function RegistrationScreen() {
   const navigation = useNavigation();
+  const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
   const [isShowKeybord, setIsShowKeybord] = useState(false);
+  const [isLoginFocused, setIsLoginFocused] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
   const handleSubmit = () => {
-    if (!email || !password) {
+    if (!login || !email || !password) {
       Alert.alert('Поле не може бути пустим!');
       return;
     }
@@ -35,18 +38,18 @@ export default function LoginScreen() {
       Alert.alert('Невірний формат електронної пошти!');
       return;
     }
-    navigation.navigate('Home', {
-      screen: 'PostsScreen',
-      params: {
-        user: 'e-mail@example.com',
-      },
-    });
+    navigation.navigate('Home', { screen: 'PostsScreen' });
     clearForm();
   };
 
   const clearForm = () => {
+    setLogin('');
     setEmail('');
     setPassword('');
+  };
+
+  const onChangeLogin = text => {
+    setLogin(text.trim());
   };
 
   const onChangeEmail = text => {
@@ -77,15 +80,35 @@ export default function LoginScreen() {
             <View
               style={{
                 ...styles.innerContainer,
-                height: isShowKeybord ? 500 : 450,
+                height: isShowKeybord ? 620 : 550,
               }}
             >
-              <Text style={styles.title}>Увійти</Text>
+              <View style={styles.avatar}>
+                <TouchableOpacity
+                  style={styles.addAvatar}
+                  onPress={() => Alert.alert('Simple Button pressed')}
+                >
+                  <Octicons name="plus-circle" size={25} color="#FF6C00" />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.title}>Реєстрація</Text>
+              <TextInput
+                style={[styles.input, isLoginFocused && styles.inputFocus]}
+                onFocus={() => {
+                  setIsShowKeybord(true), setIsLoginFocused(true);
+                  setIsEmailFocused(false);
+                  setIsPasswordFocused(false);
+                }}
+                onBlur={() => setIsLoginFocused(false)}
+                onChangeText={onChangeLogin}
+                value={login}
+                placeholder="Логін"
+              />
               <TextInput
                 style={[styles.input, isEmailFocused && styles.inputFocus]}
                 onFocus={() => {
-                  setIsShowKeybord(true);
-                  setIsEmailFocused(true);
+                  setIsShowKeybord(true), setIsEmailFocused(true);
+                  setIsLoginFocused(false);
                   setIsPasswordFocused(false);
                 }}
                 onBlur={() => setIsEmailFocused(false)}
@@ -95,12 +118,11 @@ export default function LoginScreen() {
                 autoComplete="email"
                 keyboardType="email-address"
               />
-
               <TextInput
                 style={[styles.input, isPasswordFocused && styles.inputFocus]}
                 onFocus={() => {
-                  setIsShowKeybord(true);
-                  setIsPasswordFocused(true);
+                  setIsShowKeybord(true), setIsPasswordFocused(true);
+                  setIsLoginFocused(false);
                   setIsEmailFocused(false);
                 }}
                 onBlur={() => setIsPasswordFocused(false)}
@@ -110,10 +132,8 @@ export default function LoginScreen() {
                 autoComplete="password"
                 secureTextEntry={hidePassword}
               />
-
               <TouchableOpacity
                 style={styles.showPassword}
-                activeOpacity={0.5}
                 onPress={() => {
                   setHidePassword(!hidePassword);
                 }}
@@ -127,21 +147,22 @@ export default function LoginScreen() {
                 activeOpacity={0.5}
                 onPress={handleSubmit}
               >
-                <Text style={styles.titlebutton}>Увійти</Text>
+                <Text style={styles.titlebutton}>Зареєстуватися</Text>
               </TouchableOpacity>
               <Text style={styles.titletext}>
-                Немає акаунту?
+                Вже є акаунт?
                 <Text
-                  onPress={() => navigation.navigate('RegistrationScreen')}
+                  onPress={() => navigation.navigate('LoginScreen')}
                   style={{ color: '#FF6C00', textDecorationLine: 'underline' }}
                 >
                   {' '}
-                  Зареєструватися
+                  Увійти
                 </Text>
               </Text>
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
+
         <StatusBar style="auto" />
       </View>
     </TouchableWithoutFeedback>
@@ -168,6 +189,24 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     backgroundColor: '#fff',
   },
+  avatar: {
+    marginTop: -60,
+    height: 120,
+    width: 120,
+    backgroundColor: '#F6F6F6',
+    borderRadius: 16,
+    alignSelf: 'center',
+  },
+  addAvatar: {
+    marginTop: '65%',
+    left: '90%',
+    height: 25,
+    width: 25,
+    pointerEvents: 'auto',
+    backgroundColor: '#fff',
+    borderRadius: 100,
+  },
+
   title: {
     color: '#212121',
     textAlign: 'center',

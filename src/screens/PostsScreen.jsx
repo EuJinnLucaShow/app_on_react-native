@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 
 import PostCard from '../components/PostCard';
 import Profile from '../components/Profile';
-const avatar = require('../assets/avatar.jpg');
+const avatar = require('../images/avatar.jpg');
 import posts from '../data/posts';
 
 const PostsScreen = () => {
