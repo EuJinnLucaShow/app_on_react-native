@@ -22,7 +22,7 @@
     "expo-media-library": "~15.2.3",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
-    "firebase": "^10.0.0",
+    "firebase": "^10.1.0",
     "react": "18.2.0",
     "react-icons": "^4.10.1",
     "react-native": "0.71.8",
