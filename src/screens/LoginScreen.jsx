@@ -14,6 +14,9 @@ import {
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { useDispatch } from 'react-redux';
+
+import { authSignIn } from '../store/auth/authOperations';
 
 const wallpaper = require('../images/wallpaper.png');
 
@@ -25,6 +28,7 @@ export default function LoginScreen() {
   const [isShowKeybord, setIsShowKeybord] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
     if (!email || !password) {
@@ -35,6 +39,7 @@ export default function LoginScreen() {
       Alert.alert('Невірний формат електронної пошти!');
       return;
     }
+    dispatch(authSignIn({ email, password }));
     navigation.navigate('Home', {
       screen: 'PostsScreen',
       params: {

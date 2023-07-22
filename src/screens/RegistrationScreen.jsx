@@ -15,49 +15,55 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { Octicons } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
 
+import { authSignUp } from '../store/auth/authOperations';
 const wallpaper = require('../images/wallpaper.png');
+
+const initialState = {
+  nickname: '',
+  email: '',
+  password: '',
+};
 
 export default function RegistrationScreen() {
   const navigation = useNavigation();
-  const [login, setLogin] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [state, setState] = useState(initialState);
   const [hidePassword, setHidePassword] = useState(true);
   const [isShowKeybord, setIsShowKeybord] = useState(false);
   const [isLoginFocused, setIsLoginFocused] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    if (!login || !email || !password) {
+    if (!state.nickname || !state.email || !state.password) {
       Alert.alert('Поле не може бути пустим!');
       return;
     }
-    if (!validateEmail(email)) {
+    if (!validateEmail(state.email)) {
       Alert.alert('Невірний формат електронної пошти!');
       return;
     }
+    dispatch(authSignUp(state));
     navigation.navigate('Home', { screen: 'PostsScreen' });
     clearForm();
   };
 
   const clearForm = () => {
-    setLogin('');
-    setEmail('');
-    setPassword('');
+    setState(initialState);
   };
 
   const onChangeLogin = text => {
-    setLogin(text.trim());
+    setState(prevState => ({ ...prevState, nickname: text.trim() }));
   };
 
   const onChangeEmail = text => {
-    setEmail(text.trim());
+    setState(prevState => ({ ...prevState, email: text.trim() }));
   };
 
   const onChangePassword = text => {
-    setPassword(text.trim());
+    setState(prevState => ({ ...prevState, password: text.trim() }));
   };
 
   const validateEmail = email => {
@@ -101,7 +107,7 @@ export default function RegistrationScreen() {
                 }}
                 onBlur={() => setIsLoginFocused(false)}
                 onChangeText={onChangeLogin}
-                value={login}
+                value={state.nickname}
                 placeholder="Логін"
               />
               <TextInput
@@ -113,7 +119,7 @@ export default function RegistrationScreen() {
                 }}
                 onBlur={() => setIsEmailFocused(false)}
                 onChangeText={onChangeEmail}
-                value={email}
+                value={state.email}
                 placeholder="Адреса електронної пошти"
                 autoComplete="email"
                 keyboardType="email-address"
@@ -127,7 +133,7 @@ export default function RegistrationScreen() {
                 }}
                 onBlur={() => setIsPasswordFocused(false)}
                 onChangeText={onChangePassword}
-                value={password}
+                value={state.password}
                 placeholder="Пароль"
                 autoComplete="password"
                 secureTextEntry={hidePassword}

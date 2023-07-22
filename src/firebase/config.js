@@ -1,25 +1,18 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import firebase from 'firebase/compat/app'; // for the latest version
+import 'firebase/compat/auth';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyBziQcjDe3O6Tk5tGlS2FZnlZQIn2RgfyI',
-  authDomain: 'indigo-winter-392316.firebaseapp.com',
-  projectId: 'indigo-winter-392316',
-  storageBucket: 'indigo-winter-392316.appspot.com',
-  messagingSenderId: '1032039759463',
-  appId: '1:1032039759463:web:699b8ab97b0745096b5ec2',
-  measurementId: 'G-X1VKB0FMV0',
+  apiKey: 'AIzaSyAXAmS0DHi762JNFmPkhEfVPe8-XLPHmsg',
+  authDomain: 'first-base-19b6a.firebaseapp.com',
+  projectId: 'first-base-19b6a',
+  storageBucket: 'first-base-19b6a.appspot.com',
+  messagingSenderId: '595390660000',
+  appId: '1:595390660000:web:01d9157a5336fc3d67f8c5',
+  measurementId: 'G-XK5EEM05VV',
 };
 
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+firebase.initializeApp(firebaseConfig);
 
-export default firebaseApp;
+export default firebase;
 
-// Compare this snippet from src\firebase\config.js:
+// Path: src\store\auth\authReducer.js
