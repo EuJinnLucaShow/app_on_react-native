@@ -1,12 +1,24 @@
 import db from '../../firebase/config';
+import { authSlice } from './authReducer';
 
 export const authSignUp =
   ({ email, password, nickname }) =>
   async (dispatch, getState) => {
     try {
-      const user = await db
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+      await db.auth().createUserWithEmailAndPassword(email, password);
+      const user = await db.auth().currentUser;
+      await user.updateProfile({
+        displayName: nickname,
+      });
+
+      const { uid, displayName } = await db.auth().currentUser;
+
+      const userUpdateProfile = {
+        userId: uid,
+        nickName: displayName,
+      };
+
+      dispatch(authSlice.actions.updateUserProfile({ userUpdateProfile }));
     } catch (error) {
       console.log('error', error);
     }
