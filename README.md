@@ -26,6 +26,6 @@
 
 8. Додати стилі до компонента `LoginScreen`
 
-<img src="https://github.com/EuJinnLucaShow/app_on_react-native/blob/main/assets/2023-07-23_081240.png" width="50%">
-<img src="https://github.com/EuJinnLucaShow/app_on_react-native/blob/main/assets/2023-07-23_081303.png" width="50%">
-
+<img src="https://github.com/EuJinnLucaShow/app_on_react-native/blob/main/assets/2023-07-23_081240.png" >
+<img src="https://github.com/EuJinnLucaShow/app_on_react-native/blob/main/assets/2023-07-23_081303.png" >
+ 
