@@ -8,9 +8,6 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
-  "overrides": {
-    "react-devtools-core": "~4.25.0"
-  },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.17.11",
     "@react-navigation/bottom-tabs": "^6.5.8",
