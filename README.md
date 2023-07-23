@@ -1,5 +1,3 @@
-⚛️ App on react-native 2.0
-
 # Завдання​
 1. Встановити `expo`
 2. Встановити `Android Studio`
