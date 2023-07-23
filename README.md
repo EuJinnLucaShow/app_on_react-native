@@ -1,4 +1,3 @@
-# app_on_react-native
 ⚛️ App on react-native 2.0
 
 # Завдання​
