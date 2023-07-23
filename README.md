@@ -1,7 +1,7 @@
 # app_on_react-native
 ⚛️ App on react-native 2.0
 
-#Завдання​
+# Завдання​
 1. Встановити `expo`
 2. Встановити `Android Studio`
 3. Встановити `Xcode` (якщо працюєте на Mac)
