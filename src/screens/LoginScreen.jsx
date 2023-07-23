@@ -20,10 +20,14 @@ import { authSignIn } from '../store/auth/authOperations';
 
 const wallpaper = require('../images/wallpaper.png');
 
+const initialState = {
+  email: '',
+  password: '',
+};
+
 export default function LoginScreen() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [state, setState] = useState(initialState);
   const [hidePassword, setHidePassword] = useState(true);
   const [isShowKeybord, setIsShowKeybord] = useState(false);
   const [isEmailFocused, setIsEmailFocused] = useState(false);
@@ -31,35 +35,30 @@ export default function LoginScreen() {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    if (!email || !password) {
+    if (!state.email || !state.password) {
       Alert.alert('Поле не може бути пустим!');
       return;
     }
-    if (!validateEmail(email)) {
+    if (!validateEmail(state.email)) {
       Alert.alert('Невірний формат електронної пошти!');
       return;
     }
-    dispatch(authSignIn({ email, password }));
+    dispatch(authSignIn(state));
     navigation.navigate('Home', {
       screen: 'PostsScreen',
       params: {
         user: 'e-mail@example.com',
       },
     });
-    clearForm();
-  };
-
-  const clearForm = () => {
-    setEmail('');
-    setPassword('');
+    setState(initialState);
   };
 
   const onChangeEmail = text => {
-    setEmail(text.trim());
+    setState(prevState => ({ ...prevState, email: text.trim() }));
   };
 
   const onChangePassword = text => {
-    setPassword(text.trim());
+    setState(prevState => ({ ...prevState, password: text.trim() }));
   };
 
   const validateEmail = email => {
@@ -95,7 +94,7 @@ export default function LoginScreen() {
                 }}
                 onBlur={() => setIsEmailFocused(false)}
                 onChangeText={onChangeEmail}
-                value={email}
+                value={state.email}
                 placeholder="Адреса електронної пошти"
                 autoComplete="email"
                 keyboardType="email-address"
@@ -110,7 +109,7 @@ export default function LoginScreen() {
                 }}
                 onBlur={() => setIsPasswordFocused(false)}
                 onChangeText={onChangePassword}
-                value={password}
+                value={state.password}
                 placeholder="Пароль"
                 autoComplete="password"
                 secureTextEntry={hidePassword}
@@ -140,7 +139,6 @@ export default function LoginScreen() {
                   onPress={() => navigation.navigate('RegistrationScreen')}
                   style={{ color: '#FF6C00', textDecorationLine: 'underline' }}
                 >
-                  {' '}
                   Зареєструватися
                 </Text>
               </Text>

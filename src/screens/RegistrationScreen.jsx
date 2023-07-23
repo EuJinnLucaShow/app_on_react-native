@@ -47,14 +47,10 @@ export default function RegistrationScreen() {
     }
     dispatch(authSignUp(state));
     navigation.navigate('Home', { screen: 'PostsScreen' });
-    clearForm();
-  };
-
-  const clearForm = () => {
     setState(initialState);
   };
 
-  const onChangeLogin = text => {
+   const onChangeLogin = text => {
     setState(prevState => ({ ...prevState, nickname: text.trim() }));
   };
 
