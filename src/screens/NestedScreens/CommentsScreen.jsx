@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
-import Toast from 'react-native-toast-message';
 
 import { db } from '../../firebase/config';
 import {
@@ -36,27 +35,17 @@ export default function CommentsScreen({ route }) {
 
   const sendComment = async () => {
     if (!comment) {
-      Toast.show({
-        type: 'error',
-        text1: 'Введіть коментар',
-      });
       return;
     }
     try {
-      const docRef = await addDoc(collection(db, 'posts', id, 'comments'), {
+      await addDoc(collection(db, 'posts', id, 'comments'), {
         comment,
         owner: { userId, name, avatar },
         createdAt: new Date().getTime(),
-      });
-      console.log('Document written with ID: ', docRef.id);
-      setComment('');
-      Toast.show({
-        type: 'success',
-        text1: 'Збережено',
-      });
-    } catch (e) {
-      console.error('sendComment: ', e);
-      throw e;
+      });      
+      setComment('');    
+    } catch (error) {
+      console.log(error.code);      
     }
   };
 

@@ -11,18 +11,21 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  ImageBackground,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+
 import { register } from '../../redux/auth/authOperations';
 import { storage } from '../../firebase/config';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import Background from '../../components/Background/Background';
 import MainButton from '../../components/Buttons/MainButton';
 import AuthLinkButton from '../../components/Buttons/AuthLinkButton';
+
+const wallpaper = require('../../images/wallpaper.png');
 
 export default function RegisterScreen() {
   const dispatch = useDispatch();
@@ -105,178 +108,189 @@ export default function RegisterScreen() {
       const photo = avatar ? await uploadPhotoToServer() : '';
 
       dispatch(register(name, email, password, photo)).then(data => {
-        if (data === undefined || !data.uid) {         
+        if (data === undefined || !data.uid) {
           return;
         }
         setName('');
         setEmail('');
-        setPassword('');       
+        setPassword('');
       });
       return;
-    }   
+    }
   };
 
   return (
-    <>
-      <Background />
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView
-          style={styles.container}
-          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        >
-          <View style={styles.form}>
-            <View style={styles.avatarWrap}>
-              {openCamera ? (
-                <Camera
-                  style={styles.avatar}
-                  type={type}
-                  ref={setCameraRef}
-                  ratio="1:1"
-                >
-                  <TouchableOpacity
-                    style={{ ...styles.cameraBtn }}
-                    onPress={() => {
-                      setType(
-                        type === Camera.Constants.Type.front
-                          ? Camera.Constants.Type.back
-                          : Camera.Constants.Type.front
-                      );
-                    }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ImageBackground source={wallpaper} style={styles.image}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+            style={{ flex: 1, justifyContent: 'flex-end' }}
+          >
+            <View style={styles.form}>
+              <View style={styles.avatarWrap}>
+                {openCamera ? (
+                  <Camera
+                    style={styles.avatar}
+                    type={type}
+                    ref={setCameraRef}
+                    ratio="1:1"
                   >
-                    <MaterialCommunityIcons
-                      name="camera-flip"
-                      size={22}
-                      color={'#BDBDBD'}
-                    />
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{ ...styles.cameraBtn }}
+                      onPress={() => {
+                        setType(
+                          type === Camera.Constants.Type.front
+                            ? Camera.Constants.Type.back
+                            : Camera.Constants.Type.front
+                        );
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="camera-flip"
+                        size={22}
+                        color={'#BDBDBD'}
+                      />
+                    </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={{ ...styles.cameraBtnPos, ...styles.cameraBtn }}
-                    onPress={makePhoto}
-                  >
-                    <Ionicons name="ios-camera" size={24} color={'#BDBDBD'} />
-                  </TouchableOpacity>
-                </Camera>
-              ) : (
-                <Image
-                  source={{ uri: avatar ? avatar : null }}
-                  style={styles.avatar}
-                  alt="User photo"
-                />
-              )}
-
-              <TouchableOpacity style={styles.btnAdd}>
-                {!avatar ? (
-                  <AntDesign
-                    name="pluscircleo"
-                    size={25}
-                    color={'#FF6C00'}
-                    onPress={() => {
-                      setAvatar(null);
-                      setOpenCamera(true);
-                    }}
-                  />
+                    <TouchableOpacity
+                      style={{ ...styles.cameraBtnPos, ...styles.cameraBtn }}
+                      onPress={makePhoto}
+                    >
+                      <Ionicons name="ios-camera" size={24} color={'#BDBDBD'} />
+                    </TouchableOpacity>
+                  </Camera>
                 ) : (
-                  <AntDesign
-                    name="closecircleo"
-                    size={25}
-                    color={'#FF6C00'}
-                    onPress={() => {
-                      setOpenCamera(true);
-                    }}
+                  <Image
+                    source={{ uri: avatar ? avatar : null }}
+                    style={styles.avatar}
+                    alt="User photo"
                   />
                 )}
-              </TouchableOpacity>
-            </View>
 
-            <Text style={styles.formTitle}>Реєстрація</Text>
-            <TextInput
-              style={[
-                styles.input,
-                {
-                  borderColor: isFocused === 'username' ? '#FF6C00' : '#E8E8E8',
-                },
-              ]}
-              placeholderTextColor={'#BDBDBD'}
-              placeholder="Логін"
-              value={name}
-              textContentType="username"
-              autoCompleteType="off"
-              onBlur={handleBlur}
-              onFocus={() => handleFocus('username')}
-              onChangeText={value => setName(value)}
-            />
+                <TouchableOpacity style={styles.btnAdd}>
+                  {!avatar ? (
+                    <AntDesign
+                      name="pluscircleo"
+                      size={25}
+                      color={'#FF6C00'}
+                      onPress={() => {
+                        setAvatar(null);
+                        setOpenCamera(true);
+                      }}
+                    />
+                  ) : (
+                    <AntDesign
+                      name="closecircleo"
+                      size={25}
+                      color={'#FF6C00'}
+                      onPress={() => {
+                        setOpenCamera(true);
+                      }}
+                    />
+                  )}
+                </TouchableOpacity>
+              </View>
 
-            <TextInput
-              style={[
-                styles.input,
-                {
-                  borderColor:
-                    isFocused === 'emailAddress' ? '#FF6C00' : '#E8E8E8',
-                },
-              ]}
-              placeholderTextColor={'#BDBDBD'}
-              placeholder="Адреса електронної пошти"
-              value={email}
-              textContentType="emailAddress"
-              autoCompleteType="off"
-              onBlur={handleBlur}
-              onFocus={() => handleFocus('emailAddress')}
-              onChangeText={value => setEmail(value)}
-            />
-
-            <View style={(position = 'relative')}>
+              <Text style={styles.formTitle}>Реєстрація</Text>
               <TextInput
                 style={[
                   styles.input,
-                  { marginBottom: 0 },
                   {
                     borderColor:
-                      isFocused === 'password' ? '#FF6C00' : '#E8E8E8',
+                      isFocused === 'username' ? '#FF6C00' : '#E8E8E8',
                   },
                 ]}
                 placeholderTextColor={'#BDBDBD'}
-                placeholder="Пароль"
-                value={password}
-                textContentType="password"
+                placeholder="Логін"
+                value={name}
+                textContentType="username"
                 autoCompleteType="off"
-                secureTextEntry={isShownPsw}
                 onBlur={handleBlur}
-                onFocus={() => handleFocus('password')}
-                onChangeText={value => setPassword(value)}
+                onFocus={() => handleFocus('username')}
+                onChangeText={value => setName(value)}
               />
-              {password && (
-                <TouchableOpacity
-                  style={styles.btnShowPassword}
-                  onPress={() => setIsShownPsw(!isShownPsw)}
-                >
-                  <Text style={styles.btnShowPasswordText}>
-                    {isShownPsw ? 'Показати' : 'Приховати'}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </View>
 
-            <MainButton
-              text="Зареєстуватися"
-              onPress={() => handleRegisterSubmit(name, email, password)}
-            />
-            <AuthLinkButton
-              text="Вже є акаунт?"
-              linkText="Увійти"
-              onPress={() => navigation.navigate('Login')}
-            />
-          </View>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    </>
+              <TextInput
+                style={[
+                  styles.input,
+                  {
+                    borderColor:
+                      isFocused === 'emailAddress' ? '#FF6C00' : '#E8E8E8',
+                  },
+                ]}
+                placeholderTextColor={'#BDBDBD'}
+                placeholder="Адреса електронної пошти"
+                value={email}
+                textContentType="emailAddress"
+                autoCompleteType="off"
+                onBlur={handleBlur}
+                onFocus={() => handleFocus('emailAddress')}
+                onChangeText={value => setEmail(value)}
+              />
+
+              <View style={(position = 'relative')}>
+                <TextInput
+                  style={[
+                    styles.input,
+                    { marginBottom: 0 },
+                    {
+                      borderColor:
+                        isFocused === 'password' ? '#FF6C00' : '#E8E8E8',
+                    },
+                  ]}
+                  placeholderTextColor={'#BDBDBD'}
+                  placeholder="Пароль"
+                  value={password}
+                  textContentType="password"
+                  autoCompleteType="off"
+                  secureTextEntry={isShownPsw}
+                  onBlur={handleBlur}
+                  onFocus={() => handleFocus('password')}
+                  onChangeText={value => setPassword(value)}
+                />
+                {password && (
+                  <TouchableOpacity
+                    style={styles.btnShowPassword}
+                    onPress={() => setIsShownPsw(!isShownPsw)}
+                  >
+                    <Text style={styles.btnShowPasswordText}>
+                      {isShownPsw ? 'Показати' : 'Приховати'}
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              <MainButton
+                text="Зареєстуватися"
+                onPress={() => handleRegisterSubmit(name, email, password)}
+              />
+              <AuthLinkButton
+                text="Вже є акаунт?"
+                linkText="Увійти"
+                onPress={() => navigation.navigate('Login')}
+              />
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'flex-end',
+    width: '100%',
+    height: '100%',
   },
   avatarWrap: {
     position: 'absolute',

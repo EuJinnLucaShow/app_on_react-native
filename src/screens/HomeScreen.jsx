@@ -1,12 +1,13 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
-import { Feather } from "@expo/vector-icons";
-import { logout } from "../redux/auth/authOperations";
-import PostsScreen from "././Tabs/PostsScreen";
-import CreatePostsScreen from "././Tabs/CreatePostsScreen";
-import ProfileScreen from "././Tabs/ProfileScreen";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { Feather } from '@expo/vector-icons';
+
+import { logout } from '../redux/auth/authOperations';
+import PostsScreen from '././Tabs/PostsScreen';
+import CreatePostsScreen from '././Tabs/CreatePostsScreen';
+import ProfileScreen from '././Tabs/ProfileScreen';
 
 const Tabs = createBottomTabNavigator();
 
@@ -19,33 +20,33 @@ export default function HomeScreen() {
       initialRouteName="PostsScreen"
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
-        headerTitleAlign: "center",
+        headerTitleAlign: 'center',
         headerStyle: styles.header,
         headerTitleStyle: styles.title,
         tabBarStyle: styles.tab,
 
         tabBarIcon: ({ focused }) => {
           let iconName;
-          if (route.name === "PostsScreen") {
-            iconName = "grid";
+          if (route.name === 'PostsScreen') {
+            iconName = 'grid';
           }
-          if (route.name === "CreatePostsScreen") {
-            iconName = "plus";
+          if (route.name === 'CreatePostsScreen') {
+            iconName = 'plus';
           }
-          if (route.name === "ProfileScreen") {
-            iconName = "user";
+          if (route.name === 'ProfileScreen') {
+            iconName = 'user';
           }
           return (
             <View
               style={{
                 ...styles.iconsTab,
-                backgroundColor: focused ? "#FF6C00" : "#FFFFFF",
+                backgroundColor: focused ? '#FF6C00' : '#FFFFFF',
               }}
             >
               <Feather
                 name={iconName}
                 size={24}
-                color={focused ? "#FFFFFF" : "#212121"}
+                color={focused ? '#FFFFFF' : '#212121'}
               />
             </View>
           );
@@ -56,12 +57,12 @@ export default function HomeScreen() {
         name="PostsScreen"
         component={PostsScreen}
         options={{
-          title: "Публікації",
+          title: 'Публікації',
           headerRight: () => (
             <Feather
               name="log-out"
               size={24}
-              color={"#BDBDBD"}
+              color={'#BDBDBD'}
               style={{ marginRight: 10 }}
               onPress={() => dispatch(logout())}
             />
@@ -72,17 +73,14 @@ export default function HomeScreen() {
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
-          title: "Створити публікацію",
-          tabBarStyle: {
-            display: "none",
-          },
+          title: 'Створити публікацію',
           headerLeft: () => (
             <Feather
               name="arrow-left"
               size={24}
-              color={"#212121CC"}
+              color={'#212121CC'}
               style={{ marginLeft: 10 }}
-              onPress={() => navigation.navigate("PostsScreen")}
+              onPress={() => navigation.navigate('PostsScreen')}
             />
           ),
         }}
@@ -106,17 +104,17 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     fontSize: 17,
     letterSpacing: -0.4,
-    textAlign: "center",
-    color: "#212121",
+    textAlign: 'center',
+    color: '#212121',
   },
   tab: {
     paddingHorizontal: 50,
     height: 71,
   },
   iconsTab: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: 39,
     borderRadius: 22,
     width: 70,

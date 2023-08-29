@@ -22,7 +22,7 @@ import {
   getUserName,
 } from '../../redux/auth/authSelectors';
 import { logout, updateUserAvatar } from '../../redux/auth/authOperations';
-import Background from '../../components/Background/Background';
+
 import PostProfileItem from '../../components/Posts/PostProfileItem';
 import MainButton from '../../components/Buttons/MainButton';
 
@@ -95,77 +95,72 @@ export default function ProfileScreen() {
   };
 
   return (
-    <>
-      <Background />
-      <ScrollView>
-        <View style={styles.container}>
-          <Feather
-            name="log-out"
-            size={24}
-            color={'#BDBDBD'}
-            style={{ position: 'absolute', top: 22, right: 16 }}
-            onPress={() => dispatch(logout())}
+    <ScrollView>
+      <View style={styles.container}>
+        <Feather
+          name="log-out"
+          size={24}
+          color={'#BDBDBD'}
+          style={{ position: 'absolute', top: 22, right: 16 }}
+          onPress={() => dispatch(logout())}
+        />
+        <View style={styles.avatarWrap}>
+          <Image
+            source={{ uri: newAvatar ? newAvatar : avatar }}
+            style={styles.avatar}
+            alt="User photo"
           />
-          <View style={styles.avatarWrap}>
-            <Image
-              source={{ uri: newAvatar ? newAvatar : avatar }}
-              style={styles.avatar}
-              alt="User photo"
-            />
-            {changeAvatar && (
-              <TouchableOpacity
-                style={{ ...styles.cameraBtnPos, ...styles.cameraBtn }}
-                onPress={uploadAvatarToServer}
-              >
-                <Ionicons name="checkmark-circle" size={24} color={'#FF6C00'} />
-              </TouchableOpacity>
-            )}
-            <TouchableOpacity style={styles.btnAdd}>
-              {!newAvatar ? (
-                <AntDesign
-                  name="pluscircleo"
-                  size={25}
-                  color={'#FF6C00'}
-                  onPress={pickImage}
-                />
-              ) : (
-                <AntDesign
-                  name="closecircleo"
-                  size={25}
-                  color={'#BDBDBD'}
-                  onPress={pickImage}
-                />
-              )}
+          {changeAvatar && (
+            <TouchableOpacity
+              style={{ ...styles.cameraBtnPos, ...styles.cameraBtn }}
+              onPress={uploadAvatarToServer}
+            >
+              <Ionicons name="checkmark-circle" size={24} color={'#FF6C00'} />
             </TouchableOpacity>
-          </View>
-
-          <Text style={styles.title}>{name}</Text>
-
-          {userPosts.length !== 0 ? (
-            userPosts.map(
-              ({ id, title, photoLocation, photo, geoLocation }) => (
-                <PostProfileItem
-                  key={id}
-                  id={id}
-                  title={title}
-                  photoLocation={photoLocation}
-                  url={photo}
-                  geoLocation={geoLocation}
-                />
-              )
-            )
-          ) : (
-            <View style={{ flex: 1, marginTop: 30, paddingHorizontal: 16 }}>
-              <Text style={styles.text}>Ще немає публікацій</Text>
-              <MainButton
-                text="Створити публікацію"
-                onPress={() => navigation.navigate('CreatePostsScreen')}
-              />
-            </View>
           )}
+          <TouchableOpacity style={styles.btnAdd}>
+            {!newAvatar ? (
+              <AntDesign
+                name="pluscircleo"
+                size={25}
+                color={'#FF6C00'}
+                onPress={pickImage}
+              />
+            ) : (
+              <AntDesign
+                name="closecircleo"
+                size={25}
+                color={'#BDBDBD'}
+                onPress={pickImage}
+              />
+            )}
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-    </>
+
+        <Text style={styles.title}>{name}</Text>
+
+        {userPosts.length !== 0 ? (
+          userPosts.map(({ id, title, photoLocation, photo, geoLocation }) => (
+            <PostProfileItem
+              key={id}
+              id={id}
+              title={title}
+              photoLocation={photoLocation}
+              url={photo}
+              geoLocation={geoLocation}
+            />
+          ))
+        ) : (
+          <View style={{ flex: 1, marginTop: 30, paddingHorizontal: 16 }}>
+            <Text style={styles.text}>Ще немає публікацій</Text>
+            <MainButton
+              text="Створити публікацію"
+              onPress={() => navigation.navigate('CreatePostsScreen')}
+            />
+          </View>
+        )}
+      </View>
+    </ScrollView>
   );
 }
 
