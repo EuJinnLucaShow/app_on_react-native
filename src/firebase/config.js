@@ -1,18 +1,20 @@
-import firebase from 'firebase/compat/app'; // for the latest version
-import 'firebase/compat/auth';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAXAmS0DHi762JNFmPkhEfVPe8-XLPHmsg',
-  authDomain: 'first-base-19b6a.firebaseapp.com',
-  projectId: 'first-base-19b6a',
-  storageBucket: 'first-base-19b6a.appspot.com',
-  messagingSenderId: '595390660000',
-  appId: '1:595390660000:web:01d9157a5336fc3d67f8c5',
-  measurementId: 'G-XK5EEM05VV',
+  apiKey: 'AIzaSyCyqfnYEtXjcCAXSNJnXurSwMvMaUlZZ7M',
+  authDomain: 'newapp-3e5a6.firebaseapp.com',
+  projectId: 'newapp-3e5a6',
+  databaseURL:
+    'https://newapp-3e5a6-default-rtdb.europe-west1.firebasedatabase.app/',
+  storageBucket: 'newapp-3e5a6.appspot.com',
+  messagingSenderId: '1082610434955',
+  appId: '1:1082610434955:web:256803caf708a268a2258e',
 };
 
-firebase.initializeApp(firebaseConfig);
-
-export default firebase;
-
-// Path: src\store\auth\authReducer.js
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
