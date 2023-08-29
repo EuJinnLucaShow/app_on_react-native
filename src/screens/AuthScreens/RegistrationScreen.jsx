@@ -127,7 +127,9 @@ export default function RegisterScreen() {
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             style={{ flex: 1, justifyContent: 'flex-end' }}
           >
-            <View style={styles.form}>
+            <View
+              style={{ ...styles.form, height: keyboardStatus ? 680 : 550 }}
+            >
               <View style={styles.avatarWrap}>
                 {openCamera ? (
                   <Camera
