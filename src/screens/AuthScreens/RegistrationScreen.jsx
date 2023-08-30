@@ -141,7 +141,7 @@ export default function RegisterScreen() {
                     ratio="1:1"
                   >
                     <TouchableOpacity
-                      style={{ ...styles.cameraBtn }}
+                      style={styles.cameraRevers}
                       onPress={() => {
                         setType(
                           type === Camera.Constants.Type.front
@@ -152,13 +152,13 @@ export default function RegisterScreen() {
                     >
                       <MaterialCommunityIcons
                         name="camera-flip"
-                        size={22}
+                        size={24}
                         color={'#BDBDBD'}
                       />
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                      style={{ ...styles.cameraBtnPos, ...styles.cameraBtn }}
+                      style={styles.cameraBtnPos}
                       onPress={makePhoto}
                     >
                       <Ionicons name="ios-camera" size={24} color={'#BDBDBD'} />
@@ -189,7 +189,8 @@ export default function RegisterScreen() {
                       size={25}
                       color={'#E8E8E8'}
                       onPress={() => {
-                        setOpenCamera(true);
+                        setAvatar(null);
+                        setOpenCamera(false);
                       }}
                     />
                   )}
@@ -312,17 +313,13 @@ const styles = StyleSheet.create({
   },
   cameraBtnPos: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
+    bottom: 5,
+    left: 5,
   },
-  cameraBtn: {
-    width: 35,
-    height: 35,
-    backgroundColor: '#FFFFFF',
-    opacity: 0.8,
-    borderRadius: 35,
-    justifyContent: 'center',
-    alignItems: 'center',
+  cameraRevers: {
+    position: 'absolute',
+    top: 5,
+    right: 5,
   },
   btnAdd: {
     position: 'absolute',

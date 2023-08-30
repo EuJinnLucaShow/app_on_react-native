@@ -17,7 +17,12 @@ export const register = (name, email, password, photo) => async dispatch => {
       photoURL: photo,
     });
 
-    const { uid, displayName, emailBase, photoURL } = await auth.currentUser;
+    const {
+      uid,
+      displayName,
+      email: emailBase,
+      photoURL,
+    } = await auth.currentUser;
 
     const userUpdateData = {
       userId: uid,
@@ -76,7 +81,12 @@ export const updateUserAvatar = dbAvatar => async dispatch => {
       photoURL: dbAvatar,
     });
 
-    const { uid, displayName, emailBase, photoURL } = await auth.currentUser;
+    const {
+      uid,
+      displayName,
+      email: emailBase,
+      photoURL,
+    } = await auth.currentUser;
 
     const userUpdateData = {
       userId: uid,
