@@ -10,7 +10,6 @@ import {
   Platform,
   TextInput,
   ImageBackground,
-  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';

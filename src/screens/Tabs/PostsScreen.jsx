@@ -4,7 +4,7 @@ import {
   Text,
   View,
   Image,
-  ScrollView,
+  FlatList,
   Dimensions,
 } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -28,47 +28,48 @@ export default function PostsScreen() {
     const dbRef = collection(db, 'posts');
     onSnapshot(dbRef, data => {
       const dbPosts = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      const sortedDbPosts = dbPosts.sort((a, b) => a.createdAt - b.createdAt);
+      const sortedDbPosts = dbPosts.sort((a, b) => b.createdAt - a.createdAt);
       setServerPosts(sortedDbPosts);
     });
   }, []);
 
+  const renderItem = ({ item }) => (
+    <PostItem
+      key={item.id}
+      id={item.id}
+      title={item.title}
+      photoLocation={item.photoLocation}
+      url={item.photo}
+      geoLocation={item.geoLocation}
+    />
+  );
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.userInfo}>
-          <Image
-            style={styles.avatar}
-            source={{ uri: avatar }}
-            alt="User photo"
-          />
-          <View style={styles.userData}>
-            <Text style={styles.userName}>{name}</Text>
-            <Text style={styles.userEmail}>{email}</Text>
-          </View>
+    <View style={styles.container}>
+      <View style={styles.userInfo}>
+        <Image
+          style={styles.avatar}
+          source={{ uri: avatar }}
+          alt="User photo"
+        />
+        <View style={styles.userData}>
+          <Text style={styles.userName}>{name}</Text>
+          <Text style={styles.userEmail}>{email}</Text>
         </View>
-        {serverPosts.length !== 0 &&
-          serverPosts.map(
-            ({ id, title, photoLocation, photo, geoLocation }) => (
-              <PostItem
-                key={id}
-                id={id}
-                title={title}
-                photoLocation={photoLocation}
-                url={photo}
-                geoLocation={geoLocation}
-              />
-            )
-          )}
       </View>
-    </ScrollView>
+      <FlatList
+        data={serverPosts}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.contentContainer}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
     paddingHorizontal: 16,
     paddingTop: 32,
     paddingBottom: 45,
@@ -80,7 +81,6 @@ const styles = StyleSheet.create({
     minHeight: Dimensions.get('window').height - 150,
   },
   userInfo: {
-    display: 'flex',
     flexDirection: 'row',
     gap: 8,
   },
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   userData: {
-    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
   },
@@ -105,9 +104,7 @@ const styles = StyleSheet.create({
     color: '#212121',
     fontSize: 11,
   },
-  postPhoto: {
-    width: '100%',
-    height: 240,
-    borderRadius: 8,
+  contentContainer: {
+    paddingTop: 8,
   },
 });

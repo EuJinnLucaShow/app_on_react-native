@@ -4,19 +4,20 @@ import {
   View,
   ImageBackground,
   TouchableOpacity,
-} from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { useState, useEffect } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebase/config";
-import { useSelector } from "react-redux";
-import { deleteLike, sendLike } from "../../redux/posts/postOperations";
+} from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { useState, useEffect } from 'react';
+import { collection, onSnapshot } from 'firebase/firestore';
+
+import { db } from '../../firebase/config';
+import { useSelector } from 'react-redux';
+import { deleteLike, sendLike } from '../../redux/posts/postOperations';
 import {
   getUserAvatar,
   getUserId,
   getUserName,
-} from "../../redux/auth/authSelectors";
+} from '../../redux/auth/authSelectors';
 
 export default function PostItem({
   id,
@@ -34,9 +35,9 @@ export default function PostItem({
   const [userPutLike, setUserPutLike] = useState(false);
 
   useEffect(() => {
-    const commentsRef = collection(db, "posts", id, "comments");
-    onSnapshot(commentsRef, (data) => {
-      const dbComments = data.docs.map((doc) => ({
+    const commentsRef = collection(db, 'posts', id, 'comments');
+    onSnapshot(commentsRef, data => {
+      const dbComments = data.docs.map(doc => ({
         commentId: doc.id,
         ...doc.data(),
       }));
@@ -45,13 +46,13 @@ export default function PostItem({
   }, []);
 
   useEffect(() => {
-    const likesRef = collection(db, "posts", id, "likes");
-    onSnapshot(likesRef, (data) => {
-      const dbLikes = data.docs.map((doc) => ({
+    const likesRef = collection(db, 'posts', id, 'likes');
+    onSnapshot(likesRef, data => {
+      const dbLikes = data.docs.map(doc => ({
         likeId: doc.id,
         ...doc.data(),
       }));
-      const didUserPutLike = dbLikes.some((dbLike) => dbLike.likeId === userId);
+      const didUserPutLike = dbLikes.some(dbLike => dbLike.likeId === userId);
       setUserPutLike(didUserPutLike);
       setAllLikes(dbLikes);
     });
@@ -78,7 +79,7 @@ export default function PostItem({
       <View style={styles.postDetails}>
         <TouchableOpacity
           style={styles.postComments}
-          onPress={() => navigation.navigate("Comments", { url, id })}
+          onPress={() => navigation.navigate('Comments', { url, id })}
         >
           <Feather name="message-circle" size={24} style={styles.postIcon} />
           <Text style={styles.commentText}>{allComments.length}</Text>
@@ -87,7 +88,7 @@ export default function PostItem({
           <Feather
             name="thumbs-up"
             size={24}
-            color={!userPutLike ? "#BDBDBD" : "#FF6C00"}
+            color={!userPutLike ? '#BDBDBD' : '#FF6C00'}
             onPress={handleLikes}
           />
           <Text style={styles.commentText}>{allLikes.length}</Text>
@@ -95,7 +96,7 @@ export default function PostItem({
         <TouchableOpacity
           style={styles.postLocation}
           onPress={() =>
-            navigation.navigate("Map", { geoLocation, photoLocation })
+            navigation.navigate('Map', { geoLocation, photoLocation })
           }
         >
           <Feather name="map-pin" size={24} style={styles.postIcon} />
@@ -111,51 +112,51 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   postPhotoWrap: {
-    width: "100%",
+    width: '100%',
     height: 240,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     borderRadius: 8,
   },
   postPhoto: {
-    width: "100%",
+    width: '100%',
     height: 240,
     borderRadius: 8,
   },
   postTitle: {
     marginTop: 8,
-    fontFamily: "Roboto-Medium",
-    color: "#212121",
+    fontFamily: 'Roboto-Medium',
+    color: '#212121',
     fontSize: 16,
   },
   postDetails: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     marginTop: 8,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   postComments: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     gap: 6,
   },
   postLocation: {
-    marginLeft: "auto",
-    display: "flex",
-    flexDirection: "row",
+    marginLeft: 'auto',
+    display: 'flex',
+    flexDirection: 'row',
     gap: 4,
   },
   commentText: {
-    fontFamily: "Roboto-Regular",
-    color: "#BDBDBD",
+    fontFamily: 'Roboto-Regular',
+    color: '#BDBDBD',
     fontSize: 16,
   },
   locationText: {
-    fontFamily: "Roboto-Regular",
-    color: "#212121",
+    fontFamily: 'Roboto-Regular',
+    color: '#212121',
     fontSize: 16,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
   postIcon: {
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
 });
