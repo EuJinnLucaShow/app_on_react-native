@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet } from "react-native";
+
 import LoginScreen from "../screens/AuthScreens/LoginScreen";
 import RegisterScreen from "../screens/AuthScreens/RegistrationScreen";
 import HomeScreen from "../screens/HomeScreen";

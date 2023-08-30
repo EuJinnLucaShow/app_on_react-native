@@ -4,23 +4,24 @@ import {
   View,
   ImageBackground,
   TouchableOpacity,
-} from "react-native";
-import { Feather, FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebase/config";
+} from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { collection, onSnapshot } from 'firebase/firestore';
+
+import { db } from '../../firebase/config';
 import {
   deleteLike,
   deletePost,
   sendLike,
-} from "../../redux/posts/postOperations";
+} from '../../redux/posts/postOperations';
 import {
   getUserAvatar,
   getUserId,
   getUserName,
-} from "../../redux/auth/authSelectors";
+} from '../../redux/auth/authSelectors';
 
 export default function PostProfileItem({
   id,
@@ -41,9 +42,9 @@ export default function PostProfileItem({
   const [userPutLike, setUserPutLike] = useState(false);
 
   useEffect(() => {
-    const commentsRef = collection(db, "posts", id, "comments");
-    onSnapshot(commentsRef, (data) => {
-      const dbComments = data.docs.map((doc) => ({
+    const commentsRef = collection(db, 'posts', id, 'comments');
+    onSnapshot(commentsRef, data => {
+      const dbComments = data.docs.map(doc => ({
         commentId: doc.id,
         ...doc.data(),
       }));
@@ -52,13 +53,13 @@ export default function PostProfileItem({
   }, []);
 
   useEffect(() => {
-    const likesRef = collection(db, "posts", id, "likes");
-    onSnapshot(likesRef, (data) => {
-      const dbLikes = data.docs.map((doc) => ({
+    const likesRef = collection(db, 'posts', id, 'likes');
+    onSnapshot(likesRef, data => {
+      const dbLikes = data.docs.map(doc => ({
         likeId: doc.id,
         ...doc.data(),
       }));
-      const didUserPutLike = dbLikes.some((dbLike) => dbLike.likeId === userId);
+      const didUserPutLike = dbLikes.some(dbLike => dbLike.likeId === userId);
       setUserPutLike(didUserPutLike);
       setAllLikes(dbLikes);
     });
@@ -84,7 +85,7 @@ export default function PostProfileItem({
             style={styles.trashBtn}
             onPress={() => dispatch(deletePost(id))}
           >
-            <Feather name="trash-2" size={20} color={"#FF6C00"} />
+            <Feather name="trash-2" size={20} color={'#FF6C00'} />
           </TouchableOpacity>
         </ImageBackground>
       </View>
@@ -92,12 +93,12 @@ export default function PostProfileItem({
       <View style={styles.postDetails}>
         <TouchableOpacity
           style={styles.postData}
-          onPress={() => navigation.navigate("Comments", { url, id })}
+          onPress={() => navigation.navigate('Comments', { url, id })}
         >
-          <FontAwesome
-            name={allComments.length === 0 ? "comment-o" : "comment"}
+          <Feather
+            name={'message-circle'}
             size={24}
-            color={allComments.length === 0 ? "#BDBDBD" : "#FF6C00"}
+            color={allComments.length === 0 ? '#BDBDBD' : '#FF6C00'}
           />
           <Text style={styles.commentText}>{allComments.length}</Text>
         </TouchableOpacity>
@@ -105,17 +106,17 @@ export default function PostProfileItem({
           <Feather
             name="thumbs-up"
             size={24}
-            color={!userPutLike ? "#BDBDBD" : "#FF6C00"}
+            color={!userPutLike ? '#BDBDBD' : '#FF6C00'}
             onPress={handleLikes}
           />
           <Text style={styles.commentText}>{allLikes.length}</Text>
         </View>
         <View style={styles.postLocation}>
-          <Feather name="map-pin" size={24} color={"#BDBDBD"} />
+          <Feather name="map-pin" size={24} color={'#BDBDBD'} />
           <Text
             style={styles.locationText}
             onPress={() =>
-              navigation.navigate("Map", { geoLocation, photoLocation })
+              navigation.navigate('Map', { geoLocation, photoLocation })
             }
           >
             {photoLocation}
@@ -131,58 +132,58 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   postPhotoWrap: {
-    width: "100%",
+    width: '100%',
     height: 240,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     borderRadius: 8,
   },
   postPhoto: {
-    width: "100%",
+    width: '100%',
     height: 240,
     borderRadius: 8,
   },
   trashBtn: {
     width: 40,
     height: 40,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
     borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
     top: 10,
     right: 10,
   },
   postTitle: {
     marginTop: 8,
-    fontFamily: "Roboto-Medium",
-    color: "#212121",
+    fontFamily: 'Roboto-Medium',
+    color: '#212121',
     fontSize: 16,
   },
   postDetails: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     marginTop: 8,
   },
   postData: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     gap: 6,
   },
   postLocation: {
-    marginLeft: "auto",
-    display: "flex",
-    flexDirection: "row",
+    marginLeft: 'auto',
+    display: 'flex',
+    flexDirection: 'row',
     gap: 4,
   },
   commentText: {
-    fontFamily: "Roboto-Regular",
-    color: "#BDBDBD",
+    fontFamily: 'Roboto-Regular',
+    color: '#BDBDBD',
     fontSize: 16,
   },
   locationText: {
-    fontFamily: "Roboto-Regular",
-    color: "#212121",
+    fontFamily: 'Roboto-Regular',
+    color: '#212121',
     fontSize: 16,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
 });

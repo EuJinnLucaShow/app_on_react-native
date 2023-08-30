@@ -9,11 +9,14 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  ImageBackground,
 } from 'react-native';
 import { Feather, AntDesign, Ionicons } from '@expo/vector-icons';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
+
+import wallpaper from '../../images/wallpaper.png';
 
 import { db, storage } from '../../firebase/config';
 import {
@@ -95,73 +98,75 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Feather
-        name="log-out"
-        size={24}
-        color={'#BDBDBD'}
-        style={{ position: 'absolute', top: 22, right: 16 }}
-        onPress={() => dispatch(logout())}
-      />
-      <View style={styles.avatarWrap}>
-        <Image
-          source={{ uri: newAvatar ? newAvatar : avatar }}
-          style={styles.avatar}
-          alt="User photo"
+    <ImageBackground source={wallpaper} style={styles.backgroundImage}>
+      <View style={styles.container}>
+        <Feather
+          name="log-out"
+          size={24}
+          color={'#BDBDBD'}
+          style={{ position: 'absolute', top: 22, right: 16 }}
+          onPress={() => dispatch(logout())}
         />
-        {changeAvatar && (
-          <TouchableOpacity
-            style={{ ...styles.cameraBtnPos, ...styles.cameraBtn }}
-            onPress={uploadAvatarToServer}
-          >
-            <Ionicons name="checkmark-circle" size={24} color={'#FF6C00'} />
-          </TouchableOpacity>
-        )}
-        <TouchableOpacity style={styles.btnAdd}>
-          {!newAvatar ? (
-            <AntDesign
-              name="pluscircleo"
-              size={25}
-              color={'#FF6C00'}
-              onPress={pickImage}
-            />
-          ) : (
-            <AntDesign
-              name="closecircleo"
-              size={25}
-              color={'#BDBDBD'}
-              onPress={pickImage}
-            />
-          )}
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.title}>{name}</Text>
-
-      {userPosts.length !== 0 ? (
-        <FlatList
-          data={userPosts}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <PostProfileItem
-              id={item.id}
-              title={item.title}
-              photoLocation={item.photoLocation}
-              url={item.photo}
-              geoLocation={item.geoLocation}
-            />
-          )}
-        />
-      ) : (
-        <View style={{ flex: 1, marginTop: 30, paddingHorizontal: 16 }}>
-          <Text style={styles.text}>Ще немає публікацій</Text>
-          <MainButton
-            text="Створити публікацію"
-            onPress={() => navigation.navigate('CreatePostsScreen')}
+        <View style={styles.avatarWrap}>
+          <Image
+            source={{ uri: newAvatar ? newAvatar : avatar }}
+            style={styles.avatar}
+            alt="User photo"
           />
+          {changeAvatar && (
+            <TouchableOpacity
+              style={{ ...styles.cameraBtnPos, ...styles.cameraBtn }}
+              onPress={uploadAvatarToServer}
+            >
+              <Ionicons name="checkmark-circle" size={24} color={'#FF6C00'} />
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity style={styles.btnAdd}>
+            {!newAvatar ? (
+              <AntDesign
+                name="pluscircleo"
+                size={25}
+                color={'#FF6C00'}
+                onPress={pickImage}
+              />
+            ) : (
+              <AntDesign
+                name="closecircleo"
+                size={25}
+                color={'#BDBDBD'}
+                onPress={pickImage}
+              />
+            )}
+          </TouchableOpacity>
         </View>
-      )}
-    </View>
+
+        <Text style={styles.title}>{name}</Text>
+
+        {userPosts.length !== 0 ? (
+          <FlatList
+            data={userPosts}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+              <PostProfileItem
+                id={item.id}
+                title={item.title}
+                photoLocation={item.photoLocation}
+                url={item.photo}
+                geoLocation={item.geoLocation}
+              />
+            )}
+          />
+        ) : (
+          <View style={{ flex: 1, marginTop: 30, paddingHorizontal: 16 }}>
+            <Text style={styles.text}>Ще немає публікацій</Text>
+            <MainButton
+              text="Створити публікацію"
+              onPress={() => navigation.navigate('CreatePostsScreen')}
+            />
+          </View>
+        )}
+      </View>
+    </ImageBackground>
   );
 }
 

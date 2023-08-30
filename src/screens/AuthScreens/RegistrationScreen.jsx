@@ -13,9 +13,11 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  Ionicons,
+} from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -185,7 +187,7 @@ export default function RegisterScreen() {
                     <AntDesign
                       name="closecircleo"
                       size={25}
-                      color={'#FF6C00'}
+                      color={'#E8E8E8'}
                       onPress={() => {
                         setOpenCamera(true);
                       }}
@@ -262,7 +264,6 @@ export default function RegisterScreen() {
                   </TouchableOpacity>
                 )}
               </View>
-
               <MainButton
                 text="Зареєстуватися"
                 onPress={() => handleRegisterSubmit(name, email, password)}
