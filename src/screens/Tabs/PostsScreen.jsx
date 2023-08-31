@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   userInfo: {
     flexDirection: 'row',
     gap: 8,
+    paddingBottom: 15,
   },
   avatar: {
     width: 60,
@@ -105,6 +106,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   contentContainer: {
-    paddingTop: 8,
+    // paddingTop: 8,
   },
 });
