@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     paddingTop: 92,
-    paddingBottom: 45,
+    // paddingBottom: 45,
     paddingHorizontal: 16,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
     color: '#212121',
     fontSize: 30,
     textAlign: 'center',
+    // paddingBottom: 15,
   },
   text: {
     fontFamily: 'Roboto-Regular',
