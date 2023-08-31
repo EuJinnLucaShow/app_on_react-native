@@ -46,7 +46,7 @@ export default function HomeScreen() {
               <Feather
                 name={iconName}
                 size={24}
-                color={focused ? '#FFFFFF' : '#212121'}
+                color={focused ? '#FFFFFF' : 'gray'}
               />
             </View>
           );
@@ -101,11 +101,11 @@ const styles = StyleSheet.create({
     height: 88,
   },
   title: {
-    fontWeight: 500,
-    fontSize: 17,
-    letterSpacing: -0.4,
-    textAlign: 'center',
-    color: '#212121',
+    // fontWeight: 500,
+    // fontSize: 17,
+    // letterSpacing: -0.4,
+    // textAlign: 'center',
+    // color: '#212121',
   },
   tab: {
     paddingHorizontal: 50,

@@ -85,7 +85,7 @@ export default function PostProfileItem({
             style={styles.trashBtn}
             onPress={() => dispatch(deletePost(id))}
           >
-            <Feather name="trash-2" size={20} color={'#FF6C00'} />
+            <Feather name="trash-2" size={20} color={'#9e9d9d'} />
           </TouchableOpacity>
         </ImageBackground>
       </View>
@@ -143,12 +143,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   trashBtn: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 30,
+    height: 30,
+    width: 30,
+    borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#FFF',
     position: 'absolute',
     top: 10,
     right: 10,
