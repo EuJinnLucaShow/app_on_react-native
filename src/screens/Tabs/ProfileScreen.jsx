@@ -27,7 +27,7 @@ import {
 import { logout, updateUserAvatar } from '../../redux/auth/authOperations';
 
 import PostProfileItem from '../../components/Posts/PostProfileItem';
-import MainButton from '../../components/Buttons/MainButton';
+import Btn from '../../components/Buttons/Btn';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
@@ -159,7 +159,7 @@ export default function ProfileScreen() {
         ) : (
           <View style={{ flex: 1, marginTop: 30, paddingHorizontal: 16 }}>
             <Text style={styles.text}>Ще немає публікацій</Text>
-            <MainButton
+            <Btn
               text="Створити публікацію"
               onPress={() => navigation.navigate('CreatePostsScreen')}
             />

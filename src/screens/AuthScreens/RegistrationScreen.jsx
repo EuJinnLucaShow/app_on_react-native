@@ -24,8 +24,8 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import { register } from '../../redux/auth/authOperations';
 import { storage } from '../../firebase/config';
-import MainButton from '../../components/Buttons/MainButton';
-import AuthLinkButton from '../../components/Buttons/AuthLinkButton';
+import Btn from '../../components/Buttons/Btn';
+import AuthTextLink from '../../components/Buttons/AuthTextLink';
 
 const wallpaper = require('../../images/wallpaper.png');
 
@@ -37,7 +37,7 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [avatar, setAvatar] = useState('');
-  const [isShownPsw, setIsShownPsw] = useState(true);
+  const [showPassword, setShowPassword] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
 
@@ -249,7 +249,7 @@ export default function RegisterScreen() {
                   value={password}
                   textContentType="password"
                   autoCompleteType="off"
-                  secureTextEntry={isShownPsw}
+                  secureTextEntry={showPassword}
                   onBlur={handleBlur}
                   onFocus={() => handleFocus('password')}
                   onChangeText={value => setPassword(value)}
@@ -257,19 +257,19 @@ export default function RegisterScreen() {
                 {password && (
                   <TouchableOpacity
                     style={styles.btnShowPassword}
-                    onPress={() => setIsShownPsw(!isShownPsw)}
+                    onPress={() => setShowPassword(!showPassword)}
                   >
                     <Text style={styles.btnShowPasswordText}>
-                      {isShownPsw ? 'Показати' : 'Приховати'}
+                      {showPassword ? 'Показати' : 'Приховати'}
                     </Text>
                   </TouchableOpacity>
                 )}
               </View>
-              <MainButton
+              <Btn
                 text="Зареєстуватися"
                 onPress={() => handleRegisterSubmit(name, email, password)}
               />
-              <AuthLinkButton
+              <AuthTextLink
                 text="Вже є акаунт?"
                 linkText="Увійти"
                 onPress={() => navigation.navigate('Login')}

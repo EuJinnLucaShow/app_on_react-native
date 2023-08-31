@@ -15,8 +15,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/authOperations';
 import { authStateChange } from '../../redux/auth/authSlice';
-import MainButton from '../../components/Buttons/MainButton';
-import AuthLinkButton from '../../components/Buttons/AuthLinkButton';
+import Btn from '../../components/Buttons/Btn';
+import AuthTextLink from '../../components/Buttons/AuthTextLink';
 
 const wallpaper = require('../../images/wallpaper.png');
 
@@ -26,7 +26,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [isShownPsw, setIsShownPsw] = useState(true);
+  const [showPassword, setshowPassword] = useState(true);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const navigation = useNavigation();
 
@@ -110,7 +110,7 @@ export default function LoginScreen() {
                   value={password}
                   textContentType="password"
                   autoCompleteType="off"
-                  secureTextEntry={isShownPsw}
+                  secureTextEntry={showPassword}
                   onBlur={handleBlur}
                   onFocus={() => handleFocus('password')}
                   onChangeText={setPassword}
@@ -118,19 +118,19 @@ export default function LoginScreen() {
                 {password && (
                   <TouchableOpacity
                     style={styles.btnShowPassword}
-                    onPress={() => setIsShownPsw(!isShownPsw)}
+                    onPress={() => setshowPassword(!showPassword)}
                   >
                     <Text style={styles.btnShowPasswordText}>
-                      {isShownPsw ? 'Показати' : 'Приховати'}
+                      {setPassword ? 'Показати' : 'Приховати'}
                     </Text>
                   </TouchableOpacity>
                 )}
               </View>
-              <MainButton
+              <Btn
                 text="Увійти"
                 onPress={() => handleLoginSubmit(email, password)}
               />
-              <AuthLinkButton
+              <AuthTextLink
                 text="Немає акаунту?"
                 linkText="Зареєструватися"
                 onPress={() => navigation.navigate('Registration')}

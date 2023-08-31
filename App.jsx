@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux';
 
@@ -18,6 +19,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
+      <StatusBar style="auto" />
       <Main />
     </Provider>
   );
