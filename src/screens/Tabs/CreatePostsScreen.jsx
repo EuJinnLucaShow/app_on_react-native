@@ -21,6 +21,7 @@ import * as MediaLibrary from 'expo-media-library';
 import { collection, addDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
+import Btn from '../../components/Buttons/Btn';
 import { db, storage } from '../../firebase/config';
 import { getUserId, getUserName } from '../../redux/auth/authSelectors';
 
@@ -228,26 +229,16 @@ export default function CreatePostsScreen() {
               />
             </View>
           </KeyboardAvoidingView>
-          <TouchableOpacity
-            activeOpacity={0.8}
+          <Btn
+            text="Опубліковати"
             disabled={photo && title && photoLocation ? false : true}
             style={{
-              ...styles.btn,
+              ...styles.button,
               backgroundColor:
                 photo && title && photoLocation ? '#FF6C00' : '#F6F6F6',
             }}
             onPress={uploadPostToServer}
-          >
-            <Text
-              title="Login"
-              style={{
-                ...styles.btnTitle,
-                color: photo && title && photoLocation ? '#FFFFFF' : '#BDBDBD',
-              }}
-            >
-              Опубліковати
-            </Text>
-          </TouchableOpacity>
+          />
           <TouchableOpacity style={styles.trashBtn} onPress={deletePost}>
             <Feather name="trash-2" size={24} color={'#BDBDBD'} />
           </TouchableOpacity>
