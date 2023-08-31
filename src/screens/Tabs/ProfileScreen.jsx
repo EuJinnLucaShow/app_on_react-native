@@ -46,7 +46,7 @@ export default function ProfileScreen() {
       const sortedDbPosts = dbPosts.sort((a, b) => b.createdAt - a.createdAt);
       setUserPosts(sortedDbPosts);
     });
-  }, [userId]);
+  }, []);
 
   const pickImage = async () => {
     try {

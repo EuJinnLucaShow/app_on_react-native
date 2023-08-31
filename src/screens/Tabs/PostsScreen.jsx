@@ -46,21 +46,23 @@ export default function PostsScreen() {
           <Text style={styles.userEmail}>{email}</Text>
         </View>
       </View>
-      <FlatList
-        data={serverPosts}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <PostItem
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            photoLocation={item.photoLocation}
-            url={item.photo}
-            geoLocation={item.geoLocation}
-          />
-        )}
-        contentContainerStyle={styles.contentContainer}
-      />
+      {serverPosts.length !== 0 && (
+        <FlatList
+          data={serverPosts}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <PostItem
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              photoLocation={item.photoLocation}
+              url={item.photo}
+              geoLocation={item.geoLocation}
+            />
+          )}
+          contentContainerStyle={styles.contentContainer}
+        />
+      )}
     </View>
   );
 }
