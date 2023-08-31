@@ -237,9 +237,17 @@ export default function CreatePostsScreen() {
               backgroundColor:
                 photo && title && photoLocation ? '#FF6C00' : '#F6F6F6',
             }}
+            styleTitle={{
+              ...styles.title,
+              color: photo && title && photoLocation ? '#FFFFFF' : '#BDBDBD',
+            }}
             onPress={uploadPostToServer}
           />
-          <TouchableOpacity style={styles.trashBtn} onPress={deletePost}>
+          <TouchableOpacity
+            style={styles.trashBtn}
+            onPress={deletePost}
+            disabled={photo && title && photoLocation ? false : true}
+          >
             <Feather name="trash-2" size={24} color={'#BDBDBD'} />
           </TouchableOpacity>
         </View>
