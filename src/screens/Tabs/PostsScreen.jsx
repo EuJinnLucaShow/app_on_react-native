@@ -8,41 +8,33 @@ import {
   Dimensions,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
 import {
   getUserAvatar,
   getUserEmail,
   getUserName,
+  getUserId,
 } from '../../redux/auth/authSelectors';
 import PostItem from '../../components/Posts/PostItem';
 
 export default function PostsScreen() {
   const name = useSelector(getUserName);
   const email = useSelector(getUserEmail);
+  const userId = useSelector(getUserId);
   const avatar = useSelector(getUserAvatar);
   const [serverPosts, setServerPosts] = useState([]);
 
   useEffect(() => {
     const dbRef = collection(db, 'posts');
-    onSnapshot(dbRef, data => {
+    const userQuery = query(dbRef, where('owner.userId', '==', userId));
+    onSnapshot(userQuery, data => {
       const dbPosts = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       const sortedDbPosts = dbPosts.sort((a, b) => b.createdAt - a.createdAt);
       setServerPosts(sortedDbPosts);
     });
-  }, []);
-
-  const renderItem = ({ item }) => (
-    <PostItem
-      key={item.id}
-      id={item.id}
-      title={item.title}
-      photoLocation={item.photoLocation}
-      url={item.photo}
-      geoLocation={item.geoLocation}
-    />
-  );
+  }, [userId]);
 
   return (
     <View style={styles.container}>
@@ -59,8 +51,16 @@ export default function PostsScreen() {
       </View>
       <FlatList
         data={serverPosts}
-        renderItem={renderItem}
         keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <PostItem
+            id={item.id}
+            title={item.title}
+            photoLocation={item.photoLocation}
+            url={item.photo}
+            geoLocation={item.geoLocation}
+          />
+        )}
         contentContainerStyle={styles.contentContainer}
       />
     </View>

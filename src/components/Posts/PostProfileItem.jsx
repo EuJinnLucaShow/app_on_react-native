@@ -32,11 +32,9 @@ export default function PostProfileItem({
 }) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
   const name = useSelector(getUserName);
   const userId = useSelector(getUserId);
   const avatar = useSelector(getUserAvatar);
-
   const [allComments, setAllComments] = useState([]);
   const [allLikes, setAllLikes] = useState([]);
   const [userPutLike, setUserPutLike] = useState(false);

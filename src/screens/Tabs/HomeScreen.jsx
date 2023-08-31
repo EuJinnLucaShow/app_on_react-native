@@ -1,23 +1,23 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
 
-import { logout } from '../redux/auth/authOperations';
-import PostsScreen from '././Tabs/PostsScreen';
-import CreatePostsScreen from '././Tabs/CreatePostsScreen';
-import ProfileScreen from '././Tabs/ProfileScreen';
+import { logout } from '../../redux/auth/authOperations';
+import PostsScreen from './PostsScreen';
+import CreatePostsScreen from './CreatePostsScreen';
+import ProfileScreen from './ProfileScreen';
 
-const Tabs = createBottomTabNavigator();
+const MainTab = createBottomTabNavigator();
 
-export default function HomeScreen() {
+export default HomeScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   return (
-    <Tabs.Navigator
-      initialRouteName="PostsScreen"
+    <MainTab.Navigator
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         headerTitleAlign: 'center',
@@ -53,7 +53,7 @@ export default function HomeScreen() {
         },
       })}
     >
-      <Tabs.Screen
+      <MainTab.Screen
         name="PostsScreen"
         component={PostsScreen}
         options={{
@@ -69,7 +69,7 @@ export default function HomeScreen() {
           ),
         }}
       />
-      <Tabs.Screen
+      <MainTab.Screen
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
@@ -80,21 +80,21 @@ export default function HomeScreen() {
               size={24}
               color={'#212121CC'}
               style={{ marginLeft: 10 }}
-              onPress={() => navigation.navigate('PostsScreen')}
+              onPress={() => navigation.goBack()}
             />
           ),
         }}
       />
-      <Tabs.Screen
+      <MainTab.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
           headerShown: false,
         }}
       />
-    </Tabs.Navigator>
+    </MainTab.Navigator>
   );
-}
+};
 
 const styles = StyleSheet.create({
   header: {

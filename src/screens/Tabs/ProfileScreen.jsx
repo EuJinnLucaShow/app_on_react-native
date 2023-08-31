@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 import {
   Dimensions,
   StyleSheet,
@@ -29,7 +28,6 @@ import { logout, updateUserAvatar } from '../../redux/auth/authOperations';
 import PostProfileItem from '../../components/Posts/PostProfileItem';
 
 export default function ProfileScreen() {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const name = useSelector(getUserName);
@@ -48,7 +46,7 @@ export default function ProfileScreen() {
       const sortedDbPosts = dbPosts.sort((a, b) => b.createdAt - a.createdAt);
       setUserPosts(sortedDbPosts);
     });
-  }, []);
+  }, [userId]);
 
   const pickImage = async () => {
     try {
@@ -169,7 +167,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     paddingTop: 92,
-    // paddingBottom: 45,
+    paddingBottom: 45,
     paddingHorizontal: 16,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,

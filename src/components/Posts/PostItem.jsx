@@ -7,11 +7,11 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
-import { useSelector } from 'react-redux';
 import { deleteLike, sendLike } from '../../redux/posts/postOperations';
 import {
   getUserAvatar,
@@ -27,6 +27,7 @@ export default function PostItem({
   geoLocation,
 }) {
   const navigation = useNavigation();
+
   const name = useSelector(getUserName);
   const userId = useSelector(getUserId);
   const avatar = useSelector(getUserAvatar);
