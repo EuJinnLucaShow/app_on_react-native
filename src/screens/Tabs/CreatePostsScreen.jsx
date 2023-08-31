@@ -177,11 +177,17 @@ export default function CreatePostsScreen() {
           )}
 
           {photo ? (
-            <Text style={styles.text}>Редагувати фото</Text>
+            <Text style={styles.textWrap}>
+              <Text style={styles.text} onPress={pickImage}>
+                Редагувати фото
+              </Text>
+            </Text>
           ) : (
-            <TouchableOpacity onPress={pickImage}>
-              <Text style={styles.text}>Завантажте фото</Text>
-            </TouchableOpacity>
+            <Text style={styles.textWrap}>
+              <Text style={styles.text} onPress={pickImage}>
+                Завантажте фото
+              </Text>
+            </Text>
           )}
 
           <KeyboardAvoidingView
@@ -246,7 +252,7 @@ export default function CreatePostsScreen() {
           <TouchableOpacity
             style={styles.trashBtn}
             onPress={deletePost}
-            disabled={photo && title && photoLocation ? false : true}
+            disabled={photo || title || photoLocation ? false : true}
           >
             <Feather name="trash-2" size={24} color={'#BDBDBD'} />
           </TouchableOpacity>
@@ -269,7 +275,7 @@ const styles = StyleSheet.create({
   },
   postPhotoWrap: {
     flex: 1,
-    height: 240,
+    height: 250,
     overflow: 'hidden',
     backgroundColor: '#F6F6F6',
     borderColor: '#E8E8E8',
@@ -297,9 +303,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text: {
-    marginTop: 8,
+  textWrap: {
+    paddingTop: 8,
     marginBottom: 32,
+  },
+  text: {
     fontSize: 16,
     fontFamily: 'Roboto-Regular',
     color: '#BDBDBD',
@@ -319,15 +327,8 @@ const styles = StyleSheet.create({
     top: 10,
     left: 0,
   },
-  btn: {
-    height: 51,
-    borderRadius: 100,
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
-  btnTitle: {
-    fontSize: 16,
-    fontFamily: 'Roboto-Regular',
+  button: {
+    marginBottom: 10,
   },
   trashBtn: {
     width: 70,

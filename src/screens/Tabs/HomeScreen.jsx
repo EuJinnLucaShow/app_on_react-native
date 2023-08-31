@@ -73,12 +73,13 @@ export default HomeScreen = () => {
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
+          tabBarStyle: { display: 'none' },
           title: 'Створити публікацію',
           headerLeft: () => (
             <Feather
               name="arrow-left"
               size={24}
-              color={'#212121CC'}
+              color={'#212121'}
               style={{ marginLeft: 10 }}
               onPress={() => navigation.goBack()}
             />
