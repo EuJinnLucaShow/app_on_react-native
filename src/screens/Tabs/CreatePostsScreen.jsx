@@ -199,7 +199,7 @@ export default function CreatePostsScreen() {
               placeholderTextColor={'#BDBDBD'}
               style={
                 isFocused === 'title'
-                  ? { ...styles.input, borderColor: '#FF6C00' }
+                  ? { ...styles.input, borderColor: '#8034eb' }
                   : { ...styles.input }
               }
               value={title}
@@ -224,7 +224,7 @@ export default function CreatePostsScreen() {
                         ...styles.input,
                         marginBottom: 32,
                         paddingLeft: 28,
-                        borderColor: '#FF6C00',
+                        borderColor: '#8034eb',
                       }
                     : { ...styles.input, marginBottom: 32, paddingLeft: 28 }
                 }

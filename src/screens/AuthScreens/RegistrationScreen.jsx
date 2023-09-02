@@ -204,7 +204,7 @@ export default function RegisterScreen() {
                   styles.input,
                   {
                     borderColor:
-                      isFocused === 'username' ? '#FF6C00' : '#E8E8E8',
+                      isFocused === 'username' ? '#8034eb' : '#E8E8E8',
                   },
                 ]}
                 placeholderTextColor={'#BDBDBD'}
@@ -222,7 +222,7 @@ export default function RegisterScreen() {
                   styles.input,
                   {
                     borderColor:
-                      isFocused === 'emailAddress' ? '#FF6C00' : '#E8E8E8',
+                      isFocused === 'emailAddress' ? '#8034eb' : '#E8E8E8',
                   },
                 ]}
                 placeholderTextColor={'#BDBDBD'}
@@ -242,7 +242,7 @@ export default function RegisterScreen() {
                     { marginBottom: 0 },
                     {
                       borderColor:
-                        isFocused === 'password' ? '#FF6C00' : '#E8E8E8',
+                        isFocused === 'password' ? '#8034eb' : '#E8E8E8',
                     },
                   ]}
                   placeholderTextColor={'#BDBDBD'}
