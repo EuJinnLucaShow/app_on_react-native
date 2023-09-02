@@ -96,7 +96,7 @@ export default function PostProfileItem({
           <Feather
             name={'message-circle'}
             size={24}
-            color={allComments.length === 0 ? '#BDBDBD' : '#FF6C00'}
+            color={allComments.length === 0 ? '#BDBDBD' : '#2765b8'}
           />
           <Text style={styles.commentText}>{allComments.length}</Text>
         </TouchableOpacity>
@@ -104,7 +104,7 @@ export default function PostProfileItem({
           <Feather
             name="thumbs-up"
             size={24}
-            color={!userPutLike ? '#BDBDBD' : '#FF6C00'}
+            color={!userPutLike ? '#BDBDBD' : '#2765b8'}
             onPress={handleLikes}
           />
           <Text style={styles.commentText}>{allLikes.length}</Text>

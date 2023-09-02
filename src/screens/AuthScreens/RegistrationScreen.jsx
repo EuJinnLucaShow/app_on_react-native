@@ -28,6 +28,7 @@ import Btn from '../../components/Buttons/Btn';
 import AuthTextLink from '../../components/Buttons/AuthTextLink';
 
 const wallpaper = require('../../images/wallpaper.png');
+const userlogo = require('../../images/userlogo.png');
 
 export default function RegisterScreen() {
   const dispatch = useDispatch();
@@ -166,7 +167,7 @@ export default function RegisterScreen() {
                   </Camera>
                 ) : (
                   <Image
-                    source={{ uri: avatar ? avatar : null }}
+                    source={avatar ? { uri: avatar } : userlogo}
                     style={styles.avatar}
                     alt="User photo"
                   />
@@ -177,7 +178,7 @@ export default function RegisterScreen() {
                     <AntDesign
                       name="pluscircleo"
                       size={25}
-                      color={'#FF6C00'}
+                      color={'#2765b8'}
                       onPress={() => {
                         setAvatar(null);
                         setOpenCamera(true);
@@ -187,7 +188,7 @@ export default function RegisterScreen() {
                     <AntDesign
                       name="closecircleo"
                       size={25}
-                      color={'#E8E8E8'}
+                      color={'#b0aeae'}
                       onPress={() => {
                         setAvatar(null);
                         setOpenCamera(false);
@@ -310,6 +311,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 16,
+    backgroundColor: '#FFF',
   },
   cameraBtnPos: {
     position: 'absolute',

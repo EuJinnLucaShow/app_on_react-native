@@ -18,6 +18,8 @@ import {
 } from '../../redux/auth/authSelectors';
 import PostItem from '../../components/Posts/PostItem';
 
+import userlogo from '../../images/userlogo.png';
+
 export default function PostsScreen() {
   const name = useSelector(getUserName);
   const email = useSelector(getUserEmail);
@@ -38,7 +40,7 @@ export default function PostsScreen() {
       <View style={styles.userInfo}>
         <Image
           style={styles.avatar}
-          source={{ uri: avatar }}
+          source={avatar ? { uri: avatar } : userlogo}
           alt="User photo"
         />
         <View style={styles.userData}>

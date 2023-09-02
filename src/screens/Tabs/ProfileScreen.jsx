@@ -16,6 +16,7 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
 
 import wallpaper from '../../images/wallpaper.png';
+import userlogo from '../../images/userlogo.png';
 
 import { db, storage } from '../../firebase/config';
 import {
@@ -106,7 +107,7 @@ export default function ProfileScreen() {
         />
         <View style={styles.avatarWrap}>
           <Image
-            source={{ uri: newAvatar ? newAvatar : avatar }}
+            source={newAvatar ? { uri: newAvatar } : userlogo} 
             style={styles.avatar}
             alt="User photo"
           />
@@ -123,14 +124,14 @@ export default function ProfileScreen() {
               <AntDesign
                 name="pluscircleo"
                 size={25}
-                color={'#FF6C00'}
+                color={'#2765b8'}
                 onPress={pickImage}
               />
             ) : (
               <AntDesign
                 name="closecircleo"
                 size={25}
-                color={'#BDBDBD'}
+                color={'#b0aeae'}
                 onPress={pickImage}
               />
             )}

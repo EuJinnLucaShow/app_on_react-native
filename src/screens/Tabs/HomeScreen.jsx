@@ -40,7 +40,7 @@ export default HomeScreen = () => {
             <View
               style={{
                 ...styles.iconsTab,
-                backgroundColor: focused ? '#FF6C00' : '#FFFFFF',
+                backgroundColor: focused ? '#2765b8' : '#FFFFFF',
               }}
             >
               <Feather
