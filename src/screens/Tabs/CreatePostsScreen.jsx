@@ -241,7 +241,7 @@ export default function CreatePostsScreen() {
             style={{
               ...styles.button,
               backgroundColor:
-                photo && title && photoLocation ? '#FF6C00' : '#F6F6F6',
+                photo && title && photoLocation ? '#2765b8' : '#F6F6F6',
             }}
             styleTitle={{
               ...styles.title,
