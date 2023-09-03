@@ -107,7 +107,13 @@ export default function ProfileScreen() {
         />
         <View style={styles.avatarWrap}>
           <Image
-            source={newAvatar ? { uri: newAvatar } : userlogo} 
+            source={
+              newAvatar
+                ? { uri: newAvatar }
+                : avatar
+                ? { uri: avatar }
+                : userlogo
+            }
             style={styles.avatar}
             alt="User photo"
           />
@@ -116,7 +122,7 @@ export default function ProfileScreen() {
               style={{ ...styles.cameraBtnPos, ...styles.cameraBtn }}
               onPress={uploadAvatarToServer}
             >
-              <Ionicons name="checkmark-circle" size={24} color={'#FF6C00'} />
+              <Ionicons name="checkmark-circle" size={24} color={'#2765b8'} />
             </TouchableOpacity>
           )}
           <TouchableOpacity style={styles.btnAdd}>

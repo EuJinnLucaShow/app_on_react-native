@@ -30,7 +30,7 @@ export default function PostsScreen() {
     const dbRef = collection(db, 'posts');
     onSnapshot(dbRef, data => {
       const dbPosts = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      const sortedDbPosts = dbPosts.sort((a, b) => a.createdAt - b.createdAt);
+      const sortedDbPosts = dbPosts.sort((a, b) => b.createdAt - a.createdAt);
       setServerPosts(sortedDbPosts);
     });
   }, []);

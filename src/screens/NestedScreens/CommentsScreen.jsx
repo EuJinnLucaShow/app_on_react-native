@@ -42,10 +42,10 @@ export default function CommentsScreen({ route }) {
         comment,
         owner: { userId, name, avatar },
         createdAt: new Date().getTime(),
-      });      
-      setComment('');    
+      });
+      setComment('');
     } catch (error) {
-      console.log(error.code);      
+      console.log(error.code);
     }
   };
 
@@ -103,7 +103,7 @@ export default function CommentsScreen({ route }) {
               placeholderTextColor={'#BDBDBD'}
               style={
                 isFocused
-                  ? { ...styles.input, borderColor: '#FF6C00' }
+                  ? { ...styles.input, borderColor: '#2765b8' }
                   : { ...styles.input }
               }
               onFocus={() => setIsFocused(true)}
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 34,
     height: 34,
-    backgroundColor: '#FF6C00',
+    backgroundColor: '#2765b8',
     borderRadius: 100,
     position: 'absolute',
     top: 8,

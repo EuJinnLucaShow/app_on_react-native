@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 
 import { getUserId } from '../../redux/auth/authSelectors';
 
+import userlogo from '../../images/userlogo.png';
+
 export default function CommentItem({ comment, owner, createdAt }) {
   const userId = useSelector(getUserId);
 
@@ -16,7 +18,13 @@ export default function CommentItem({ comment, owner, createdAt }) {
       }}
     >
       <Image
-        source={{ uri: owner.avatar }}
+        source={
+          owner.newAvatar
+            ? { uri: owner.newAvatar }
+            : owner.avatar
+            ? { uri: owner.avatar }
+            : userlogo
+        }
         alt="User photo"
         style={styles.avatar}
       />
