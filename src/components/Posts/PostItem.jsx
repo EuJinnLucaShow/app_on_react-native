@@ -110,7 +110,7 @@ export default function PostItem({
 
 const styles = StyleSheet.create({
   postContainer: {
-    marginTop: 15,
+    marginBottom: 15,
   },
   postPhotoWrap: {
     width: '100%',

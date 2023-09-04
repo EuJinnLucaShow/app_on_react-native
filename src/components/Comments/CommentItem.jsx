@@ -18,13 +18,7 @@ export default function CommentItem({ comment, owner, createdAt }) {
       }}
     >
       <Image
-        source={
-          owner.newAvatar
-            ? { uri: owner.newAvatar }
-            : owner.avatar
-            ? { uri: owner.avatar }
-            : userlogo
-        }
+        source={owner.avatar ? { uri: owner.avatar } : userlogo}
         alt="User photo"
         style={styles.avatar}
       />
