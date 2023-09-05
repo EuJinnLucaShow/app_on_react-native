@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     left: 0,
   },
   button: {
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   trashBtn: {
     width: 70,
@@ -336,8 +336,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F6',
     paddingHorizontal: 23,
     paddingVertical: 8,
-    marginTop: 120,
-    marginBottom: 50,
+    marginTop: 130,
+    marginBottom: 45,
     marginLeft: 'auto',
     marginRight: 'auto',
   },

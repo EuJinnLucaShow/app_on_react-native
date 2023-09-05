@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   Dimensions,
+  RefreshControl,
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { collection, onSnapshot } from 'firebase/firestore';
@@ -26,14 +27,26 @@ export default function PostsScreen() {
   const avatar = useSelector(getUserAvatar);
   const [serverPosts, setServerPosts] = useState([]);
 
-  useEffect(() => {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchPosts = () => {
     const dbRef = collection(db, 'posts');
     onSnapshot(dbRef, data => {
       const dbPosts = data.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       const sortedDbPosts = dbPosts.sort((a, b) => b.createdAt - a.createdAt);
       setServerPosts(sortedDbPosts);
     });
+  };
+
+  useEffect(() => {
+    fetchPosts();
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    fetchPosts(); // Fetch and update the data
+    setRefreshing(false); // Finish refreshing
+  };
 
   return (
     <View style={styles.container}>
@@ -50,6 +63,9 @@ export default function PostsScreen() {
       </View>
       {serverPosts.length !== 0 && (
         <FlatList
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
           data={serverPosts}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
