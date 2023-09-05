@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -74,18 +68,13 @@ export default function PostProfileItem({
   return (
     <View style={styles.postContainer}>
       <View style={styles.postPhotoWrap}>
-        <ImageBackground
-          source={{ uri: url }}
-          style={styles.postPhoto}
-          alt={title}
+        <Image source={{ uri: url }} style={styles.postPhoto} alt={title} />
+        <TouchableOpacity
+          style={styles.trashBtn}
+          onPress={() => dispatch(deletePost(id))}
         >
-          <TouchableOpacity
-            style={styles.trashBtn}
-            onPress={() => dispatch(deletePost(id))}
-          >
-            <Feather name="trash-2" size={20} color={'#9e9d9d'} />
-          </TouchableOpacity>
-        </ImageBackground>
+          <Feather name="trash-2" size={20} color={'#9e9d9d'} />
+        </TouchableOpacity>
       </View>
       <Text style={styles.postTitle}>{title}</Text>
       <View style={styles.postDetails}>
@@ -150,6 +139,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
+    zIndex: 1,
   },
   postTitle: {
     marginTop: 8,

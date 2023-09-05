@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -70,11 +64,7 @@ export default function PostItem({
   return (
     <View style={styles.postContainer}>
       <View style={styles.postPhotoWrap}>
-        <ImageBackground
-          source={{ uri: url }}
-          style={styles.postPhoto}
-          alt={title}
-        />
+        <Image source={{ uri: url }} style={styles.postPhoto} alt={title} />
       </View>
       <Text style={styles.postTitle}>{title}</Text>
       <View style={styles.postDetails}>
