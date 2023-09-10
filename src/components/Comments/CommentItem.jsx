@@ -3,8 +3,6 @@ import 'moment/locale/uk';
 import { StyleSheet, Image, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-// import { getUserId } from '../../redux/auth/authSelectors';
-
 import userlogo from '../../images/userlogo.png';
 
 export default function CommentItem({ comment, owner, createdAt }) {

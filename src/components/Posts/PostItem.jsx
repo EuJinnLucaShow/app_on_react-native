@@ -7,11 +7,6 @@ import { collection, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
 import { deleteLike, sendLike } from '../../redux/posts/postOperations';
-// import {
-//   getUserAvatar,
-//   getUserId,
-//   getUserName,
-// } from '../../redux/auth/authSelectors';
 
 export default function PostItem({
   id,

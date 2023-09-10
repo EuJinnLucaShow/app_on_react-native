@@ -15,11 +15,6 @@ import { Feather } from '@expo/vector-icons';
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
-// import {
-//   getUserAvatar,
-//   getUserId,
-//   getUserName,
-// } from '../../redux/auth/authSelectors';
 import CommentItem from '../../components/Comments/CommentItem';
 
 export default function CommentsScreen({ route }) {

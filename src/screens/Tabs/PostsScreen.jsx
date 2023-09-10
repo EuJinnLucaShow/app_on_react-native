@@ -12,13 +12,7 @@ import { useSelector } from 'react-redux';
 import { collection, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
-// import {
-//   getUserAvatar,
-//   getUserEmail,
-//   getUserName,
-// } from '../../redux/auth/authSelectors';
 import PostItem from '../../components/Posts/PostItem';
-
 import userlogo from '../../images/userlogo.png';
 
 export default function PostsScreen() {

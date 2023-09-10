@@ -23,7 +23,6 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import Btn from '../../components/Buttons/Btn';
 import { db, storage } from '../../firebase/config';
-// import { getUserId, getUserName } from '../../redux/auth/authSelectors';
 
 export default function CreatePostsScreen() {
   const navigation = useNavigation();

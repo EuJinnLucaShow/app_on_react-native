@@ -11,11 +11,6 @@ import {
   deletePost,
   sendLike,
 } from '../../redux/posts/postOperations';
-// import {
-//   getUserAvatar,
-//   getUserId,
-//   getUserName,
-// } from '../../redux/auth/authSelectors';
 
 export default function PostProfileItem({
   id,
