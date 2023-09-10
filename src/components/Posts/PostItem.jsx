@@ -7,11 +7,11 @@ import { collection, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
 import { deleteLike, sendLike } from '../../redux/posts/postOperations';
-import {
-  getUserAvatar,
-  getUserId,
-  getUserName,
-} from '../../redux/auth/authSelectors';
+// import {
+//   getUserAvatar,
+//   getUserId,
+//   getUserName,
+// } from '../../redux/auth/authSelectors';
 
 export default function PostItem({
   id,
@@ -22,9 +22,9 @@ export default function PostItem({
 }) {
   const navigation = useNavigation();
 
-  const name = useSelector(getUserName);
-  const userId = useSelector(getUserId);
-  const avatar = useSelector(getUserAvatar);
+  const name = useSelector(state => state.auth.name);
+  const userId = useSelector(state => state.auth.userId);
+  const avatar = useSelector(state => state.auth.avatar);
   const [allComments, setAllComments] = useState([]);
   const [allLikes, setAllLikes] = useState([]);
   const [userPutLike, setUserPutLike] = useState(false);

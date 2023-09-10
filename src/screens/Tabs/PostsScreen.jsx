@@ -12,19 +12,19 @@ import { useSelector } from 'react-redux';
 import { collection, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
-import {
-  getUserAvatar,
-  getUserEmail,
-  getUserName,
-} from '../../redux/auth/authSelectors';
+// import {
+//   getUserAvatar,
+//   getUserEmail,
+//   getUserName,
+// } from '../../redux/auth/authSelectors';
 import PostItem from '../../components/Posts/PostItem';
 
 import userlogo from '../../images/userlogo.png';
 
 export default function PostsScreen() {
-  const name = useSelector(getUserName);
-  const email = useSelector(getUserEmail);
-  const avatar = useSelector(getUserAvatar);
+  const name = useSelector(state => state.auth.name);
+  const email = useSelector(state => state.auth.email);
+  const avatar = useSelector(state => state.auth.avatar);
   const [serverPosts, setServerPosts] = useState([]);
 
   const [refreshing, setRefreshing] = useState(false);

@@ -15,11 +15,11 @@ import { Feather } from '@expo/vector-icons';
 import { collection, addDoc, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
-import {
-  getUserAvatar,
-  getUserId,
-  getUserName,
-} from '../../redux/auth/authSelectors';
+// import {
+//   getUserAvatar,
+//   getUserId,
+//   getUserName,
+// } from '../../redux/auth/authSelectors';
 import CommentItem from '../../components/Comments/CommentItem';
 
 export default function CommentsScreen({ route }) {
@@ -29,9 +29,9 @@ export default function CommentsScreen({ route }) {
   const [allComments, setAllComments] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
 
-  const name = useSelector(getUserName);
-  const userId = useSelector(getUserId);
-  const avatar = useSelector(getUserAvatar);
+  const name = useSelector(state => state.auth.name);
+  const userId = useSelector(state => state.auth.userId);
+  const avatar = useSelector(state => state.auth.avatar);
 
   const sendComment = async () => {
     if (!comment) {
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingTop: 15,
     backgroundColor: '#FFFFFF',
     borderTopWidth: 0.5,
     borderBottomWidth: -0.5,

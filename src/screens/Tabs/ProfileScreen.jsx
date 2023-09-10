@@ -19,11 +19,11 @@ import wallpaper from '../../images/wallpaper.png';
 import userlogo from '../../images/userlogo.png';
 
 import { db, storage } from '../../firebase/config';
-import {
-  getUserAvatar,
-  getUserId,
-  getUserName,
-} from '../../redux/auth/authSelectors';
+// import {
+//   getUserAvatar,
+//   getUserId,
+//   getUserName,
+// } from '../../redux/auth/authSelectors';
 import { logout, updateUserAvatar } from '../../redux/auth/authOperations';
 
 import PostProfileItem from '../../components/Posts/PostProfileItem';
@@ -31,9 +31,9 @@ import PostProfileItem from '../../components/Posts/PostProfileItem';
 export default function ProfileScreen() {
   const dispatch = useDispatch();
 
-  const name = useSelector(getUserName);
-  const userId = useSelector(getUserId);
-  const avatar = useSelector(getUserAvatar);
+  const name = useSelector(state => state.auth.name);
+  const userId = useSelector(state => state.auth.userId);
+  const avatar = useSelector(state => state.auth.avatar);
 
   const [newAvatar, setNewAvatar] = useState('');
   const [changeAvatar, setChangeAvatar] = useState(false);
