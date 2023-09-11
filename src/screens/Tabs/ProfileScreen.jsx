@@ -19,12 +19,7 @@ import wallpaper from '../../images/wallpaper.png';
 import userlogo from '../../images/userlogo.png';
 
 import { db, storage } from '../../firebase/config';
-// import {
-//   getUserAvatar,
-//   getUserId,
-//   getUserName,
-// } from '../../redux/auth/authSelectors';
-import { logout, updateUserAvatar } from '../../redux/auth/authOperations';
+import { logout, updateUserAvatar } from '../../redux/authOperations';
 
 import PostProfileItem from '../../components/Posts/PostProfileItem';
 

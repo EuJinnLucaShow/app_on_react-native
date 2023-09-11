@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/auth/authOperations';
-import { authStateChange } from '../../redux/auth/authSlice';
+import { login } from '../../redux/authOperations';
+import { authStateChange } from '../../redux/authSlice';
 import Btn from '../../components/Buttons/Btn';
 import AuthTextLink from '../../components/Buttons/AuthTextLink';
 

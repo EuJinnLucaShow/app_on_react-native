@@ -22,7 +22,7 @@ import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-import { register } from '../../redux/auth/authOperations';
+import { register } from '../../redux/authOperations';
 import { storage } from '../../firebase/config';
 import Btn from '../../components/Buttons/Btn';
 import AuthTextLink from '../../components/Buttons/AuthTextLink';

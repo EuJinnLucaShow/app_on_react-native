@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
-import { deleteLike, sendLike } from '../../redux/posts/postOperations';
+import { deleteLike, sendLike } from '../../firebase/firestoreUtils';
 
 export default function PostItem({
   id,

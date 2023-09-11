@@ -1,5 +1,5 @@
 import { deleteDoc, doc, setDoc } from 'firebase/firestore';
-import { db } from '../../firebase/config';
+import { db } from './config';
 
 export const deletePost = id => async () => {
   try {

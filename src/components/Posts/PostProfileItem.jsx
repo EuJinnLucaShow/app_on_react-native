@@ -10,7 +10,7 @@ import {
   deleteLike,
   deletePost,
   sendLike,
-} from '../../redux/posts/postOperations';
+} from '../../firebase/firestoreUtils';
 
 export default function PostProfileItem({
   id,
