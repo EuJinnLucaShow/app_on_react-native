@@ -166,10 +166,16 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    width: '100%',
+    height: '100%',
+  },
   container: {
     position: 'relative',
     paddingTop: 92,
-    paddingBottom: 45,
+    paddingBottom: 115,
     paddingHorizontal: 16,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,

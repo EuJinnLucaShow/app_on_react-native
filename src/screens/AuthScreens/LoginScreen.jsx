@@ -68,7 +68,7 @@ export default function LoginScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <ImageBackground source={wallpaper} style={styles.image}>
+        <ImageBackground source={wallpaper} style={styles.backgroundImage}>
           <KeyboardAvoidingView
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
             style={{ flex: 1, justifyContent: 'flex-end' }}
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  image: {
+  backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'flex-end',
